@@ -3,7 +3,7 @@ import { useId } from "react";
 type LogoMarkProps = {
   /** Rendered size in pixels. */
   size?: number;
-  /** "construction" adds the outer ring, crosshair axes, and endpoint nodes. */
+  /** "construction" adds the outer guide ring and endpoint nodes on top of the always-visible crosshair. */
   variant?: "plain" | "construction";
   /** "mono" renders a single-tone version for constrained contexts. */
   tone?: "color" | "mono";
@@ -29,6 +29,8 @@ type LogoMarkProps = {
  * (inner r=19, outer r=37). Each arc is dashed (39.98 / 100, offset -2)
  * to cut a ~2px gap at both of its own ends — reproducible only at this
  * radius/viewBox; resizing the geometry means recomputing the dash values.
+ * A crosshair through the cardinal gaps always renders — the literal
+ * "lines that divide the circle into quadrants" — independent of variant.
  */
 export function LogoMark({
   size = 96,
@@ -97,10 +99,13 @@ export function LogoMark({
         )}
       </defs>
 
+      {/* Crosshair: the axis lines that make this a circle divided into
+          quadrants, not just four floating arcs — always visible */}
+      <path d="M48 2 V94 M2 48 H94" stroke={line} strokeWidth="0.75" opacity="0.4" fill="none" />
+
       {variant === "construction" && (
         <g stroke={line} fill="none">
           <circle cx="48" cy="48" r="44" strokeWidth="0.5" opacity="0.16" />
-          <path d="M48 2 V94 M2 48 H94" strokeWidth="0.5" opacity="0.24" />
           <g strokeWidth="0.75" opacity="0.5">
             <circle cx="48" cy="4" r="1.8" />
             <circle cx="48" cy="92" r="1.8" />
