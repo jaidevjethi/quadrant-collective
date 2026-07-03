@@ -67,6 +67,6 @@ Each beat answers one question and hands off to the next. Motion budget: one cho
 ## Build order (after decisions above)
 
 1. ✅ Scaffold: Next.js 16 + Tailwind v4 + shadcn/ui, `src/` structure, fonts (General Sans + Geist Mono). *(2026-07-03)*
-2. ✅ Design system v1: tokens in `globals.css`, logo as code (`src/components/brand/`), motion foundation (`src/lib/motion.ts`, Lenis provider), reviewable at `/styleguide`. Governed by `docs/BRAND.md`. *(2026-07-03 — awaiting founder review on /styleguide)*
-3. Homepage, beat by beat, one at a time.
+2. ✅ Design system v1: tokens in `globals.css`, logo as code (`src/components/brand/`), motion foundation (`src/lib/motion.ts`, Lenis provider), reviewable at `/styleguide`. Governed by `docs/BRAND.md`. **Approved by founder 2026-07-04** — four-color quadrant mark (Strategy/violet, Design/amber, Technology/blue, Growth/teal), crosshair always visible.
+3. ▶ Homepage, beat by beat, one at a time — starting with Beat 1 (Arrival).
 4. About → Contact → Work (as content arrives) → SEO layer → analytics.
