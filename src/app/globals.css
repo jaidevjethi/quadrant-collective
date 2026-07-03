@@ -1,26 +1,185 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   Quadrant Collective design tokens — see docs/BRAND.md (Appendix).
+   Dark is the default and only theme: the brand is architectural by nature.
+--------------------------------------------------------------------------- */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand board palette */
+  --depth: #0d0f14;
+  --balance: #1a1d24;
+  --clarity: #e6e6e6;
+  --vision: #7c3aed;
+  --intelligence: #2563eb;
+  --growth: #00d1b2;
+
+  /* Derived neutrals */
+  --raised: #14171d;
+  --muted-2: #8a8f98;
+  --faint: #5c6068;
+  --hairline: rgba(230, 230, 230, 0.08);
+  --hairline-strong: rgba(230, 230, 230, 0.16);
+  --grid-line: rgba(230, 230, 230, 0.04);
+
+  /* Motion — mirrored in src/lib/motion.ts; keep in sync */
+  --ease-precision: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-weighted: cubic-bezier(0.7, 0, 0.3, 1);
+  --dur-micro: 200ms;
+  --dur-standard: 600ms;
+  --dur-choreo: 1100ms;
+
+  /* shadcn semantic mapping onto the brand system */
+  --background: var(--depth);
+  --foreground: var(--clarity);
+  --card: var(--raised);
+  --card-foreground: var(--clarity);
+  --popover: var(--balance);
+  --popover-foreground: var(--clarity);
+  --primary: var(--clarity);
+  --primary-foreground: var(--depth);
+  --secondary: var(--balance);
+  --secondary-foreground: var(--clarity);
+  --muted: var(--raised);
+  --muted-foreground: var(--muted-2);
+  --accent: var(--balance);
+  --accent-foreground: var(--clarity);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--hairline);
+  --input: var(--hairline-strong);
+  --ring: var(--intelligence);
+  --chart-1: var(--vision);
+  --chart-2: var(--intelligence);
+  --chart-3: var(--growth);
+  --chart-4: var(--muted-2);
+  --chart-5: var(--faint);
+  --radius: 0.375rem;
+  --sidebar: var(--raised);
+  --sidebar-foreground: var(--clarity);
+  --sidebar-primary: var(--clarity);
+  --sidebar-primary-foreground: var(--depth);
+  --sidebar-accent: var(--balance);
+  --sidebar-accent-foreground: var(--clarity);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--intelligence);
 }
 
 @theme inline {
+  /* Brand color utilities: bg-depth, text-clarity, from-vision, ... */
+  --color-depth: var(--depth);
+  --color-balance: var(--balance);
+  --color-clarity: var(--clarity);
+  --color-vision: var(--vision);
+  --color-intelligence: var(--intelligence);
+  --color-growth: var(--growth);
+  --color-raised: var(--raised);
+  --color-muted-2: var(--muted-2);
+  --color-faint: var(--faint);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-grid: var(--grid-line);
+
+  --font-sans: var(--font-general-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-general-sans);
+
+  /* Fluid type scale — typography is the primary visual element */
+  --text-display-xl: clamp(3.5rem, 9vw, 8rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display: clamp(2.75rem, 6vw, 5.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-headline: clamp(2rem, 4vw, 3.25rem);
+  --text-headline--line-height: 1.08;
+  --text-headline--letter-spacing: -0.02em;
+  --text-title: clamp(1.375rem, 2.2vw, 1.75rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.01em;
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+
+  /* Layout rhythm: py-section, px-gutter */
+  --spacing-section: clamp(7rem, 14vh, 11rem);
+  --spacing-gutter: clamp(1.25rem, 5vw, 4.5rem);
+
+  /* shadcn mappings */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* The monospace "instrument layer": section indices, coordinates, metadata */
+@utility label-mono {
+  font-family: var(--font-geist-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--vision);
+    color: #ffffff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
