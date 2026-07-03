@@ -3,7 +3,7 @@ import { LogoMark } from "@/components/brand/logo-mark";
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-10 px-gutter py-section text-center">
-      <LogoMark size={140} variant="construction" />
+      <LogoMark size={140} variant="construction" glow />
       <div className="flex flex-col gap-4">
         <h1 className="text-headline font-medium text-clarity">
           Quadrant Collective

@@ -548,15 +548,34 @@ Do not design an agency website. Design the digital headquarters of a company th
 
 Rules: dark by default; max 1–2 accents visible at a time; color communicates focus, never decoration. Neutral ramp (muted text, hairline borders at low-alpha white) is derived on screen and lives in `src/app/globals.css`.
 
-## Logo geometry (approved mark)
+**Gradient recipes (from the board):** vision `#A78BFA → #6D28D9` · intelligence `#3B82F6 → #2563EB` · intelligence→growth (mark fill) `#3B82F6 → #2563EB → #00D1B2` · growth `#00D1B2 → #00B894` · full-spectrum (COLLECTIVE wordmark, tagline rule) `vision → intelligence → growth`. Gradients appear only in brand elements (mark, wordmark, glyphs, streaks) — never as surface decoration.
 
-A "Q" constructed as a precision instrument: a circle divided into four quadrants by crosshair axes; the top-left quadrant filled violet, the bottom-right filled with a blue→cyan gradient; a diagonal tail emerging from the bottom-right completes the Q. Construction variant adds thin extended axes with endpoint nodes, like an engineering drawing. Four quadrants = the four disciplines (Strategy · Design · Technology · Growth); the intersection = clarity, alignment, impact; the Q = questioning, thinking, quality.
+## Logo geometry (approved mark, v1.1)
+
+A "Q" built as a segmented ring — four 90° arcs (radius 28, band width 18, viewBox 96×96) with a small engineered gap cut at each cardinal point, like a precision dial. Only two arcs carry color — top-left (vision gradient) and bottom-right (intelligence→growth gradient) — the other two stay neutral at low opacity: structure without accent, obeying the Constitution's "only one or two accents visible at a time." A short stub, welded flush into the bottom-right arc's band (no gap) and extending past the rim at 45°, completes the Q. A `construction` variant adds an outer ring, crosshair axes, and endpoint nodes, like an engineering drawing.
+
+Four quadrants = the four disciplines (Strategy · Design · Technology · Growth); the two colored quadrants = focus and intent, not decoration; the intersection = clarity, alignment, impact; the Q = questioning, thinking, quality. Implementation: `src/components/brand/logo-mark.tsx`.
+
+*Revision note (2026-07-04):* a parallel exploration produced a four-color ring/dial variant with a floating, disconnected tail. It was visually bolder but broke the Constitution's own two-accent rule and read less clearly as a Q. This geometry keeps that variant's "precision dial" sophistication while restoring the two-color rule and welding the tail flush — the synthesis of both explorations.
 
 Tagline lockup: *Strategy. Design. Technology. Growth. Four disciplines. One impact.*
 
 ## Typography
 
 Board reference: **Aeonik** (commercial — CoType Foundry; not licensed yet). Implemented with **General Sans** (Fontshare, free for commercial use; closest free match) as headline + body, and **Geist Mono** (OFL) as the monospace "instrument layer" for micro-labels, coordinates, and numbers. Both wired through CSS variables (`--font-sans`, `--font-mono`) so a licensed Aeonik is a drop-in swap later. Minimal weights: 400 / 500 / 600.
+
+**Wordmark face:** **Archivo Expanded** (`--font-display`, `font-stretch: 125%`, bold, tracked caps) — used only for QUADRANT™ and rare brand moments, matching the board's extended letterforms. COLLECTIVE is letter-spaced (≈0.5em) in the full-spectrum gradient.
+
+## Brand expression inventory (implemented in `src/components/brand/`)
+
+- `logo-mark` — the Q mark: gradient quadrant fills, rim, inner axes, stub tail welded across the rim; `construction` variant (outer ring r≈1.47r, extended axes, hollow nodes); `mono` tone; optional `glow` halo for hero moments.
+- `logo-lockup` — horizontal + stacked lockups, QUADRANT™ / gradient COLLECTIVE.
+- `brand-tagline` — "Strategy. Design. Technology. Growth. / Four disciplines. One impact." with gradient hairline; "One impact." in growth.
+- `glyphs` — visual-language set: Intersection (where ideas align) · Flow (ideas move, systems connect) · Structure (built on strategy, backed by systems) · Growth (from clarity comes scale). Monoline, geometric; the only illustration vocabulary.
+- `brand-pattern` — tiled Q-construction geometry at whisper opacity for brand surfaces.
+- `app-icon-tile` — dark rounded tile, faint grid, top light, mark centered.
+- Motion language: gradient flow-streak with comet head (see `/styleguide` § Motion).
+- Tone of voice (board): Confident, not loud. Strategic, not generic. Sleek, not flashy. Human, not robotic. Focused on impact.
 
 ## Motion tokens
 
