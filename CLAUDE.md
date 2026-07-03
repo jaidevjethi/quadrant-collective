@@ -56,3 +56,7 @@ The scroll tells a story, each section answering one question and leading into t
 **who we are → what we believe → what problems we solve → how we work → why clients trust us → why we are different → what to do next.**
 
 Every section must answer one of: Who are we? Why trust us? What problems do we solve? How do we work? What results have we produced? How do clients contact us? Nothing exists only because it looks cool.
+
+## Framework notes
+
+@AGENTS.md
