@@ -17,11 +17,13 @@ type LogoMarkProps = {
 /**
  * The Quadrant Collective mark (docs/BRAND.md, Appendix — Logo geometry):
  * a segmented ring — four 90° arcs with a small engineered gap at each
- * cardinal point — where only the top-left (vision) and bottom-right
- * (intelligence → growth) arcs carry color. The other two arcs stay
- * neutral: "only one or two accents visible at a time" (Constitution,
- * Color Philosophy). A short stub, welded flush into the bottom-right
- * arc and extending past the rim at 45°, completes the Q.
+ * cardinal point — one per discipline: Strategy (vision/violet), Design
+ * (spark/amber), Technology (intelligence/blue), Growth (teal). The mark
+ * is the one deliberate exception to the Constitution's "one or two
+ * accents at a time" rule: it is the literal diagram of the four-part
+ * thesis, shown once as a symbol rather than as interface chrome — page
+ * UI still obeys the two-accent limit. A short stub, welded flush into
+ * the growth arc and extending past the rim at 45°, completes the Q.
  *
  * Geometry: viewBox 96×96, center (48,48), ring radius 28, band width 18
  * (inner r=19, outer r=37). Each arc is dashed (39.98 / 100, offset -2)
@@ -40,9 +42,8 @@ export function LogoMark({
   const mono = tone === "mono";
   const line = "var(--clarity, #E6E6E6)";
 
-  const vision = mono ? "var(--clarity, #E6E6E6)" : `url(#${id}-vision)`;
-  const spectrum = mono ? "var(--clarity, #E6E6E6)" : `url(#${id}-spectrum)`;
-  const ghostOpacity = mono ? 0.12 : 0.14;
+  const fill = (name: string) => (mono ? "var(--clarity, #E6E6E6)" : `url(#${id}-${name})`);
+  const monoOpacity = { strategy: 0.9, design: 0.68, technology: 0.46, growth: 0.24 };
   const halo = glow && !mono ? `url(#${id}-glow)` : undefined;
 
   const arc = {
@@ -64,28 +65,37 @@ export function LogoMark({
       aria-hidden={decorative || undefined}
       className={className}
     >
-      {!mono && (
-        <defs>
-          <linearGradient id={`${id}-vision`} gradientUnits="userSpaceOnUse" x1="20" y1="20" x2="48" y2="48">
-            <stop offset="0" stopColor="#A78BFA" />
-            <stop offset="1" stopColor="#6D28D9" />
-          </linearGradient>
-          <linearGradient id={`${id}-spectrum`} gradientUnits="userSpaceOnUse" x1="48" y1="48" x2="84" y2="84">
-            <stop offset="0" stopColor="#3B82F6" />
-            <stop offset="0.55" stopColor="#2563EB" />
-            <stop offset="1" stopColor="#00D1B2" />
-          </linearGradient>
-          {glow && (
-            <filter id={`${id}-glow`} x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="3.5" result="halo" />
-              <feMerge>
-                <feMergeNode in="halo" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          )}
-        </defs>
-      )}
+      <defs>
+        {!mono && (
+          <>
+            <linearGradient id={`${id}-strategy`} gradientUnits="userSpaceOnUse" x1="20" y1="20" x2="48" y2="48">
+              <stop offset="0" stopColor="#A78BFA" />
+              <stop offset="1" stopColor="#6D28D9" />
+            </linearGradient>
+            <linearGradient id={`${id}-design`} gradientUnits="userSpaceOnUse" x1="48" y1="20" x2="76" y2="48">
+              <stop offset="0" stopColor="#FCD34D" />
+              <stop offset="1" stopColor="#D97706" />
+            </linearGradient>
+            <linearGradient id={`${id}-technology`} gradientUnits="userSpaceOnUse" x1="20" y1="76" x2="48" y2="48">
+              <stop offset="0" stopColor="#60A5FA" />
+              <stop offset="1" stopColor="#2563EB" />
+            </linearGradient>
+            <linearGradient id={`${id}-growth`} gradientUnits="userSpaceOnUse" x1="48" y1="48" x2="84" y2="84">
+              <stop offset="0" stopColor="#34D399" />
+              <stop offset="1" stopColor="#00B894" />
+            </linearGradient>
+            {glow && (
+              <filter id={`${id}-glow`} x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="3.5" result="halo" />
+                <feMerge>
+                  <feMergeNode in="halo" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            )}
+          </>
+        )}
+      </defs>
 
       {variant === "construction" && (
         <g stroke={line} fill="none">
@@ -100,22 +110,42 @@ export function LogoMark({
         </g>
       )}
 
-      {/* Neutral arcs — top-right, bottom-left: structure without accent */}
-      <path d="M48 20 A28 28 0 0 1 76 48" stroke={line} opacity={ghostOpacity} {...arc} />
-      <path d="M48 76 A28 28 0 0 1 20 48" stroke={line} opacity={ghostOpacity} {...arc} />
-
-      {/* Colored arcs — top-left (vision), bottom-right (intelligence→growth) */}
+      {/* Four arcs, four disciplines: Strategy · Design · Technology · Growth */}
       <g filter={halo}>
-        <path d="M20 48 A28 28 0 0 1 48 20" stroke={vision} {...arc} />
-        <path d="M76 48 A28 28 0 0 1 48 76" stroke={spectrum} {...arc} />
+        <path
+          d="M20 48 A28 28 0 0 1 48 20"
+          stroke={fill("strategy")}
+          opacity={mono ? monoOpacity.strategy : undefined}
+          {...arc}
+        />
+        <path
+          d="M48 20 A28 28 0 0 1 76 48"
+          stroke={fill("design")}
+          opacity={mono ? monoOpacity.design : undefined}
+          {...arc}
+        />
+        <path
+          d="M48 76 A28 28 0 0 1 20 48"
+          stroke={fill("technology")}
+          opacity={mono ? monoOpacity.technology : undefined}
+          {...arc}
+        />
+        <path
+          d="M76 48 A28 28 0 0 1 48 76"
+          stroke={fill("growth")}
+          opacity={mono ? monoOpacity.growth : undefined}
+          {...arc}
+        />
 
         {/* Q tail: starts inside the ring band (radius 30) so it welds with
-            zero gap, extends to radius 46 — a short stub past the rim at 45° */}
+            zero gap, extends to radius 46 — a short stub past the rim at 45°,
+            continuing the growth arc it emerges from */}
         <path
           d="M69.21 69.21 L80.53 80.53"
-          stroke={spectrum}
+          stroke={fill("growth")}
           strokeWidth="18"
           strokeLinecap="butt"
+          opacity={mono ? monoOpacity.growth : undefined}
         />
       </g>
 

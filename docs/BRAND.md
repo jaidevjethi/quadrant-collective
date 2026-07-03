@@ -542,21 +542,24 @@ Do not design an agency website. Design the digital headquarters of a company th
 | `depth` | `#0D0F14` | DEPTH | Base background (near black) |
 | `balance` | `#1A1D24` | BALANCE | Raised surfaces, cards (graphite) |
 | `clarity` | `#E6E6E6` | CLARITY | Primary text (soft white) |
-| `vision` | `#7C3AED` | VISION | Accent — deep violet |
-| `intelligence` | `#2563EB` | INTELLIGENCE | Accent — electric blue |
-| `growth` | `#00D1B2` | GROWTH | Accent — emerald cyan; reserved for metrics/growth moments |
+| `vision` | `#7C3AED` | VISION | Discipline accent — Strategy (violet) |
+| `spark` | `#D97706` | SPARK | Discipline accent — Design (amber) |
+| `intelligence` | `#2563EB` | INTELLIGENCE | Discipline accent — Technology (blue) |
+| `growth` | `#00D1B2` | GROWTH | Discipline accent — Growth (teal); also reserved for metrics moments outside the mark |
 
-Rules: dark by default; max 1–2 accents visible at a time; color communicates focus, never decoration. Neutral ramp (muted text, hairline borders at low-alpha white) is derived on screen and lives in `src/app/globals.css`.
+Rules: dark by default; **max 1–2 accents visible at a time in the interface** (buttons, sections, highlights) — color communicates focus, never decoration. The logo mark is the one deliberate exception (see Logo geometry below). Neutral ramp (muted text, hairline borders at low-alpha white) is derived on screen and lives in `src/app/globals.css`.
 
-**Gradient recipes (from the board):** vision `#A78BFA → #6D28D9` · intelligence `#3B82F6 → #2563EB` · intelligence→growth (mark fill) `#3B82F6 → #2563EB → #00D1B2` · growth `#00D1B2 → #00B894` · full-spectrum (COLLECTIVE wordmark, tagline rule) `vision → intelligence → growth`. Gradients appear only in brand elements (mark, wordmark, glyphs, streaks) — never as surface decoration.
+**Gradient recipes (from the board, extended 2026-07-04 for the four-discipline mark):** strategy/vision `#A78BFA → #6D28D9` · design/spark `#FCD34D → #D97706` · technology/intelligence `#60A5FA → #2563EB` · growth `#34D399 → #00B894` · full-spectrum (COLLECTIVE wordmark, tagline rule) `vision → intelligence → growth`. Gradients appear only in brand elements (mark, wordmark, glyphs, streaks) — never as surface decoration.
 
-## Logo geometry (approved mark, v1.1)
+## Logo geometry (approved mark, v1.2)
 
-A "Q" built as a segmented ring — four 90° arcs (radius 28, band width 18, viewBox 96×96) with a small engineered gap cut at each cardinal point, like a precision dial. Only two arcs carry color — top-left (vision gradient) and bottom-right (intelligence→growth gradient) — the other two stay neutral at low opacity: structure without accent, obeying the Constitution's "only one or two accents visible at a time." A short stub, welded flush into the bottom-right arc's band (no gap) and extending past the rim at 45°, completes the Q. A `construction` variant adds an outer ring, crosshair axes, and endpoint nodes, like an engineering drawing.
+A "Q" built as a segmented ring — four 90° arcs (radius 28, band width 18, viewBox 96×96) with a small engineered gap cut at each cardinal point, like a precision dial. Each arc carries its own discipline's color — top-left Strategy (violet), top-right Design (amber), bottom-left Technology (blue), bottom-right Growth (teal) — making the "four disciplines" thesis literal rather than abstract. A short stub, welded flush into the growth arc's band (no gap) and extending past the rim at 45°, completes the Q. A `construction` variant adds an outer ring, crosshair axes, and endpoint nodes, like an engineering drawing. A `mono` tone renders all four arcs in a single neutral hue at descending opacities, preserving the four-quadrant read without any color.
 
-Four quadrants = the four disciplines (Strategy · Design · Technology · Growth); the two colored quadrants = focus and intent, not decoration; the intersection = clarity, alignment, impact; the Q = questioning, thinking, quality. Implementation: `src/components/brand/logo-mark.tsx`.
+The intersection = clarity, alignment, impact; the Q = questioning, thinking, quality. Implementation: `src/components/brand/logo-mark.tsx`.
 
-*Revision note (2026-07-04):* a parallel exploration produced a four-color ring/dial variant with a floating, disconnected tail. It was visually bolder but broke the Constitution's own two-accent rule and read less clearly as a Q. This geometry keeps that variant's "precision dial" sophistication while restoring the two-color rule and welding the tail flush — the synthesis of both explorations.
+*Revision history:*
+- *2026-07-04, first pass:* a parallel exploration produced a four-color ring/dial variant with a floating, disconnected tail. Bolder than the original flat pie, but broke the Constitution's two-accent rule and the tail didn't weld cleanly. Resolved by keeping the dial construction with only two colored arcs (vision, intelligence→growth) and welding the tail flush — the "precision dial" geometry now in use.
+- *2026-07-04, second pass (founder request):* each of the four arcs given its own discipline color, since the mark's job is literally to diagram "four disciplines, one impact" — two colors necessarily hid two disciplines. Reclassified as a deliberate exception to the two-accent rule (which continues to govern page UI): the mark is a symbol shown once, not interface chrome competing for attention.
 
 Tagline lockup: *Strategy. Design. Technology. Growth. Four disciplines. One impact.*
 

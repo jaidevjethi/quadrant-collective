@@ -15,6 +15,7 @@
   --balance: #1a1d24;
   --clarity: #e6e6e6;
   --vision: #7c3aed;
+  --spark: #d97706;
   --intelligence: #2563eb;
   --growth: #00d1b2;
 
@@ -74,6 +75,7 @@
   --color-balance: var(--balance);
   --color-clarity: var(--clarity);
   --color-vision: var(--vision);
+  --color-spark: var(--spark);
   --color-intelligence: var(--intelligence);
   --color-growth: var(--growth);
   --color-raised: var(--raised);

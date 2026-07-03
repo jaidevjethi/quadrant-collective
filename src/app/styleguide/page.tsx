@@ -80,8 +80,8 @@ export default function StyleguidePage() {
             <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start">
               <LogoMark size={110} variant="construction" tone="mono" />
               <div className="flex flex-col gap-4 text-[9px] uppercase leading-relaxed text-muted-2">
-                <p>Four quadrants represent our core disciplines.</p>
-                <p>Only two carry color, per the Constitution&apos;s restraint rule — the other two stay structural.</p>
+                <p>Four quadrants, four colors — one per discipline: Strategy, Design, Technology, Growth.</p>
+                <p>The mark is the one exception to the Constitution&apos;s two-accent rule: a symbol shown once, not interface chrome.</p>
                 <p>The Q signifies questioning, thinking and quality.</p>
               </div>
             </div>
@@ -108,6 +108,7 @@ export default function StyleguidePage() {
             <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Color Palette</h3>
             <div className="flex h-20 w-full overflow-hidden rounded-md border border-hairline">
               <div className="flex-1 bg-vision" />
+              <div className="flex-1 bg-spark" />
               <div className="flex-1 bg-intelligence" />
               <div className="flex-1 bg-growth" />
               <div className="flex-1 bg-depth" />
@@ -116,6 +117,7 @@ export default function StyleguidePage() {
             </div>
             <div className="mt-4 flex w-full text-[9px] uppercase tracking-wider text-muted-2">
               <div className="flex-1">Vision<br />#7C3AED</div>
+              <div className="flex-1">Spark<br />#D97706</div>
               <div className="flex-1">Intell<br />#2563EB</div>
               <div className="flex-1">Growth<br />#00D1B2</div>
               <div className="flex-1">Depth<br />#0D0F14</div>
