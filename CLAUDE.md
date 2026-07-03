@@ -1,6 +1,6 @@
 # CLAUDE.md — Project Operating Guide
 
-This file is the operating contract for every session in this project. The full founding brief — source of truth for tone, taste, and intent — is preserved verbatim in [docs/VISION.md](docs/VISION.md). Read it when making judgment calls; follow this file for day-to-day decisions.
+This file is the operating contract for every session in this project. The full founding brief — source of truth for tone, taste, and intent — is preserved verbatim in [docs/VISION.md](docs/VISION.md). The **Brand Design Constitution** — visual identity, color/typography/motion rules, and implementation tokens — is in [docs/BRAND.md](docs/BRAND.md); consult it for every design decision. Positioning, sitemap, and homepage narrative live in [docs/STRATEGY.md](docs/STRATEGY.md).
 
 ## What this project is
 
