@@ -195,9 +195,83 @@ export function CounterDemo() {
   );
 }
 
+/** The board's motion language: a gradient streak drawing its path,
+    led by a comet head — ideas moving, systems connecting. */
+export function FlowStreakDemo() {
+  const pathRef = useRef<SVGPathElement>(null);
+  const dotRef = useRef<SVGCircleElement>(null);
+
+  const play = () => {
+    const path = pathRef.current;
+    const dot = dotRef.current;
+    if (!path || !dot) return;
+    const len = path.getTotalLength();
+    const placeDot = (at: number) => {
+      const pt = path.getPointAtLength(at);
+      dot.setAttribute("cx", String(pt.x));
+      dot.setAttribute("cy", String(pt.y));
+      dot.setAttribute("opacity", "1");
+    };
+    if (prefersReducedMotion()) {
+      path.style.strokeDasharray = "none";
+      path.style.strokeDashoffset = "0";
+      placeDot(len);
+      return;
+    }
+    path.style.strokeDasharray = String(len);
+    path.style.strokeDashoffset = String(len);
+    const state = { p: 0 };
+    gsap.to(state, {
+      p: 1,
+      duration: DURATION.choreo,
+      ease: EASE.weighted,
+      onUpdate: () => {
+        path.style.strokeDashoffset = String(len * (1 - state.p));
+        placeDot(len * state.p);
+      },
+    });
+  };
+
+  useEffect(() => {
+    play();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <DemoFrame label="05 / Flow streak" onReplay={play}>
+      <svg viewBox="0 0 400 160" className="h-44 w-full" aria-hidden>
+        <defs>
+          <linearGradient id="flow-streak" gradientUnits="userSpaceOnUse" x1="10" y1="80" x2="390" y2="80">
+            <stop offset="0" stopColor="#7C3AED" />
+            <stop offset="0.5" stopColor="#2563EB" />
+            <stop offset="1" stopColor="#00D1B2" />
+          </linearGradient>
+        </defs>
+        <path
+          ref={pathRef}
+          d="M10 130 C 120 20, 220 170, 390 40"
+          stroke="url(#flow-streak)"
+          strokeWidth="1.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <circle
+          ref={dotRef}
+          r="3"
+          fill="#00D1B2"
+          opacity="0"
+          style={{ filter: "drop-shadow(0 0 6px rgba(0, 209, 178, 0.8))" }}
+        />
+      </svg>
+    </DemoFrame>
+  );
+}
+
 /** The grid emerges from the center — order from complexity. */
 export function GridEmergeDemo() {
   const scope = useRef<HTMLDivElement>(null);
+  // Q shape with tail starting from middle-bottom (R3 col 6, R4 col 6, R5 col 7,8)
+  const qIndices = [5, 6, 7, 16, 20, 28, 32, 40, 42, 44, 53, 54, 55, 67, 68];
 
   const play = () => {
     const cells = scope.current?.querySelectorAll("[data-cell]");
@@ -206,6 +280,9 @@ export function GridEmergeDemo() {
       gsap.set(cells, { opacity: 1 });
       return;
     }
+    const getCoords = (i: number) => [Math.floor(i / 12), i % 12];
+    const qCoords = qIndices.map(getCoords);
+
     gsap.fromTo(
       cells,
       { opacity: 0 },
@@ -213,7 +290,15 @@ export function GridEmergeDemo() {
         opacity: 1,
         duration: DURATION.standard,
         ease: EASE.precision,
-        stagger: { grid: [4, 8], from: "center", amount: 0.7 },
+        stagger: (index) => {
+          const [r, c] = getCoords(index);
+          let minD = Infinity;
+          for (const [qr, qc] of qCoords) {
+            const d = Math.abs(r - qr) + Math.abs(c - qc);
+            if (d < minD) minD = d;
+          }
+          return minD * 0.15;
+        },
       },
     );
   };
@@ -227,14 +312,26 @@ export function GridEmergeDemo() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getCellColor = (i: number) => {
+    if (!qIndices.includes(i)) return "bg-depth";
+    const r = Math.floor(i / 12);
+    const c = i % 12;
+    // Four Quadrants representing Strategy, Design, Technology, Growth
+    if (r < 3 && c < 6) return "bg-vision";       // Top-Left (Strategy)
+    if (r < 3 && c >= 6) return "bg-intelligence"; // Top-Right (Design)
+    if (r >= 3 && c < 6) return "bg-faint";        // Bottom-Left (Technology)
+    if (r >= 3 && c >= 6) return "bg-growth";      // Bottom-Right (Growth)
+    return "bg-depth";
+  };
+
   return (
     <DemoFrame label="04 / Grid emergence" onReplay={play}>
-      <div ref={scope} className="grid h-44 grid-cols-8 grid-rows-4 gap-px">
-        {Array.from({ length: 32 }, (_, i) => (
+      <div ref={scope} className="grid h-44 grid-cols-12 grid-rows-6 gap-px">
+        {Array.from({ length: 72 }, (_, i) => (
           <div
             key={i}
             data-cell
-            className="border border-hairline bg-depth opacity-0"
+            className={`border border-hairline opacity-0 ${getCellColor(i)}`}
           />
         ))}
       </div>

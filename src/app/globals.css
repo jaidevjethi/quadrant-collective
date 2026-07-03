@@ -86,6 +86,7 @@
   --font-sans: var(--font-general-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-general-sans);
+  --font-display: var(--font-archivo);
 
   /* Fluid type scale — typography is the primary visual element */
   --text-display-xl: clamp(3.5rem, 9vw, 8rem);

@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Geist_Mono } from "next/font/google";
+import { Archivo, Geist_Mono } from "next/font/google";
 
 /**
  * General Sans (Fontshare, free for commercial use — license in src/fonts/).
@@ -17,5 +17,17 @@ export const generalSans = localFont({
 export const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
+  display: "swap",
+});
+
+/**
+ * Display face for the wordmark and brand moments only — the board's
+ * extended QUADRANT letterforms need a width axis General Sans lacks.
+ * Use with `font-stretch: 125%`.
+ */
+export const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  axes: ["wdth"],
   display: "swap",
 });

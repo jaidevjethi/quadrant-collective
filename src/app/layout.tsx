@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { generalSans, geistMono } from "@/lib/fonts";
+import { archivo, generalSans, geistMono } from "@/lib/fonts";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${generalSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${generalSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <LenisProvider>{children}</LenisProvider>
