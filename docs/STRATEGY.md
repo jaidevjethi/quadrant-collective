@@ -40,16 +40,20 @@ Services at launch live as a *capabilities section on the homepage*, framed arou
 
 ## Homepage narrative — beat by beat
 
-Each beat answers one question and hands off to the next. Motion budget: one choreographed idea per beat, not one per element.
+Each beat answers one question and hands off to the next. Motion budget: **one choreographed idea per beat, not one per element** — the page starts with its busiest moment (arrival) and gets progressively calmer toward the form; calm at the ask reads as confidence. Vocabulary comes exclusively from the approved motion language (`/styleguide` § Motion Dynamics): plot-in, axis draw, measurement counters, grid emergence, flow streak.
 
-1. **Arrival** — *Who are we?* One declarative sentence, large type, generous silence around it. Single CTA. No carousel, no particles, no video background.
-2. **The belief** — *What do we believe?* The problem the audience already feels: most business websites are expenses that look like assets. We build the opposite.
-3. **Capabilities** — *What do we solve?* Outcomes, not a service menu. Design → build → grow, expressed as business results.
-4. **The method** — *How do we work?* 3–4 step process. For a solo studio this is the credibility engine: clarity of process signals maturity more than headcount does.
-5. **Proof** — *Why trust us?* Selected work, results first, visuals second. Structure ready; ships with real projects only.
-6. **The difference** — *Why us?* The craft argument: product-company standards applied to client work. Possibly 3 principles, stated plainly.
-7. **The invitation** — *What now?* Direct, low-friction contact. One form, one promise about response time we can actually keep.
-8. **Footer** — legal name, Organization/LocalBusiness schema, sitemap links, no clutter.
+1. **Arrival** — *Who are we?* Headline decided 2026-07-04: disciplines eyebrow + "Four disciplines." with "ONE SYSTEM" as tracked-caps gradient (mirrors the COLLECTIVE wordmark treatment). Single CTA. **Motion:** load choreography (not scroll) — mark draws, text plots in. SVG + text only; the headline is the LCP element.
+2. **The belief** — *What do we believe?* The problem the audience already feels: most business websites are expenses that look like assets. We build the opposite. **Motion:** statement lines reveal once on scroll (transform + opacity only).
+3. **Capabilities** — *What do we solve?* Outcomes, not a service menu. **Signature moment (1 of 3):** scattered capability chips (SEO, brand, content, ads, automation, AI, analytics…) resolve and snap into the four-quadrant grid — the logo's own geometry. This is where the "it was assembling the whole time" payoff lives (founder decision 2026-07-04): the hero keeps the finished mark visible for time-to-value; the *emergence* is staged here as synthesis, not delayed to the first screen. The scatter→align motion **is** the thesis (disconnected tools → one system). Trigger-once timeline, SVG transform/opacity/dashoffset only; static resolved state on mobile + reduced-motion.
+
+> **The three signature moments** (the entire motion budget; everything else ~80% still): (1) blueprint entry — hero → belief transition, grid waking up; (2) capabilities assembly — chips snap into the quadrant system, above; (3) intersection/network — hovering one discipline lights its connected disciplines, "growth happens at the intersection." Each plays once in-view, never scroll-scrubbed, each degrades to a beautiful static state. Rationale + rejected alternatives (scroll-jacked camera, WebGL particles): they conflict with the mobile-first, Lighthouse-95 constraint.
+4. **The method** — *How do we work?* 3–4 step process; for a solo studio, clarity of process signals maturity more than headcount does. **Motion:** an axis draws, steps plot along it (dashoffset line draw — cheapest possible).
+5. **Proof** — *Why trust us?* Results first, visuals second. Structure ready; ships with real projects only — until then the section is absent and beats 4 + 6 carry credibility. **Motion:** measurement counters.
+6. **The difference** — *Why us?* Product-company standards applied to client work; 3 principles stated plainly. **Motion:** almost still — staggered fades. Restraint is the point.
+7. **The invitation** — *What now?* Direct, low-friction contact; the form lives here (the only truly interactive JS on the page). One promise about response time we can keep. **Motion:** flow streak leads into the form.
+8. **Footer** — legal name, Organization/LocalBusiness schema, sitemap links, no clutter. Completely still; static server component.
+
+**Performance budget (Lighthouse 95+ mobile is a build gate, not a wish):** all routes statically prerendered; one GSAP + ScrollTrigger load (~37 KB gz) shared by every beat; animations touch only `transform`/`opacity`; fonts self-hosted zero-CLS; images only via `next/image` (AVIF, lazy) and only when Proof ships; GA + Clarity load `lazyOnload`, off the critical path; `prefers-reduced-motion` degrades everything to opacity. Each beat is verified against a production build when it lands, not at the end.
 
 ## SEO strategy (India-first) — foundations at launch
 
@@ -68,5 +72,6 @@ Each beat answers one question and hands off to the next. Motion budget: one cho
 
 1. ✅ Scaffold: Next.js 16 + Tailwind v4 + shadcn/ui, `src/` structure, fonts (General Sans + Geist Mono). *(2026-07-03)*
 2. ✅ Design system v1: tokens in `globals.css`, logo as code (`src/components/brand/`), motion foundation (`src/lib/motion.ts`, Lenis provider), reviewable at `/styleguide`. Governed by `docs/BRAND.md`. **Approved by founder 2026-07-04** — four-color quadrant mark (Strategy/violet, Design/amber, Technology/blue, Growth/teal), crosshair always visible.
-3. ▶ Homepage, beat by beat, one at a time — starting with Beat 1 (Arrival).
-4. About → Contact → Work (as content arrives) → SEO layer → analytics.
+3. ✅ Homepage, all 8 beats built & QA'd against a production build (2026-07-04). Beat 1 Arrival · Beat 2 Belief ("systems problem", `Reveal` primitive) · Beat 3 Capabilities (assembly signature moment) · Beat 4 Method (axis-draw timeline) · Beat 5 Proof ("the site is the proof" — honest build-standard counters, no fake case studies) · Beat 6 Difference (network signature moment + 3 principles) · Beat 7 Invitation (RHF+Zod form → real `/api/contact` route, hero CTA now `#contact`) · Beat 8 Footer (Organization JSON-LD, no fabricated address). Verified: `/` static-prerendered, full page content in no-JS HTML, all signature moments fire on Lenis scroll, 1×h1 + clean heading outline, no console errors, no horizontal overflow.
+   - **Follow-ups before launch:** wire `/api/contact` to a real email/CRM provider (needs creds); add `LocalBusiness` schema once the registered address is confirmed (open decision #2); resolve `SITE_URL` once the domain is registered (open decision #1); the two temporary-looking taglines ("One system" hero vs. BrandTagline "One impact.") — reconcile.
+4. About → Contact (route) → Work (as content arrives) → SEO layer (metadata per route, sitemap.xml, robots.txt, OG images) → analytics (GA + Clarity, lazyOnload).

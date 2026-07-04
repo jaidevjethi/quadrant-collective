@@ -85,9 +85,8 @@
   --color-hairline-strong: var(--hairline-strong);
   --color-grid: var(--grid-line);
 
-  --font-sans: var(--font-general-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-general-sans);
   --font-display: var(--font-archivo);
 
   /* Fluid type scale — typography is the primary visual element */
@@ -149,6 +148,14 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Headline/display face: Archivo Expanded — same face as the wordmark, one
+   display voice (founder decision 2026-07-04). Family + stretch travel
+   together; never apply --font-archivo to headlines without the width. */
+@utility font-heading {
+  font-family: var(--font-archivo);
+  font-stretch: 125%;
 }
 
 /* The monospace "instrument layer": section indices, coordinates, metadata */

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { LogoLockup } from "@/components/brand/logo-lockup";
 import { AppIconTile } from "@/components/brand/app-icon-tile";
 import { BrandPattern } from "@/components/brand/brand-pattern";
 import { BrandTagline } from "@/components/brand/brand-tagline";
+import { Button } from "@/components/ui/button";
 import {
   IntersectionGlyph,
   FlowGlyph,
@@ -102,9 +104,104 @@ export default function StyleguidePage() {
           </div>
         </div>
 
-        {/* Row 3: System basics */}
+        {/* Row 3: Typography system (full width — three faces, one system) */}
         <div className="grid grid-cols-1 gap-px lg:grid-cols-12">
-          <div className="col-span-4 bg-depth p-8">
+          <div className="col-span-12 bg-depth p-8">
+            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Typography System</h3>
+            <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
+              <div className="flex flex-col bg-depth p-6">
+                <div className="flex items-baseline justify-between">
+                  <span className="label-mono text-muted-2">01 / Display</span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-vision">Archivo Expanded</span>
+                </div>
+                <div className="flex flex-1 items-center py-8">
+                  <span className="font-heading text-5xl font-medium tracking-tight text-clarity sm:text-6xl lg:text-7xl">
+                    <span className="bg-gradient-to-r from-vision via-intelligence to-growth bg-clip-text text-transparent">Q</span>uadrant
+                  </span>
+                </div>
+                <div className="flex items-center gap-4 border-t border-hairline pt-4">
+                  <span className="font-heading text-lg font-extralight text-clarity">Aa</span>
+                  <span className="font-heading text-lg font-normal text-clarity">Aa</span>
+                  <span className="font-heading text-lg font-medium text-clarity">Aa</span>
+                  <span className="font-heading text-lg font-bold text-clarity">Aa</span>
+                  <span className="ml-auto text-[9px] uppercase tracking-widest text-faint">100–900 · wdth 125%</span>
+                </div>
+                <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
+                  Hero H1s and section titles — the same face that sets the
+                  QUADRANT™ wordmark: one display voice. Never body text.
+                  Google Fonts, OFL.
+                </p>
+              </div>
+              <div className="flex flex-col bg-depth p-6">
+                <div className="flex items-baseline justify-between">
+                  <span className="label-mono text-muted-2">02 / Body &amp; UI</span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-intelligence">Geist Sans</span>
+                </div>
+                <div className="flex flex-1 items-center py-8">
+                  <span className="text-3xl font-medium leading-tight tracking-tight text-clarity lg:text-4xl">
+                    Systems,<br />not services.
+                  </span>
+                </div>
+                <div className="border-t border-hairline pt-4">
+                  <p className="text-xs leading-relaxed text-muted-2">
+                    Paragraphs, labels, components — calm, precise, declarative.
+                    Weights 400 / 500 / 600.
+                  </p>
+                </div>
+                <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
+                  Vercel, OFL. Stands in for Aeonik (board reference, unlicensed) —
+                  see docs/BRAND.md.
+                </p>
+              </div>
+              <div className="flex flex-col bg-depth p-6">
+                <div className="flex items-baseline justify-between">
+                  <span className="label-mono text-muted-2">03 / Instrument</span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-growth">Geist Mono</span>
+                </div>
+                <div className="flex flex-1 flex-col justify-center gap-3 py-8 font-mono text-sm tabular-nums text-clarity">
+                  <div className="flex justify-between">
+                    <span className="text-muted-2">QUADRANTS</span>
+                    <span>4 × 90°</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-2">RING RADIUS</span>
+                    <span>r = 28 / 96</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-2">PERFORMANCE</span>
+                    <span className="text-growth">95+</span>
+                  </div>
+                </div>
+                <div className="border-t border-hairline pt-4">
+                  <span className="label-mono text-muted-2">Micro-labels · coordinates · numbers</span>
+                </div>
+                <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
+                  Vercel, OFL. Same family as Geist Sans — one coherent system,
+                  not two unrelated foundries.
+                </p>
+              </div>
+            </div>
+            <div className="group relative mt-6 rounded-lg border border-hairline bg-raised p-8">
+              <CornerTicks />
+              <span className="label-mono text-muted-2">Hero pattern — src/app/page.tsx</span>
+              <div className="mt-4 flex flex-col items-start gap-2">
+                <span className="label-mono text-muted-2">
+                  Strategy. Design. Technology. Growth.
+                </span>
+                <span className="font-heading text-3xl font-medium tracking-tight text-clarity">
+                  Four disciplines.
+                </span>
+                <span className="font-heading bg-gradient-to-r from-vision via-intelligence to-growth bg-clip-text text-base font-medium uppercase tracking-[0.34em] text-transparent">
+                  One system
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Row 3b: Color + Visual language */}
+        <div className="grid grid-cols-1 gap-px lg:grid-cols-12">
+          <div className="col-span-6 bg-depth p-8">
             <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Color Palette</h3>
             <div className="flex h-20 w-full overflow-hidden rounded-md border border-hairline">
               <div className="flex-1 bg-vision" />
@@ -125,31 +222,7 @@ export default function StyleguidePage() {
               <div className="flex-1">Clarity<br />#E6E6E6</div>
             </div>
           </div>
-          <div className="col-span-4 bg-depth p-8">
-            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Typography</h3>
-            <div className="flex items-start gap-8">
-              <div>
-                <h2 className="text-4xl font-medium text-clarity lg:text-5xl">General Sans</h2>
-                <p className="mt-1.5 text-[9px] uppercase tracking-widest text-faint">
-                  Board reference: Aeonik (unlicensed) — see docs/BRAND.md
-                </p>
-                <h3 className="mt-6 text-[10px] uppercase tracking-widest text-muted-2">Type System</h3>
-                <p className="mt-3 text-lg font-medium leading-tight text-clarity">
-                  We build systems<br />that drive real growth.
-                </p>
-                <p className="mt-4 text-[10px] text-muted-2">
-                  Strategy-led. Design-driven. Technology-powered.<br />All working together.
-                </p>
-              </div>
-              <div className="mt-2 flex flex-col gap-2 text-[10px] text-muted-2">
-                <span className="font-light text-clarity">Light</span>
-                <span className="font-normal text-clarity">Regular</span>
-                <span className="font-medium text-clarity">Medium</span>
-                <span className="font-bold text-clarity">Bold</span>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-4 bg-depth p-8">
+          <div className="col-span-6 bg-depth p-8">
             <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Visual Language</h3>
             <div className="grid h-full grid-cols-4 gap-4 pb-4">
               <div className="flex flex-col">
@@ -284,31 +357,59 @@ export default function StyleguidePage() {
             </div>
           </div>
           <div className="col-span-7 flex flex-col bg-depth p-8">
-            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Interactive Components</h3>
-            <div className="flex flex-1 flex-col items-start justify-center gap-8 rounded-lg border border-hairline bg-raised p-8">
+            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Components — Button</h3>
+            <div className="group relative flex flex-1 flex-col rounded-lg border border-hairline bg-raised p-8">
+              <CornerTicks />
               <p className="text-[10px] leading-relaxed text-muted-2 lg:text-xs">
-                Buttons are tactile but restrained: the primary action is soft-white
-                on dark — accents stay reserved for focus and meaning.
+                <code className="font-mono text-clarity">@/components/ui/button</code> — tactile
+                but restrained: the primary action is soft-white on dark; accents
+                stay reserved for focus and meaning.
               </p>
-              <div className="flex flex-wrap items-center gap-6">
-                <button
-                  type="button"
-                  className="cursor-pointer rounded-md bg-clarity px-6 py-3 text-sm font-medium text-depth transition-opacity duration-200 hover:opacity-90"
-                >
-                  Start a conversation
-                </button>
-                <button
-                  type="button"
-                  className="cursor-pointer rounded-md border border-hairline-strong bg-balance px-6 py-3 text-sm font-medium text-clarity transition-colors duration-200 hover:border-clarity/30 hover:bg-depth"
-                >
-                  See our work
-                </button>
-                <button
-                  type="button"
-                  className="cursor-pointer px-2 py-3 text-xs font-medium uppercase tracking-widest text-muted-2 transition-colors duration-200 hover:text-clarity"
-                >
-                  Ghost / index →
-                </button>
+              <div className="mt-6 grid flex-1 gap-px overflow-hidden rounded-md border border-hairline bg-hairline sm:grid-cols-3">
+                <div className="flex flex-col gap-5 bg-depth p-5">
+                  <span className="label-mono text-muted-2">01 / Primary</span>
+                  <div className="flex flex-1 items-center">
+                    <Button size="lg" className="h-11 rounded-sm px-6">
+                      Primary action
+                    </Button>
+                  </div>
+                  <p className="text-[9px] leading-relaxed text-muted-2">
+                    One per view — the single most important action.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-5 bg-depth p-5">
+                  <span className="label-mono text-muted-2">02 / Outline — hero CTA</span>
+                  <div className="flex flex-1 items-center">
+                    <Button
+                      asChild
+                      size="lg"
+                      variant="outline"
+                      className="h-11 gap-2 rounded-sm border-hairline-strong bg-transparent px-6 text-clarity hover:border-clarity hover:bg-raised"
+                    >
+                      <a href="#">
+                        Start a conversation
+                        <ArrowRight className="size-4 transition-transform duration-200 group-hover/button:translate-x-0.5" />
+                      </a>
+                    </Button>
+                  </div>
+                  <p className="text-[9px] leading-relaxed text-muted-2">
+                    The hero CTA style — src/app/page.tsx.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-5 bg-depth p-5">
+                  <span className="label-mono text-muted-2">03 / Ghost — tertiary</span>
+                  <div className="flex flex-1 items-center">
+                    <Button
+                      variant="ghost"
+                      className="h-11 px-2 text-xs font-medium uppercase tracking-widest text-muted-2 hover:bg-transparent hover:text-clarity"
+                    >
+                      Ghost / index →
+                    </Button>
+                  </div>
+                  <p className="text-[9px] leading-relaxed text-muted-2">
+                    Quiet navigation and index links.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

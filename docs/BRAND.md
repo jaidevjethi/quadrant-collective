@@ -565,9 +565,13 @@ Tagline lockup: *Strategy. Design. Technology. Growth. Four disciplines. One imp
 
 ## Typography
 
-Board reference: **Aeonik** (commercial — CoType Foundry; not licensed yet). Implemented with **General Sans** (Fontshare, free for commercial use; closest free match) as headline + body, and **Geist Mono** (OFL) as the monospace "instrument layer" for micro-labels, coordinates, and numbers. Both wired through CSS variables (`--font-sans`, `--font-mono`) so a licensed Aeonik is a drop-in swap later. Minimal weights: 400 / 500 / 600.
+Board reference: **Aeonik** (commercial — CoType Foundry; not licensed yet). Implemented with **Geist Sans** (Vercel, OFL; closest free match) as headline + body, paired with **Geist Mono** (OFL) as the monospace "instrument layer" for micro-labels, coordinates, and numbers — one coherent type family across both roles instead of two unrelated ones. Both wired through CSS variables (`--font-sans`, `--font-mono`) so a licensed Aeonik is a drop-in swap later. Minimal weights: 400 / 500 / 600.
 
-**Wordmark face:** **Archivo Expanded** (`--font-display`, `font-stretch: 125%`, bold, tracked caps) — used only for QUADRANT™ and rare brand moments, matching the board's extended letterforms. COLLECTIVE is letter-spaced (≈0.5em) in the full-spectrum gradient.
+*Revision, 2026-07-04:* replaced the initial General Sans (Fontshare) pick with Geist Sans — same Aeonik-stand-in role, but unifies with the already-adopted Geist Mono as one family rather than pairing fonts from two unrelated foundries.
+
+**Display face (wordmark + headlines):** **Archivo Expanded** (Google Fonts, OFL; `font-stretch: 125%`). One face, two utilities: `font-display` (wordmark — QUADRANT™ bold tracked caps; COLLECTIVE letter-spaced ≈0.5em in the full-spectrum gradient) and `font-heading` (hero H1s and section titles; the utility in `globals.css` bundles family + stretch so headlines are always set expanded). Reserved for the highest-weight moment on a page — never body text; body and UI stay on Geist Sans.
+
+*Revision, 2026-07-04 (founder decision):* Clash Display served briefly as the headline face, then was replaced by Archivo Expanded after a 10-candidate audition — unifying wordmark and headlines into a single display voice rather than running two display faces.
 
 ## Brand expression inventory (implemented in `src/components/brand/`)
 

@@ -1,0 +1,67 @@
+import { Reveal } from "@/components/motion/reveal";
+import { NetworkDiagram } from "@/components/motion/network-diagram";
+
+/**
+ * Beat 6 — The difference (STRATEGY.md). Why us? The craft argument: three
+ * principles stated plainly, and the network moment that makes the thesis
+ * interactive — touch one discipline, the rest respond. Otherwise near-still;
+ * restraint is the point.
+ */
+
+const PRINCIPLES = [
+  {
+    n: "01",
+    title: "Built like a product, not a campaign",
+    body: "Engineering standards, not agency churn — code and design meant to last five years, not one quarter.",
+  },
+  {
+    n: "02",
+    title: "Systems over one-offs",
+    body: "Everything is designed to extend and compound. Today's page is tomorrow's platform, not a dead end.",
+  },
+  {
+    n: "03",
+    title: "Honesty as a feature",
+    body: "No invented proof, no hype adjectives. Claims we can back, and the clarity to say what we won't do.",
+  },
+];
+
+export function DifferenceSection() {
+  return (
+    <section className="px-gutter py-section">
+      <div className="mx-auto flex max-w-5xl flex-col gap-16">
+        <Reveal className="flex flex-col items-center gap-6 text-center">
+          <span data-reveal className="label-mono text-muted-2">
+            06 — Why us
+          </span>
+          <h2
+            data-reveal
+            className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity"
+          >
+            Growth happens at the intersection.
+          </h2>
+          <p data-reveal className="max-w-xl text-lead text-muted-2">
+            Not in isolation. Touch one discipline and the others respond — which
+            is exactly why we refuse to sell them separately from the system.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <div data-reveal className="mx-auto w-full max-w-2xl">
+            <NetworkDiagram />
+          </div>
+        </Reveal>
+
+        <Reveal className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
+          {PRINCIPLES.map((p) => (
+            <div key={p.n} data-reveal className="flex flex-col gap-4 bg-depth p-8">
+              <span className="label-mono text-muted-2">{p.n}</span>
+              <h3 className="text-title font-medium text-clarity">{p.title}</h3>
+              <p className="text-lead text-muted-2">{p.body}</p>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}

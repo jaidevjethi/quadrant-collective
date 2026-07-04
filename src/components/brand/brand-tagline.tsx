@@ -1,6 +1,7 @@
 /**
  * The board's tagline lockup: discipline list over the brand promise,
- * separated by a gradient hairline. "One impact." takes the growth accent.
+ * separated by a gradient hairline. "One system." takes the growth accent —
+ * matches the homepage hero headline (src/app/page.tsx).
  */
 export function BrandTagline({ className }: { className?: string }) {
   return (
@@ -14,7 +15,7 @@ export function BrandTagline({ className }: { className?: string }) {
           Strategy. Design. Technology. Growth.
         </span>
         <span className="label-mono text-muted-2">
-          Four disciplines. <span className="text-growth">One impact.</span>
+          Four disciplines. <span className="text-growth">One system.</span>
         </span>
       </div>
     </div>

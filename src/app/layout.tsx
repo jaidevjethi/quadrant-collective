@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { archivo, generalSans, geistMono } from "@/lib/fonts";
+import { archivo, geistSans, geistMono } from "@/lib/fonts";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { SiteFooter } from "@/components/sections/site-footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,10 +21,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${generalSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          {children}
+          <SiteFooter />
+        </LenisProvider>
       </body>
     </html>
   );

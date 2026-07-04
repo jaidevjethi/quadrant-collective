@@ -1,22 +1,21 @@
-import { LogoMark } from "@/components/brand/logo-mark";
+import { HeroSection } from "@/components/sections/hero-section";
+import { BeliefSection } from "@/components/sections/belief-section";
+import { CapabilitiesSection } from "@/components/sections/capabilities-section";
+import { MethodSection } from "@/components/sections/method-section";
+import { ProofSection } from "@/components/sections/proof-section";
+import { DifferenceSection } from "@/components/sections/difference-section";
+import { InvitationSection } from "@/components/sections/invitation-section";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-10 px-gutter py-section text-center">
-      <LogoMark size={140} variant="construction" glow />
-      <div className="flex flex-col gap-4">
-        <h1 className="text-headline font-medium text-clarity">
-          Quadrant Collective
-        </h1>
-        <p className="mx-auto max-w-md text-lead text-muted-2">
-          Strategy. Design. Technology. Growth.
-          <br />
-          Four disciplines. One impact.
-        </p>
-      </div>
-      <span className="label-mono text-faint">
-        Digital headquarters — under construction
-      </span>
+    <main className="flex flex-1 flex-col">
+      <HeroSection />
+      <BeliefSection />
+      <CapabilitiesSection />
+      <MethodSection />
+      <ProofSection />
+      <DifferenceSection />
+      <InvitationSection />
     </main>
   );
 }

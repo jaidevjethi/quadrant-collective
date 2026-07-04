@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(git init -b main)"
+      "PowerShell(git init -b main)",
+      "Bash(npx shadcn@latest add button --yes)",
+      "Bash(ls .claude/launch.json)",
+      "Bash(cat .claude/launch.json)",
+      "Bash(curl -sI \"https://api.fontshare.com/v2/fonts/download/clash-display\" --max-time 10)",
+      "Bash(mkdir -p C:/Users/jaide/AppData/Local/Temp/claude/D--Projects-Antigravity-Jaidev-Website/bb1f12a2-6d71-427a-b179-fb6fd25672e2/scratchpad/clash)",
+      "Bash(curl -sL https://api.fontshare.com/v2/fonts/download/clash-display -o C:/Users/jaide/AppData/Local/Temp/claude/D--Projects-Antigravity-Jaidev-Website/bb1f12a2-6d71-427a-b179-fb6fd25672e2/scratchpad/clash/clash.zip)",
+      "Bash(unzip -o clash.zip -d extracted)"
     ]
   }
 }
