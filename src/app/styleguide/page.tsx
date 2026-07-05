@@ -63,7 +63,7 @@ export default function StyleguidePage() {
             <div>
               <h3 className="text-[10px] font-bold uppercase tracking-widest text-vision">Brand Essence</h3>
               <p className="mt-4 text-[10px] font-medium uppercase leading-relaxed tracking-wider text-muted-2 lg:text-xs">
-                We bring strategy, creativity, technology and growth marketing together in one system—so businesses don&apos;t just grow, they scale.
+                We bring strategy, creativity, technology and growth marketing together in one system, so businesses don&apos;t just grow, they scale.
               </p>
             </div>
             <div>
@@ -82,7 +82,7 @@ export default function StyleguidePage() {
             <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start">
               <LogoMark size={110} variant="construction" tone="mono" />
               <div className="flex flex-col gap-4 text-[9px] uppercase leading-relaxed text-muted-2">
-                <p>Four quadrants, four colors — one per discipline: Strategy, Design, Technology, Growth.</p>
+                <p>Four quadrants, four colors, one per discipline: Strategy, Design, Technology, Growth.</p>
                 <p>The mark is the one exception to the Constitution&apos;s two-accent rule: a symbol shown once, not interface chrome.</p>
                 <p>The Q signifies questioning, thinking and quality.</p>
               </div>
@@ -104,7 +104,7 @@ export default function StyleguidePage() {
           </div>
         </div>
 
-        {/* Row 3: Typography system (full width — three faces, one system) */}
+        {/* Row 3: Typography system (full width, three faces, one system) */}
         <div className="grid grid-cols-1 gap-px lg:grid-cols-12">
           <div className="col-span-12 bg-depth p-8">
             <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Typography System</h3>
@@ -124,10 +124,10 @@ export default function StyleguidePage() {
                   <span className="font-heading text-lg font-normal text-clarity">Aa</span>
                   <span className="font-heading text-lg font-medium text-clarity">Aa</span>
                   <span className="font-heading text-lg font-bold text-clarity">Aa</span>
-                  <span className="ml-auto text-[9px] uppercase tracking-widest text-faint">100–900 · wdth 125%</span>
+                  <span className="ml-auto text-[9px] uppercase tracking-widest text-faint">100-900 · wdth 125%</span>
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
-                  Hero H1s and section titles — the same face that sets the
+                  Hero H1s and section titles, the same face that sets the
                   QUADRANT™ wordmark: one display voice. Never body text.
                   Google Fonts, OFL.
                 </p>
@@ -144,13 +144,13 @@ export default function StyleguidePage() {
                 </div>
                 <div className="border-t border-hairline pt-4">
                   <p className="text-xs leading-relaxed text-muted-2">
-                    Paragraphs, labels, components — calm, precise, declarative.
+                    Paragraphs, labels, components. Calm, precise, declarative.
                     Weights 400 / 500 / 600.
                   </p>
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
-                  Vercel, OFL. Stands in for Aeonik (board reference, unlicensed) —
-                  see docs/BRAND.md.
+                  Vercel, OFL. Stands in for Aeonik (board reference, unlicensed).
+                  See docs/BRAND.md.
                 </p>
               </div>
               <div className="flex flex-col bg-depth p-6">
@@ -176,14 +176,14 @@ export default function StyleguidePage() {
                   <span className="label-mono text-muted-2">Micro-labels · coordinates · numbers</span>
                 </div>
                 <p className="mt-3 text-[10px] leading-relaxed text-muted-2">
-                  Vercel, OFL. Same family as Geist Sans — one coherent system,
+                  Vercel, OFL. Same family as Geist Sans, one coherent system,
                   not two unrelated foundries.
                 </p>
               </div>
             </div>
             <div className="group relative mt-6 rounded-lg border border-hairline bg-raised p-8">
               <CornerTicks />
-              <span className="label-mono text-muted-2">Hero pattern — src/app/page.tsx</span>
+              <span className="label-mono text-muted-2">Hero pattern · src/app/page.tsx</span>
               <div className="mt-4 flex flex-col items-start gap-2">
                 <span className="label-mono text-muted-2">
                   Strategy. Design. Technology. Growth.
@@ -326,7 +326,7 @@ export default function StyleguidePage() {
               <h3 className="mt-4 text-xl font-medium text-clarity">Engineered depth</h3>
               <p className="mt-2 text-[10px] leading-relaxed text-muted-2 lg:text-xs">
                 Hairline borders, corner ticks like an engineering drawing, depth
-                from layering — not drop shadows. Hover to see the crosshair
+                from layering, not drop shadows. Hover to see the crosshair
                 focus state highlight in growth-teal.
               </p>
             </div>
@@ -357,11 +357,11 @@ export default function StyleguidePage() {
             </div>
           </div>
           <div className="col-span-7 flex flex-col bg-depth p-8">
-            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Components — Button</h3>
+            <h3 className="mb-6 text-[10px] font-bold uppercase tracking-widest text-vision">Components · Button</h3>
             <div className="group relative flex flex-1 flex-col rounded-lg border border-hairline bg-raised p-8">
               <CornerTicks />
               <p className="text-[10px] leading-relaxed text-muted-2 lg:text-xs">
-                <code className="font-mono text-clarity">@/components/ui/button</code> — tactile
+                <code className="font-mono text-clarity">@/components/ui/button</code> is tactile
                 but restrained: the primary action is soft-white on dark; accents
                 stay reserved for focus and meaning.
               </p>
@@ -374,11 +374,11 @@ export default function StyleguidePage() {
                     </Button>
                   </div>
                   <p className="text-[9px] leading-relaxed text-muted-2">
-                    One per view — the single most important action.
+                    One per view. The single most important action.
                   </p>
                 </div>
                 <div className="flex flex-col gap-5 bg-depth p-5">
-                  <span className="label-mono text-muted-2">02 / Outline — hero CTA</span>
+                  <span className="label-mono text-muted-2">02 / Outline · hero CTA</span>
                   <div className="flex flex-1 items-center">
                     <Button
                       asChild
@@ -393,11 +393,11 @@ export default function StyleguidePage() {
                     </Button>
                   </div>
                   <p className="text-[9px] leading-relaxed text-muted-2">
-                    The hero CTA style — src/app/page.tsx.
+                    The hero CTA style (src/app/page.tsx).
                   </p>
                 </div>
                 <div className="flex flex-col gap-5 bg-depth p-5">
-                  <span className="label-mono text-muted-2">03 / Ghost — tertiary</span>
+                  <span className="label-mono text-muted-2">03 / Ghost · tertiary</span>
                   <div className="flex flex-1 items-center">
                     <Button
                       variant="ghost"

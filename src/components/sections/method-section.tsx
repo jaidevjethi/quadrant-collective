@@ -12,7 +12,7 @@ export function MethodSection() {
       <div className="mx-auto flex max-w-4xl flex-col gap-16">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">
-            04 — How we work
+            04 · How we work
           </span>
           <h2
             data-reveal
@@ -22,7 +22,7 @@ export function MethodSection() {
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
             No black box, no surprises. Every engagement moves through the same
-            four stages — so you always know where the work is and why.
+            four stages, so you always know where the work is and why.
           </p>
         </Reveal>
         <MethodTimeline />

@@ -15,7 +15,14 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     if (prefersReducedMotion()) return;
 
     gsap.registerPlugin(ScrollTrigger);
-    const lenis = new Lenis({ lerp: 0.12 });
+    // Smoother, weighted feel: lower lerp eases the scroll position in more
+    // gradually; gentle wheel multiplier keeps it controlled, not floaty.
+    const lenis = new Lenis({
+      lerp: 0.085,
+      wheelMultiplier: 0.9,
+      smoothWheel: true,
+      syncTouch: true,
+    });
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time: number) => lenis.raf(time * 1000);

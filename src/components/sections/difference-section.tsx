@@ -12,7 +12,7 @@ const PRINCIPLES = [
   {
     n: "01",
     title: "Built like a product, not a campaign",
-    body: "Engineering standards, not agency churn — code and design meant to last five years, not one quarter.",
+    body: "Engineering standards, not agency churn. Code and design meant to last five years, not one quarter.",
   },
   {
     n: "02",
@@ -32,7 +32,7 @@ export function DifferenceSection() {
       <div className="mx-auto flex max-w-5xl flex-col gap-16">
         <Reveal className="flex flex-col items-center gap-6 text-center">
           <span data-reveal className="label-mono text-muted-2">
-            06 — Why us
+            06 · Why us
           </span>
           <h2
             data-reveal
@@ -41,7 +41,7 @@ export function DifferenceSection() {
             Growth happens at the intersection.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Not in isolation. Touch one discipline and the others respond — which
+            Not in isolation. Touch one discipline and the others respond. That
             is exactly why we refuse to sell them separately from the system.
           </p>
         </Reveal>

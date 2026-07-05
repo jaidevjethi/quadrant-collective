@@ -100,7 +100,7 @@ export function LogoMark({
       </defs>
 
       {/* Crosshair: the axis lines that make this a circle divided into
-          quadrants, not just four floating arcs — always visible */}
+          quadrants, not just four floating arcs, always visible */}
       <path d="M48 2 V94 M2 48 H94" stroke={line} strokeWidth="0.75" opacity="0.4" fill="none" />
 
       {variant === "construction" && (
@@ -143,7 +143,7 @@ export function LogoMark({
         />
 
         {/* Q tail: starts inside the ring band (radius 30) so it welds with
-            zero gap, extends to radius 46 — a short stub past the rim at 45°,
+            zero gap, extends to radius 46, a short stub past the rim at 45°,
             continuing the growth arc it emerges from */}
         <path
           d="M69.21 69.21 L80.53 80.53"

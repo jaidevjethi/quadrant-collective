@@ -17,7 +17,7 @@ export function BeliefSection() {
         />
         <Reveal className="flex flex-col gap-8">
           <span data-reveal className="label-mono text-muted-2">
-            02 — What we believe
+            02 · What we believe
           </span>
           <p
             data-reveal

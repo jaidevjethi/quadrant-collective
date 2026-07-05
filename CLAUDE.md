@@ -40,6 +40,15 @@ The flagship website of a premium digital growth company. The site itself is the
 - Typography, spacing, motion, and components are **systems**. Every new page extends the same design language.
 - Services and positioning will evolve (today: web design/dev, branding, SEO, AI integrations, marketing/social strategy). **Never couple architecture, components, or messaging to the current service list.** Build a flexible platform, not fixed pages.
 
+## Copywriting rules (hard bans)
+
+Every word of site copy, UI text, and metadata must read as human written. These are non negotiable, on top of the standing voice rules in docs/STRATEGY.md.
+
+- **No em dashes, en dashes, or "--" anywhere in prose.** Never use a dash to join clauses, add an aside, or make a dramatic pause. It is the clearest tell that text was AI written. Use a period, comma, colon, parentheses, or restructure the sentence. Hyphens are allowed only inside genuine compound words (founder-led, product-company, English/Gujarati).
+- **No AI-slop vocabulary.** Ban words like delve, leverage, robust, seamless, elevate, unlock, unleash, empower, harness, cutting-edge, world-class, transformative, holistic, realm, testament, myriad, plethora, vibrant, dynamic, innovative, supercharge. (Extends the STRATEGY.md ban on hype adjectives.)
+- **No slop sentence formulas.** Avoid "it's not just X, it's Y", empty rhetorical triads, "whether you're X or Y" openers, "from X to Y" sweeps, "not only... but also", and hollow openers like "In a world where" or "Imagine".
+- Write calm, precise, declarative, and short. If a sentence could sit on any agency site, cut it or rewrite it.
+
 ## Tech stack (fixed — no unnecessary dependencies)
 
 Next.js App Router · TypeScript · Tailwind CSS · shadcn/ui · GSAP · Lenis · React Hook Form + Zod · Lucide React · next/image · Vercel · Google Analytics + Microsoft Clarity · SEO via Metadata API, Schema.org, Open Graph, robots.txt, sitemap.xml.

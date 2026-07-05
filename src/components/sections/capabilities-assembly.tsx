@@ -136,7 +136,7 @@ export function CapabilitiesAssembly({ className }: { className?: string }) {
       viewBox="0 0 720 560"
       className={`h-auto w-full ${className ?? ""}`}
       role="img"
-      aria-label="The capabilities a business buys piecemeal — brand, build, content, growth and more — resolving into four disciplines: Strategy, Design, Technology and Growth, working as one system."
+      aria-label="The capabilities a business buys piecemeal (brand, build, content, growth and more) resolving into four disciplines: Strategy, Design, Technology and Growth, working as one system."
     >
       {QUADRANTS.map((q) => (
         <rect

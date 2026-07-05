@@ -12,7 +12,7 @@ export function CapabilitiesSection() {
       <div className="mx-auto max-w-4xl">
         <Reveal className="flex flex-col items-center gap-6 text-center">
           <span data-reveal className="label-mono text-muted-2">
-            03 — What we solve
+            03 · What we solve
           </span>
           <h2
             data-reveal

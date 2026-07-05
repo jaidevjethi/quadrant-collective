@@ -196,7 +196,7 @@ export function CounterDemo() {
 }
 
 /** The board's motion language: a gradient streak drawing its path,
-    led by a comet head — ideas moving, systems connecting. */
+    led by a comet head. Ideas moving, systems connecting. */
 export function FlowStreakDemo() {
   const pathRef = useRef<SVGPathElement>(null);
   const dotRef = useRef<SVGCircleElement>(null);

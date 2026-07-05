@@ -44,7 +44,7 @@ export function NetworkDiagram({ className }: { className?: string }) {
       viewBox="0 0 600 470"
       className={`h-auto w-full ${className ?? ""}`}
       role="img"
-      aria-label="The four disciplines — Strategy, Design, Technology and Growth — fully connected: activating any one reinforces every other."
+      aria-label="The four disciplines (Strategy, Design, Technology and Growth) fully connected: activating any one reinforces every other."
     >
       {EDGES.map(([a, b]) => {
         const incident = active === a || active === b;

@@ -18,7 +18,7 @@ const STEPS = [
   {
     n: "01",
     title: "Map",
-    body: "We map the business, the market, and the gap — before anything is designed.",
+    body: "We map the business, the market, and the gap before anything is designed.",
   },
   {
     n: "02",
@@ -28,7 +28,7 @@ const STEPS = [
   {
     n: "03",
     title: "Build with craft",
-    body: "Production-grade engineering — fast, accessible, measured against real numbers.",
+    body: "Production-grade engineering: fast, accessible, and measured against real numbers.",
   },
   {
     n: "04",

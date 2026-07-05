@@ -14,7 +14,7 @@ export function ProofSection() {
       <div className="mx-auto flex max-w-4xl flex-col gap-12">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">
-            05 — Proof
+            05 · Proof
           </span>
           <h2
             data-reveal
@@ -24,7 +24,7 @@ export function ProofSection() {
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
             We could list credentials. Instead, look at how this site performs,
-            reads, and holds together — every client build is held to the same
+            reads, and holds together. Every client build is held to the same
             standard.
           </p>
         </Reveal>
@@ -36,7 +36,7 @@ export function ProofSection() {
         <Reveal>
           <p data-reveal className="max-w-xl text-sm text-faint">
             Selected client work joins this section as each project is ready to
-            be shown properly — results first, no filler.
+            be shown properly. Results first, no filler.
           </p>
         </Reveal>
       </div>

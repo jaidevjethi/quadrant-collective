@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { LogoLockup } from "@/components/brand/logo-lockup";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Beat 8 — Footer (STRATEGY.md). Completely still, static server component.
@@ -7,9 +9,6 @@ import { LogoLockup } from "@/components/brand/logo-lockup";
  * is deferred until the registered address is confirmed (STRATEGY open
  * decision #2) — no invented data.
  */
-
-// Provisional canonical — register per STRATEGY open decision #1, then confirm.
-const SITE_URL = "https://quadrantcollective.in";
 
 const orgSchema = {
   "@context": "https://schema.org",
@@ -31,9 +30,9 @@ const orgSchema = {
 };
 
 const NAV = [
-  { href: "#capabilities", label: "What we do" },
-  { href: "#method", label: "How we work" },
-  { href: "#contact", label: "Start a conversation" },
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function SiteFooter() {
@@ -50,7 +49,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-4">
             <LogoLockup size="md" orientation="horizontal" />
             <p className="max-w-xs text-sm text-muted-2">
-              Strategy, design, technology and growth — built as one system.
+              Strategy, design, technology and growth, built as one system.
             </p>
             <p className="label-mono text-faint">
               Mehsana · Ahmedabad · Vadodara
@@ -60,13 +59,13 @@ export function SiteFooter() {
           <nav aria-label="Footer" className="flex flex-col gap-3">
             <span className="label-mono text-faint">Site</span>
             {NAV.map((n) => (
-              <a
+              <Link
                 key={n.href}
                 href={n.href}
                 className="text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
               >
                 {n.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

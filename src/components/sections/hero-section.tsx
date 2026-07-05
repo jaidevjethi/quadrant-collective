@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
  */
 export function HeroSection() {
   return (
-    <section className="flex min-h-[calc(100svh-2px)] flex-col items-center justify-center gap-10 px-gutter py-section text-center">
+    <section className="flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center gap-10 px-gutter py-section text-center">
       <LogoMark size={140} variant="construction" glow />
       <h1 className="flex max-w-3xl flex-col items-center gap-3">
         <span className="label-mono text-muted-2">
