@@ -28,6 +28,9 @@ jobs:
         env:
           # Project page prefix; remove when the custom domain goes live.
           NEXT_PUBLIC_BASE_PATH: /quadrant-collective
+          # Live origin for canonicals, OG and schema while the brand domain
+          # is unregistered; swap to https://quadrantcollective.in later.
+          NEXT_PUBLIC_SITE_URL: https://jaidevjethi.github.io/quadrant-collective
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
