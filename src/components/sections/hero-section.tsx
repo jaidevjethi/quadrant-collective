@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
 import { HeroField } from "./hero-field";
+import { HeroChoreo } from "@/components/motion/hero-choreo";
 
 /**
  * Beat 1 — Arrival (STRATEGY.md). The arrival is staged as engineered space,
@@ -26,25 +27,37 @@ export function HeroSection() {
         <span className="absolute bottom-0 right-0 size-4 border-b border-r border-hairline-strong" />
       </div>
 
+      <HeroChoreo />
       <div className="relative z-10 flex flex-col items-center gap-8">
-        <LogoMark size={140} variant="construction" glow />
+        <div data-choreo>
+          <LogoMark size={140} variant="construction" glow />
+        </div>
 
         <div className="flex flex-col items-center gap-5">
-          <span className="label-mono text-muted-2">
+          <span data-choreo className="label-mono text-muted-2">
             Strategy. Design. Technology. Growth.
           </span>
           <h1 className="flex max-w-3xl flex-col items-center gap-3">
-            <span className="font-heading text-display font-medium tracking-tight text-clarity">
+            <span
+              data-choreo
+              className="font-heading text-display font-medium tracking-tight text-clarity"
+            >
               Four disciplines.
             </span>
-            <span className="font-heading -mr-[0.34em] bg-gradient-to-r from-vision via-intelligence to-growth bg-clip-text text-title font-medium uppercase tracking-[0.34em] text-transparent">
+            <span
+              data-choreo
+              className="font-heading -mr-[0.34em] bg-gradient-to-r from-vision via-intelligence to-growth bg-clip-text text-title font-medium uppercase tracking-[0.34em] text-transparent"
+            >
               One system
             </span>
           </h1>
         </div>
 
         <div className="flex flex-col items-center gap-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <div
+            data-choreo
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
+          >
             <Button
               asChild
               size="lg"
@@ -63,7 +76,7 @@ export function HeroSection() {
               <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
             </Link>
           </div>
-          <span className="label-mono text-faint">
+          <span data-choreo className="label-mono text-faint">
             Founder-led · Gujarat corridor · India
           </span>
         </div>

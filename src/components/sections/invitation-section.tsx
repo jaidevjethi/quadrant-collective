@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
 import { ContactForm } from "@/components/contact/contact-form";
+import { FlowStreak } from "@/components/motion/flow-streak";
 
 /**
  * Beat 7 — The invitation (STRATEGY.md). The energy slows: one sentence, one
@@ -27,6 +28,10 @@ export function InvitationSection() {
             "radial-gradient(ellipse 70% 80% at 50% 50%, #000 10%, transparent 75%)",
         }}
       />
+      {/* The brand's flow streak leads into the ask (motion vocabulary) */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0">
+        <FlowStreak />
+      </div>
       <div className="relative mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">

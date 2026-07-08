@@ -5,41 +5,41 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check } from "lucide-react";
 import { contactSchema, type ContactInput } from "@/lib/contact-schema";
+import { waLink, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 
 /**
- * The single contact form implementation — used by the homepage invitation
- * beat and the /contact route. Client-side validation (RHF + Zod) posting to
- * /api/contact, which revalidates with the same schema.
+ * The single contact form, used by the homepage invitation beat and the
+ * /contact route. Validates with RHF + Zod, then composes a clean, formatted
+ * WhatsApp message and opens the chat (founder decision: WhatsApp is the
+ * lead channel; no server involved, which keeps the site fully static).
  */
 
 const field =
   "w-full rounded-sm border border-hairline-strong bg-raised px-4 py-3 text-clarity placeholder:text-faint outline-none transition-colors duration-200 focus:border-clarity";
 
+function composeMessage(data: ContactInput): string {
+  const lines = [
+    "New enquiry from the Quadrant Collective website",
+    "",
+    `Name: ${data.name}`,
+  ];
+  if (data.company) lines.push(`Company: ${data.company}`);
+  lines.push(`Email: ${data.email}`, "", data.message);
+  return lines.join("\n");
+}
+
 export function ContactForm() {
   const [sent, setSent] = useState(false);
-  const [failed, setFailed] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<ContactInput>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = async (data: ContactInput) => {
-    setFailed(false);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("bad status");
-      setSent(true);
-      reset();
-    } catch {
-      setFailed(true);
-    }
+  const onSubmit = (data: ContactInput) => {
+    window.open(waLink(composeMessage(data)), "_blank", "noopener,noreferrer");
+    setSent(true);
   };
 
   if (sent) {
@@ -48,9 +48,12 @@ export function ContactForm() {
         <span className="flex size-10 items-center justify-center rounded-full border border-growth/40 text-growth">
           <Check className="size-5" />
         </span>
-        <h3 className="text-title font-medium text-clarity">Message received.</h3>
+        <h3 className="text-title font-medium text-clarity">
+          Your message is ready in WhatsApp.
+        </h3>
         <p className="max-w-xs text-lead text-muted-2">
-          Thank you. We&apos;ll be in touch within one business day.
+          Press send there and we reply within one business day. If the chat
+          did not open, message us directly at {WHATSAPP_DISPLAY}.
         </p>
       </div>
     );
@@ -95,16 +98,19 @@ export function ContactForm() {
         {errors.message && <span className="text-xs text-destructive">{errors.message.message}</span>}
       </div>
 
-      {failed && (
-        <span className="text-xs text-destructive">
-          Something went wrong sending that. Please try again, or email us directly.
-        </span>
-      )}
-
-      <Button type="submit" size="lg" disabled={isSubmitting} className="h-11 gap-2 self-start rounded-sm px-6">
-        {isSubmitting ? "Sending…" : "Send message"}
+      <Button
+        type="submit"
+        size="lg"
+        disabled={isSubmitting}
+        className="h-11 gap-2 self-start rounded-sm bg-clarity px-6 text-depth hover:bg-clarity/90"
+      >
+        Send on WhatsApp
         <ArrowRight className="size-4 transition-transform duration-200 group-hover/button:translate-x-0.5" />
       </Button>
+      <p className="text-xs text-faint">
+        Opens WhatsApp with your message prefilled. Nothing is sent until you
+        press send there.
+      </p>
     </form>
   );
 }

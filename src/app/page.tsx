@@ -6,6 +6,7 @@ import { ProofSection } from "@/components/sections/proof-section";
 import { DifferenceSection } from "@/components/sections/difference-section";
 import { InvitationSection } from "@/components/sections/invitation-section";
 import { SectionDivider } from "@/components/ui/section-divider";
+import { BlueprintEntry } from "@/components/motion/blueprint-entry";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
       <HeroSection />
       <SectionDivider />
       <BeliefSection />
-      <SectionDivider />
+      <BlueprintEntry />
       <CapabilitiesSection />
       <MethodSection />
       <ProofSection />

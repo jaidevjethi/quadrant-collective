@@ -3,6 +3,7 @@ import { archivo, geistSans, geistMono } from "@/lib/fonts";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { WhatsAppFab } from "@/components/ui/whatsapp-fab";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -15,6 +16,15 @@ export const metadata: Metadata = {
   description:
     "Quadrant Collective is a digital engineering and growth firm. We bring strategy, design, technology and growth together as one system, so businesses don't just grow, they scale.",
   alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Quadrant Collective",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +42,7 @@ export default function RootLayout({
           <SiteHeader />
           {children}
           <SiteFooter />
+          <WhatsAppFab />
         </LenisProvider>
       </body>
     </html>

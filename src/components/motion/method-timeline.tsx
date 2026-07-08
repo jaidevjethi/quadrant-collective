@@ -81,7 +81,7 @@ export function MethodTimeline({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div ref={scope} className={`relative ${className ?? ""}`}>
+    <div ref={scope} className={`relative overflow-x-clip ${className ?? ""}`}>
       <span
         data-axis
         aria-hidden

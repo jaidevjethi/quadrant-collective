@@ -177,6 +177,16 @@
   animation: hero-scroll 2.4s cubic-bezier(0.7, 0, 0.3, 1) infinite;
 }
 
+/* Route transition: each navigation re-mounts app/template.tsx, easing the
+   new page in. Kept under 300ms so navigation never feels slowed down. */
+@keyframes route-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility route-enter {
+  animation: route-enter 260ms var(--ease-precision) both;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

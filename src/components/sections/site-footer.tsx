@@ -16,8 +16,21 @@ const orgSchema = {
   name: "Quadrant Collective",
   legalName: "Quadrant Ops India",
   url: SITE_URL,
+  logo: `${SITE_URL}/og.png`,
   description:
     "A digital growth studio uniting strategy, design, technology and growth into one system.",
+  founder: {
+    "@type": "Person",
+    name: "Jaidev Jethi",
+    url: `${SITE_URL}/about/`,
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+91-97734-56668",
+    contactType: "sales",
+    areaServed: "IN",
+    availableLanguage: ["English", "Gujarati", "Hindi"],
+  },
   areaServed: ["Mehsana", "Ahmedabad", "Vadodara", "India"],
   knowsAbout: [
     "Web design",
@@ -26,10 +39,13 @@ const orgSchema = {
     "SEO",
     "Growth marketing",
     "AI integration",
+    "Social media management",
+    "Google Business Profile optimization",
   ],
 };
 
 const NAV = [
+  { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

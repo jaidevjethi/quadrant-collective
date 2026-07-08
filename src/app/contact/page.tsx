@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form";
 import { IntroField } from "@/components/ui/intro-field";
+import { PHONE_HREF, WHATSAPP_DISPLAY, waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -27,6 +28,25 @@ export default function ContactPage() {
             <div className="flex flex-col gap-1">
               <dt className="label-mono text-faint">Where</dt>
               <dd className="text-muted-2">Mehsana · Ahmedabad · Vadodara, and remote across India.</dd>
+            </div>
+            <div className="flex flex-col gap-1">
+              <dt className="label-mono text-faint">Call or WhatsApp</dt>
+              <dd className="flex flex-wrap gap-x-4 gap-y-1 text-muted-2">
+                <a
+                  href={PHONE_HREF}
+                  className="transition-colors duration-200 hover:text-clarity"
+                >
+                  {WHATSAPP_DISPLAY}
+                </a>
+                <a
+                  href={waLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-growth transition-colors duration-200 hover:text-clarity"
+                >
+                  Open WhatsApp
+                </a>
+              </dd>
             </div>
             <div className="flex flex-col gap-1">
               <dt className="label-mono text-faint">Response time</dt>

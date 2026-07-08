@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { CapabilitiesAssembly } from "./capabilities-assembly";
 
@@ -26,6 +28,16 @@ export function CapabilitiesSection() {
           </p>
         </Reveal>
         <CapabilitiesAssembly className="mt-16" />
+        <Reveal className="mt-12 flex justify-center">
+          <Link
+            data-reveal
+            href="/services"
+            className="group inline-flex items-center gap-2 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
+          >
+            See the service packages
+            <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
+          </Link>
+        </Reveal>
       </div>
     </section>
   );
