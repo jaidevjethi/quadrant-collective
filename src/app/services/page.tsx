@@ -53,6 +53,17 @@ export default function ServicesPage() {
             {SERVICES_POSITIONING} Built for clinics and local practices that
             want a professional presence without hiring a marketing department.
           </p>
+          <div className="flex flex-wrap items-center gap-3 mt-4">
+            {services.map((s) => (
+              <a
+                key={s.slug}
+                href={`#${s.slug}`}
+                className="rounded-full border border-hairline bg-depth px-4 py-2 text-sm text-muted-2 transition-colors hover:border-hairline-strong hover:text-clarity"
+              >
+                {s.title}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -64,14 +75,21 @@ export default function ServicesPage() {
               <article
                 id={s.slug}
                 data-reveal
-                className="group relative scroll-mt-24 rounded-lg border border-hairline bg-raised p-8 md:p-10"
+                className="group relative scroll-mt-24 rounded-lg border border-hairline bg-raised p-8 md:p-10 transition-colors hover:border-hairline-strong"
               >
                 <CornerTicks />
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-col gap-3">
-                    <span className="label-mono text-muted-2">
-                      {s.n} · Package
-                    </span>
+                    <div className="flex items-center justify-between gap-4 flex-wrap">
+                      <span className="label-mono text-muted-2">
+                        {s.n} · Package
+                      </span>
+                      {s.pricing && (
+                        <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth">
+                          {s.pricing}
+                        </span>
+                      )}
+                    </div>
                     <h2 className="font-heading text-headline font-medium tracking-tight text-clarity">
                       {s.title}
                     </h2>

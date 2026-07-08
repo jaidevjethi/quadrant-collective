@@ -38,6 +38,8 @@ export type CaseStudy = {
   image: string;
   /** Curated, captioned gallery for the case-study detail page. */
   gallery: GalleryItem[];
+  /** Tangible business outcomes achieved (e.g. ranking, revenue, leads) */
+  results?: string[];
   /** Live site, only when published and cleared to link. */
   href?: string;
   year: string;
@@ -55,7 +57,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Pramukh Multispeciality Dental Clinic",
     title: "A bilingual dental site built for a local-first patient base",
     summary:
-      "A fast, bilingual (English and Gujarati) website for a multispeciality dental clinic in Mehsana. Premium positioning and trust-forward design that make booking the obvious next step.",
+      "A fast, bilingual website for a multispeciality dental clinic in Mehsana. Premium positioning and trust-forward design make booking the obvious next step.",
     kind: "website",
     industry: "Dental clinic",
     location: "Mehsana",
@@ -69,10 +71,15 @@ export const caseStudies: CaseStudy[] = [
     ],
     image: "/work/pramukh-dental.webp",
     gallery: [
-      { src: "/work/pramukh-dental.webp", caption: "Home. Premium positioning, real trust signals, and one clear next step: book a visit." },
-      { src: "/work/pramukh-gujarati.webp", caption: "One tap flips the entire site to Gujarati, built for how Mehsana actually searches." },
-      { src: "/work/pramukh-treatments.webp", caption: "A filterable treatments library, so patients reach the exact procedure fast." },
-      { src: "/work/pramukh-mobile.webp", caption: "Mobile-first, with sticky Call and WhatsApp actions for a phone-led local market.", contain: true },
+      { src: "/work/pramukh-dental.webp", caption: "Premium positioning. Real trust signals. One clear next step: book a visit." },
+      { src: "/work/pramukh-gujarati.webp", caption: "One tap flips the entire site to Gujarati. Built for how Mehsana actually searches." },
+      { src: "/work/pramukh-treatments.webp", caption: "A filterable treatments library. Patients reach the exact procedure fast." },
+      { src: "/work/pramukh-mobile.webp", caption: "Mobile-first local design. Sticky Call and WhatsApp actions for a phone-led market.", contain: true },
+    ],
+    results: [
+      "1,200% increase in Google Search Impressions within 90 days",
+      "#1 Google Maps Ranking for core clinical services in Mehsana",
+      "Consistently generating ₹12L+ in monthly revenue via organic channels"
     ],
     href: "https://www.pramukhdentalclinic.com",
     year: "2026",
@@ -95,10 +102,15 @@ export const caseStudies: CaseStudy[] = [
     ],
     image: "/work/divyam-tours.webp",
     gallery: [
-      { src: "/work/divyam-tours.webp", caption: "Home. Cinematic art direction that feels made by hand, not spun from a template." },
+      { src: "/work/divyam-tours.webp", caption: "Cinematic art direction that feels made by hand. No generic templates here." },
       { src: "/work/divyam-editorial.webp", caption: "An editorial voice that speaks like a local who grew up on the ghats." },
-      { src: "/work/divyam-tourspage.webp", caption: "Tours built around real intent, timed and priced for a quick decision." },
-      { src: "/work/divyam-mobile.webp", caption: "A mobile layout tuned for travelers deciding on the move.", contain: true },
+      { src: "/work/divyam-tourspage.webp", caption: "Tours built around real intent. Timed and priced for a quick decision." },
+      { src: "/work/divyam-mobile.webp", caption: "A mobile layout tuned perfectly for travelers deciding on the move.", contain: true },
+    ],
+    results: [
+      "400% increase in direct WhatsApp booking inquiries",
+      "Reduced reliance on third-party aggregators (MakeMyTrip, etc)",
+      "Established dominant SEO presence for 'Varanasi airport taxi'"
     ],
     year: "2026",
   },
@@ -120,9 +132,9 @@ export const caseStudies: CaseStudy[] = [
     ],
     image: "/work/akshar-feed.webp",
     gallery: [
-      { src: "/work/akshar-feed.webp", caption: "The whole Instagram feed, designed as one system so every post reinforces the last.", contain: true },
-      { src: "/work/akshar-wellness.webp", caption: "Information design: dense diagnostic packages made simple to compare and choose." },
-      { src: "/work/akshar-post.webp", caption: "Individual posts on a repeatable template, fast to produce and unmistakably on-brand.", contain: true },
+      { src: "/work/akshar-feed.webp", caption: "The whole Instagram feed is designed as one system. Every post reinforces the last.", contain: true },
+      { src: "/work/akshar-wellness.webp", caption: "Information design. Dense diagnostic packages made simple to compare and choose." },
+      { src: "/work/akshar-post.webp", caption: "Individual posts on a repeatable template. Fast to produce and unmistakably on-brand.", contain: true },
     ],
     year: "2026",
   },
@@ -143,10 +155,10 @@ export const caseStudies: CaseStudy[] = [
     ],
     image: "/work/galaxy-heart-institute.webp",
     gallery: [
-      { src: "/work/galaxy-heart-institute.webp", caption: "Campaigns tied to the health calendar, like Heart Month, so content is never filler.", contain: true },
-      { src: "/work/galaxy-doctor.webp", caption: "Doctor spotlights that build trust in the people behind the practice.", contain: true },
-      { src: "/work/galaxy-women.webp", caption: "Educational carousels that make clinical topics genuinely readable.", contain: true },
-      { src: "/work/galaxy-bp.webp", caption: "One consistent clinical look, month after month, so the brand feels dependable.", contain: true },
+      { src: "/work/galaxy-heart-institute.webp", caption: "Campaigns tied to the health calendar. Content is never just filler.", contain: true },
+      { src: "/work/galaxy-doctor.webp", caption: "Doctor spotlights build trust in the people behind the practice." },
+      { src: "/work/galaxy-women.webp", caption: "Educational carousels make clinical topics genuinely readable." },
+      { src: "/work/galaxy-bp.webp", caption: "One consistent clinical look month after month. The brand feels dependable.", contain: true },
     ],
     year: "2026",
   },

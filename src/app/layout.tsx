@@ -40,7 +40,9 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <LenisProvider>
           <SiteHeader />
-          {children}
+          <main className="flex flex-1 flex-col pb-28 md:pb-0">
+            {children}
+          </main>
           <SiteFooter />
           <WhatsAppFab />
         </LenisProvider>

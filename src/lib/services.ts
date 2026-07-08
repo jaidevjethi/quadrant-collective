@@ -11,80 +11,84 @@ export type Service = {
   n: string;
   title: string;
   positioning: string;
+  pricing?: string;
   deliverables: { title: string; body: string }[];
 };
 
 export const SERVICES_POSITIONING =
-  "We handle the strategy and the technology. You provide the expertise.";
+  "We architect the system. We operate the mechanics. You provide the clinical expertise.";
 
 export const services: Service[] = [
   {
-    slug: "social-media-management",
+    slug: "platform-architecture",
     n: "01",
-    title: "Social media management",
-    positioning:
-      "A consistent, professional presence your patients and clients actually see, without you spending your evenings on it.",
+    title: "Platform Architecture & SEO",
+    positioning: "A high-performance digital asset that converts traffic into booked appointments. Built once, compounded forever.",
+    pricing: "Custom engagement",
     deliverables: [
       {
-        title: "Strategy",
-        body: "Topic curation and scripting, planned around your practice and your seasons.",
+        title: "Engineering",
+        body: "A modern, clean aesthetic built on enterprise-grade architecture. No bloated templates.",
       },
       {
-        title: "15+ posts a month",
-        body: "Professionally designed posts on a consistent visual system.",
+        title: "Speed & Accessibility",
+        body: "Lightning-fast mobile loading and 100% accessibility compliance as a baseline.",
       },
       {
-        title: "4 to 6 reels a month",
-        body: "We script, you record, we edit. Your voice, our production.",
+        title: "Technical SEO Foundations",
+        body: "Proper indexing protocols: schema markup, semantic HTML, and structured data.",
       },
       {
-        title: "Full management",
-        body: "Instagram, Facebook and Twitter handled end to end.",
+        title: "Security & Maintenance",
+        body: "Continuous monitoring, SSL, and data protection on a reliable infrastructure.",
       },
     ],
   },
   {
-    slug: "google-business-profile",
+    slug: "local-search-dominance",
     n: "02",
-    title: "Google Business Profile",
+    title: "Local Search Dominance",
     positioning:
-      "When someone nearby searches for what you do, your profile decides whether they call you or the next result.",
+      "We engineer your local search footprint to capture high-intent patients exactly when they need you. A continuous optimization cycle.",
+    pricing: "From ₹20,000/mo",
     deliverables: [
       {
-        title: "Optimization",
-        body: "Complete profile setup for ranking: service menu and a detailed, keyworded description of your practice.",
+        title: "Algorithmic Positioning",
+        body: "Complete profile architecture: service menus, semantic descriptions, and structured data.",
       },
       {
-        title: "Reviews",
-        body: "Professional response management, plus a strategy for ethically encouraging patient reviews.",
+        title: "Reputation Operations",
+        body: "Strategic response management and automated systems for ethically capturing patient reviews.",
       },
       {
-        title: "Weekly updates",
-        body: "Posts that keep the profile active: health tips, clinic updates, seasonal awareness.",
+        title: "Weekly Engagement",
+        body: "Continuous updates, health signals, and clinic news to keep the profile authoritative.",
       },
     ],
   },
   {
-    slug: "website-seo",
+    slug: "brand-operations",
     n: "03",
-    title: "Website & SEO foundations",
-    positioning: "A professional digital home that Google trusts.",
+    title: "Continuous Brand Operations",
+    positioning:
+      "A compounding visual and narrative presence. We operate your content mechanics so you can operate your practice.",
+    pricing: "From ₹35,000/mo",
     deliverables: [
       {
-        title: "Design",
-        body: "A modern, clean aesthetic relevant to your brand and appropriate for healthcare.",
+        title: "Strategic Curation",
+        body: "Topic architecture and scripting, mapped entirely to your practice's seasonal demands.",
       },
       {
-        title: "Speed",
-        body: "Fast mobile loading for patients on real phones and real networks.",
+        title: "Visual System",
+        body: "15+ engineered posts a month, adhering strictly to a premium visual language.",
       },
       {
-        title: "Technical SEO",
-        body: "Proper indexing by Google: meta tags, schema markup and a sitemap, done correctly.",
+        title: "Video Production",
+        body: "4 to 6 short-form videos a month. We script and edit; you simply record.",
       },
       {
-        title: "Security",
-        body: "SSL and data protection as a baseline, not an upsell.",
+        title: "Platform Management",
+        body: "End-to-end operational control across Instagram, Facebook, and LinkedIn.",
       },
     ],
   },

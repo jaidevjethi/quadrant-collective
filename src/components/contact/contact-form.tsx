@@ -37,7 +37,8 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactInput>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = (data: ContactInput) => {
+  const onSubmit = async (data: ContactInput) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
     window.open(waLink(composeMessage(data)), "_blank", "noopener,noreferrer");
     setSent(true);
   };
@@ -104,13 +105,18 @@ export function ContactForm() {
         disabled={isSubmitting}
         className="h-11 gap-2 self-start rounded-sm bg-clarity px-6 text-depth hover:bg-clarity/90"
       >
-        Send on WhatsApp
-        <ArrowRight className="size-4 transition-transform duration-200 group-hover/button:translate-x-0.5" />
+        {isSubmitting ? "Opening WhatsApp..." : "Send on WhatsApp"}
+        {!isSubmitting && <ArrowRight className="size-4 transition-transform duration-200 group-hover/button:translate-x-0.5" />}
       </Button>
-      <p className="text-xs text-faint">
-        Opens WhatsApp with your message prefilled. Nothing is sent until you
-        press send there.
-      </p>
+      <div className="flex flex-col gap-2">
+        <p className="text-xs text-faint">
+          Opens WhatsApp with your message prefilled. Nothing is sent until you
+          press send there.
+        </p>
+        <p className="text-xs text-faint">
+          Prefer email? Write to <a href="mailto:jaidev@quadrantcollective.in" className="text-muted-2 hover:text-clarity transition-colors duration-200">jaidev@quadrantcollective.in</a>
+        </p>
+      </div>
     </form>
   );
 }

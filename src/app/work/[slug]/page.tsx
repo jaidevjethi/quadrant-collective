@@ -125,6 +125,28 @@ export default async function CaseStudyPage({
           )}
         </div>
 
+        {study.results && study.results.length > 0 && (
+          <div className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
+            <div className="flex flex-col gap-4">
+              <span className="label-mono text-muted-2">Outcomes</span>
+            </div>
+            <div className="flex flex-col gap-5">
+              <span className="label-mono text-muted-2">Compounding Results</span>
+              <ul className="flex flex-col gap-4">
+                {study.results.map((r) => (
+                  <li key={r} className="flex gap-4 text-lead text-clarity font-medium">
+                    <span
+                      aria-hidden
+                      className="mt-2.5 size-1.5 shrink-0 rounded-full bg-vision"
+                    />
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
         {study.href && (
           <a
             href={study.href}

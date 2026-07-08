@@ -108,6 +108,14 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
+          <Button
+            asChild
+            size="lg"
+            className="mt-4 w-full rounded-sm border border-hairline-strong bg-transparent text-clarity shadow-none transition-colors duration-200 active:scale-[0.98]"
+            onClick={() => setOpen(false)}
+          >
+            <Link href="/contact">Start a conversation</Link>
+          </Button>
         </nav>
       )}
     </header>

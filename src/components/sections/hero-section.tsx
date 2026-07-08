@@ -2,22 +2,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
-import { HeroField } from "./hero-field";
+import { DeepSpaceBg } from "@/components/motion/deep-space-bg";
 import { HeroChoreo } from "@/components/motion/hero-choreo";
 
 /**
- * Beat 1 — Arrival (STRATEGY.md). The arrival is staged as engineered space,
- * not a flat void: an ambient coordinate field (grid + light + vignette),
- * corner registration marks (the brand's signature detail), then the mark and
- * headline with presence. Two tiers of action (contact + see the work) and an
- * honest, specific credibility line. The backdrop is static CSS: no JS, no CLS,
- * no cost to the LCP headline.
+ * Beat 1 — Arrival (STRATEGY.md). The arrival is staged as deep space travel,
+ * creating a cinematic discovery of the agency.
+ * The backdrop uses a pure canvas starfield for 60fps performance on mobile.
  */
 export function HeroSection() {
   return (
     <section className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center overflow-hidden px-gutter py-section text-center">
-      {/* Ambient engineered field (cursor parallax, reduced-motion safe) */}
-      <HeroField />
+      {/* Cinematic Deep Space Field */}
+      <DeepSpaceBg />
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">
@@ -51,6 +48,12 @@ export function HeroSection() {
               One system
             </span>
           </h1>
+          <span
+            data-choreo
+            className="mt-4 max-w-lg text-lg text-muted-2"
+          >
+            For ambitious clinics, practices, and founders who want growth that compounds.
+          </span>
         </div>
 
         <div className="flex flex-col items-center gap-6">
@@ -61,12 +64,12 @@ export function HeroSection() {
             <Button
               asChild
               size="lg"
-              className="h-11 gap-2 rounded-sm border border-hairline-strong bg-transparent px-6 text-clarity shadow-none transition-colors duration-200 ease-[var(--ease-precision)] hover:border-clarity hover:bg-raised"
+              className="h-11 gap-2 rounded-sm border border-hairline-strong bg-transparent px-6 text-clarity shadow-none transition-all duration-200 ease-[var(--ease-precision)] hover:border-clarity hover:bg-raised active:scale-[0.98]"
             >
-              <a href="#contact">
+              <Link href="/contact">
                 Start a conversation
                 <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover/button:translate-x-0.5" />
-              </a>
+              </Link>
             </Button>
             <Link
               href="/work"

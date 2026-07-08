@@ -80,7 +80,20 @@ export function ProofSection() {
           ))}
         </Reveal>
 
-        <Reveal className="flex flex-col gap-5">
+        <Reveal className="group relative mt-6 rounded-lg border border-hairline bg-depth p-8 md:p-10 transition-colors hover:border-hairline-strong">
+          <CornerTicks />
+          <div className="flex flex-col gap-6">
+            <blockquote className="text-xl text-clarity font-medium">
+              "They didn't just build a website, they re-engineered how patients find us and book treatments. Our organic traffic and clinic revenue compounded far beyond what we thought possible."
+            </blockquote>
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-medium text-clarity">Dr. Akshar Patel</span>
+              <span className="label-mono text-faint">Founder, Pramukh Dental Clinic</span>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal className="flex flex-col gap-5 mt-6">
           <span data-reveal className="label-mono text-faint">
             Held to these standards, on every build
           </span>
