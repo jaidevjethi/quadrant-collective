@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CornerTicks } from "@/components/ui/corner-ticks";
+import { IntroField } from "@/components/ui/intro-field";
 
 export const metadata: Metadata = {
   title: "About",
@@ -39,7 +41,8 @@ export default function AboutPage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Intro */}
-      <section className="px-gutter pb-24 pt-24">
+      <section className="relative overflow-hidden px-gutter pb-24 pt-24">
+        <IntroField />
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <span className="label-mono text-muted-2">About</span>
           <h1 className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity">
@@ -90,32 +93,40 @@ export default function AboutPage() {
               Three things we don&apos;t compromise.
             </h2>
           </div>
-          <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
-            {PRINCIPLES.map((p) => (
-              <div key={p.n} className="flex flex-col gap-4 bg-depth p-8">
-                <span className="label-mono text-muted-2">{p.n}</span>
-                <h3 className="text-title font-medium text-clarity">{p.title}</h3>
-                <p className="text-lead text-muted-2">{p.body}</p>
-              </div>
-            ))}
+          <div className="group relative">
+            <CornerTicks />
+            <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
+              {PRINCIPLES.map((p) => (
+                <div key={p.n} className="flex flex-col gap-4 bg-depth p-8">
+                  <span className="label-mono text-muted-2">{p.n}</span>
+                  <h3 className="text-title font-medium text-clarity">{p.title}</h3>
+                  <p className="text-lead text-muted-2">{p.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Founder: placeholder for founder-supplied content */}
       <section className="border-t border-hairline px-gutter py-24">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <span className="label-mono text-muted-2">Who&apos;s behind it</span>
-          {/* TODO(founder): supply name, photo, and a short personal note.
-              Do not invent these. Until then, the honest studio framing stands. */}
-          <h2 className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity">
-            Founder-led, and hands-on across every engagement.
-          </h2>
-          <p className="max-w-2xl text-lead text-muted-2">
-            The studio is based in the Gujarat corridor: Mehsana, Ahmedabad and
-            Vadodara. It works with founders and professional-service leaders
-            across India who value quality over the lowest price.
-          </p>
+        <div className="mx-auto max-w-4xl">
+          <div className="group relative rounded-lg border border-hairline bg-raised p-8 md:p-12">
+            <CornerTicks />
+            {/* TODO(founder): supply name, photo, and a short personal note.
+                Do not invent these. The portrait slots into this card. */}
+            <div className="flex flex-col gap-6">
+              <span className="label-mono text-muted-2">Who&apos;s behind it</span>
+              <h2 className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity">
+                Founder-led, and hands-on across every engagement.
+              </h2>
+              <p className="max-w-2xl text-lead text-muted-2">
+                The studio is based in the Gujarat corridor: Mehsana, Ahmedabad
+                and Vadodara. It works with founders and professional-service
+                leaders across India who value quality over the lowest price.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

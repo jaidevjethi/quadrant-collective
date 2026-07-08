@@ -8,7 +8,10 @@ import { MethodTimeline } from "@/components/motion/method-timeline";
  */
 export function MethodSection() {
   return (
-    <section id="method" className="scroll-mt-24 px-gutter py-section">
+    <section
+      id="method"
+      className="scroll-mt-24 border-y border-hairline bg-raised px-gutter py-section"
+    >
       <div className="mx-auto flex max-w-4xl flex-col gap-16">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">

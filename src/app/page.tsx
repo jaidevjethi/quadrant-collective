@@ -5,15 +5,19 @@ import { MethodSection } from "@/components/sections/method-section";
 import { ProofSection } from "@/components/sections/proof-section";
 import { DifferenceSection } from "@/components/sections/difference-section";
 import { InvitationSection } from "@/components/sections/invitation-section";
+import { SectionDivider } from "@/components/ui/section-divider";
 
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <HeroSection />
+      <SectionDivider />
       <BeliefSection />
+      <SectionDivider />
       <CapabilitiesSection />
       <MethodSection />
       <ProofSection />
+      <SectionDivider />
       <DifferenceSection />
       <InvitationSection />
     </main>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form";
+import { IntroField } from "@/components/ui/intro-field";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="flex flex-1 flex-col px-gutter py-section">
+    <main className="relative flex flex-1 flex-col overflow-hidden px-gutter py-section">
+      <IntroField />
       <div className="mx-auto grid w-full max-w-4xl gap-12 md:grid-cols-2">
         <div className="flex flex-col gap-6">
           <span className="label-mono text-muted-2">Contact</span>

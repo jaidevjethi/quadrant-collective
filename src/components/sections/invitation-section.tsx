@@ -8,8 +8,26 @@ import { ContactForm } from "@/components/contact/contact-form";
  */
 export function InvitationSection() {
   return (
-    <section id="contact" className="scroll-mt-24 px-gutter py-section">
-      <div className="mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
+    <section
+      id="contact"
+      className="relative scroll-mt-24 overflow-hidden border-y border-hairline bg-raised px-gutter py-section"
+    >
+      {/* Calm echo of the hero's coordinate field: the page ends in the same
+          engineered space it began. Static CSS only. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(230,230,230,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(230,230,230,0.035) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+          maskImage:
+            "radial-gradient(ellipse 70% 80% at 50% 50%, #000 10%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 80% at 50% 50%, #000 10%, transparent 75%)",
+        }}
+      />
+      <div className="relative mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">
             07 · Start a conversation

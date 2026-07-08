@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { LogoLockup } from "@/components/brand/logo-lockup";
 import { Button } from "@/components/ui/button";
 
 /**
- * Site navigation. Sticky, solid depth surface with a hairline base — no
- * glassmorphism (BRAND.md). Logo left, links right; a small client island
- * drives the mobile menu. Links only to routes that exist.
+ * Site navigation. Sticky, solid depth surface. The bottom hairline appears
+ * only once the page scrolls (the header "wakes up"), and the active route
+ * carries a growth-accent underline. No glassmorphism (BRAND.md): the surface
+ * stays solid; only the seam responds.
  */
 
 const LINKS = [
@@ -20,9 +22,37 @@ const LINKS = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 24));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+
+  const linkClass = (href: string) =>
+    isActive(href)
+      ? "text-sm text-clarity underline decoration-growth/70 decoration-1 underline-offset-8"
+      : "text-sm text-muted-2 transition-colors duration-200 hover:text-clarity";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-hairline bg-depth">
+    <header
+      className={`sticky top-0 z-50 border-b bg-depth transition-colors duration-300 ${
+        scrolled ? "border-hairline" : "border-transparent"
+      }`}
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-gutter">
         <Link href="/" aria-label="Quadrant Collective, home" className="shrink-0">
           <LogoLockup size="sm" orientation="horizontal" />
@@ -33,7 +63,8 @@ export function SiteHeader() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={linkClass(l.href)}
             >
               {l.label}
             </Link>
@@ -67,8 +98,11 @@ export function SiteHeader() {
             <Link
               key={l.href}
               href={l.href}
+              aria-current={isActive(l.href) ? "page" : undefined}
               onClick={() => setOpen(false)}
-              className="py-2 text-lead text-muted-2 transition-colors duration-200 hover:text-clarity"
+              className={`py-2 text-lead ${
+                isActive(l.href) ? "text-clarity" : "text-muted-2"
+              } transition-colors duration-200 hover:text-clarity`}
             >
               {l.label}
             </Link>

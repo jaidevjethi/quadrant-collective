@@ -6,6 +6,7 @@ import { AppIconTile } from "@/components/brand/app-icon-tile";
 import { BrandPattern } from "@/components/brand/brand-pattern";
 import { BrandTagline } from "@/components/brand/brand-tagline";
 import { Button } from "@/components/ui/button";
+import { CornerTicks } from "@/components/ui/corner-ticks";
 import {
   IntersectionGlyph,
   FlowGlyph,
@@ -24,19 +25,6 @@ export const metadata: Metadata = {
   title: "Design System",
   robots: { index: false, follow: false },
 };
-
-function CornerTicks() {
-  const tick =
-    "pointer-events-none absolute h-2.5 w-2.5 border-hairline-strong transition-colors duration-200 group-hover:border-growth";
-  return (
-    <>
-      <span className={`${tick} left-0 top-0 border-l border-t`} />
-      <span className={`${tick} right-0 top-0 border-r border-t`} />
-      <span className={`${tick} bottom-0 left-0 border-b border-l`} />
-      <span className={`${tick} bottom-0 right-0 border-b border-r`} />
-    </>
-  );
-}
 
 export default function StyleguidePage() {
   return (

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
+import { CornerTicks } from "@/components/ui/corner-ticks";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -33,11 +34,12 @@ export default function WorkPage() {
         {hasWork ? (
           <div className="grid gap-8 md:grid-cols-2">
             {caseStudies.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/work/${c.slug}`}
-                className="group flex flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-colors hover:border-hairline-strong"
-              >
+              <div key={c.slug} className="group relative">
+                <CornerTicks />
+                <Link
+                  href={`/work/${c.slug}`}
+                  className="flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-colors hover:border-hairline-strong"
+                >
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
                   <Image
                     src={c.image}
@@ -73,7 +75,8 @@ export default function WorkPage() {
                     ))}
                   </div>
                 </div>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         ) : (

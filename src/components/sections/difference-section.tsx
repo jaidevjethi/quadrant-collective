@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
 import { NetworkDiagram } from "@/components/motion/network-diagram";
+import { CornerTicks } from "@/components/ui/corner-ticks";
 
 /**
  * Beat 6 — The difference (STRATEGY.md). Why us? The craft argument: three
@@ -30,7 +31,7 @@ export function DifferenceSection() {
   return (
     <section className="px-gutter py-section">
       <div className="mx-auto flex max-w-5xl flex-col gap-16">
-        <Reveal className="flex flex-col items-center gap-6 text-center">
+        <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">
             06 · Why us
           </span>
@@ -52,14 +53,17 @@ export function DifferenceSection() {
           </div>
         </Reveal>
 
-        <Reveal className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
-          {PRINCIPLES.map((p) => (
-            <div key={p.n} data-reveal className="flex flex-col gap-4 bg-depth p-8">
-              <span className="label-mono text-muted-2">{p.n}</span>
-              <h3 className="text-title font-medium text-clarity">{p.title}</h3>
-              <p className="text-lead text-muted-2">{p.body}</p>
-            </div>
-          ))}
+        <Reveal className="group relative">
+          <CornerTicks />
+          <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
+            {PRINCIPLES.map((p) => (
+              <div key={p.n} data-reveal className="flex flex-col gap-4 bg-depth p-8">
+                <span className="label-mono text-muted-2">{p.n}</span>
+                <h3 className="text-title font-medium text-clarity">{p.title}</h3>
+                <p className="text-lead text-muted-2">{p.body}</p>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </div>
     </section>
