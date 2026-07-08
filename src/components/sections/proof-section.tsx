@@ -53,7 +53,7 @@ export function ProofSection() {
               <CornerTicks />
               <Link
                 href={`/work/${c.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-colors hover:border-hairline-strong"
+                className="group flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-all duration-300 ease-[var(--ease-precision)] hover:-translate-y-2 hover:border-clarity hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
                   <Image

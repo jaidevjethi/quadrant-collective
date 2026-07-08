@@ -50,28 +50,35 @@ export function MethodTimeline({ className }: { className?: string }) {
 
     gsap.set(axis, { scaleY: 0, transformOrigin: "50% 0%" });
     gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
-    gsap.set(rows, { autoAlpha: 0, x: 24 });
+    gsap.set(rows, { autoAlpha: 0, rotationX: -60, z: -200, y: 50, transformPerspective: 1000 });
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: root, start: "top 72%", once: true },
+      scrollTrigger: { 
+        trigger: root, 
+        start: "top 80%", 
+        end: "bottom 40%", 
+        scrub: 1 
+      },
     });
 
-    tl.to(axis, { scaleY: 1, duration: DURATION.choreo, ease: EASE.weighted })
+    tl.to(axis, { scaleY: 1, duration: 2, ease: "none" }, 0)
       .to(
         dots,
-        { scale: 1, duration: 0.35, ease: EASE.precision, stagger: 0.14 },
-        "-=0.9",
+        { scale: 1, duration: 0.2, stagger: 0.5, ease: "back.out(1.7)" },
+        0
       )
       .to(
         rows,
         {
           autoAlpha: 1,
-          x: 0,
-          duration: DURATION.standard,
-          ease: EASE.precision,
-          stagger: 0.14,
+          rotationX: 0,
+          z: 0,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.5,
+          ease: "power2.out",
         },
-        "<",
+        0
       );
 
     return () => {
