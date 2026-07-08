@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { IntroField } from "@/components/ui/intro-field";
 import { Reveal } from "@/components/motion/reveal";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { services, SERVICES_POSITIONING } from "@/lib/services";
 import { SITE_URL } from "@/lib/site";
 
@@ -72,17 +73,18 @@ export default function ServicesPage() {
         <div className="mx-auto flex max-w-4xl flex-col gap-8">
           {services.map((s) => (
             <Reveal key={s.slug}>
-              <article
+              <SpotlightCard
+                as="article"
                 id={s.slug}
                 data-reveal
-                className="group relative scroll-mt-24 rounded-lg border border-hairline bg-raised/40 backdrop-blur-md p-8 md:p-10 transition-colors hover:border-hairline-strong"
+                className="scroll-mt-24 p-8 md:p-10"
               >
                 <CornerTicks />
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between gap-4 flex-wrap">
                       <span className="label-mono text-muted-2">
-                        {s.n} · Package
+                        {s.n} A Package
                       </span>
                       {s.pricing && (
                         <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth/50 backdrop-blur-sm">
@@ -90,58 +92,52 @@ export default function ServicesPage() {
                         </span>
                       )}
                     </div>
-                    <h2 className="font-heading text-headline font-medium tracking-tight text-clarity">
+                    <h2 className="font-heading text-heading-md font-medium text-clarity">
                       {s.title}
                     </h2>
                     <p className="max-w-2xl text-lead text-muted-2">
                       {s.positioning}
                     </p>
                   </div>
-                  <div className="grid gap-px overflow-hidden rounded-md border border-hairline bg-hairline sm:grid-cols-2">
-                    {s.deliverables.map((d) => (
-                      <div key={d.title} className="flex flex-col gap-2 bg-depth/60 p-6 backdrop-blur-sm">
-                        <h3 className="flex items-center gap-3 text-sm font-medium text-clarity">
-                          <span aria-hidden className="size-1.5 rounded-full bg-growth" />
-                          {d.title}
-                        </h3>
-                        <p className="text-sm leading-relaxed text-muted-2">{d.body}</p>
-                      </div>
-                    ))}
+
+                  <div className="h-px w-full bg-hairline" />
+
+                  <div className="grid gap-8 md:grid-cols-2">
+                    <div className="flex flex-col gap-4">
+                      <h3 className="label-mono text-clarity">Capabilities</h3>
+                      <ul className="flex flex-col gap-2 text-muted-2">
+                        {s.features.map((f, i) => (
+                          <li key={i} className="flex gap-3">
+                            <span className="text-faint">A</span>
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      <h3 className="label-mono text-clarity">The outcome</h3>
+                      <p className="text-muted-2 leading-relaxed">
+                        {s.outcome}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-8 border-t border-hairline flex flex-wrap gap-4 items-center">
+                    <Button
+                      asChild
+                      className="group gap-2 rounded-sm bg-clarity px-6 text-depth transition-colors hover:bg-clarity/90"
+                    >
+                      <Link href="/contact">
+                        Discuss this package
+                        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* How it fits the system */}
-      <section className="border-t border-hairline bg-raised/20 backdrop-blur-lg px-gutter py-20">
-        <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2">
-          <div className="flex flex-col gap-4">
-            <span className="label-mono text-muted-2">One system</span>
-            <h2 className="font-heading text-headline font-medium tracking-tight text-clarity">
-              Each package works alone. Together they compound.
-            </h2>
-          </div>
-          <div className="flex flex-col gap-5 text-lead text-muted-2">
-            <p>
-              The website earns trust, the Google profile captures nearby
-              searches, and the social presence keeps you visible between
-              visits. Start with the one that hurts most; add the rest when
-              you are ready.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="h-11 gap-2 self-start rounded-sm bg-clarity px-6 text-depth hover:bg-clarity/90"
-            >
-              <Link href="/contact">
-                Discuss your practice
-                <ArrowRight className="size-4 transition-transform duration-200 group-hover/button:translate-x-0.5" />
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
     </main>
