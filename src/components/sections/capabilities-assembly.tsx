@@ -72,18 +72,18 @@ export function CapabilitiesAssembly({ className }: { className?: string }) {
 
     gsap.set(fields, { opacity: 0 });
     gsap.set(labels, { opacity: 0 });
-    gsap.set(frame, { opacity: 0 });
+    gsap.set(frame, { opacity: 0, scale: 3, transformOrigin: "50% 50%" });
     gsap.set(center, { scale: 0, transformOrigin: "50% 50%" });
     gsap.set(gridV, { strokeDasharray: GRID_V_LEN, strokeDashoffset: GRID_V_LEN });
     gsap.set(gridH, { strokeDasharray: GRID_H_LEN, strokeDashoffset: GRID_H_LEN });
     chips.forEach((chip, i) => {
       const c = CHIPS[i];
       gsap.set(chip, {
-        x: c.sx - c.tx,
-        y: c.sy - c.ty,
-        rotation: c.rot,
-        scale: 0.92,
-        opacity: 0.35,
+        x: (c.sx - c.tx) * 2,
+        y: (c.sy - c.ty) * 2,
+        rotation: c.rot * 3,
+        scale: 4,
+        opacity: 0,
         transformOrigin: "50% 50%",
       });
     });
@@ -92,7 +92,7 @@ export function CapabilitiesAssembly({ className }: { className?: string }) {
       scrollTrigger: { trigger: root, start: "top 72%", once: true },
     });
 
-    tl.to(frame, { opacity: 1, duration: DURATION.standard, ease: EASE.precision })
+    tl.to(frame, { opacity: 1, scale: 1, duration: DURATION.standard, ease: EASE.weighted })
       .to(
         chips,
         {
