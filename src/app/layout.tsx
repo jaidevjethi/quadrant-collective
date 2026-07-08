@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Quadrant Collective. Strategy. Design. Technology. Growth.",
-    template: "%s · Quadrant Collective",
+    template: "%s | Quadrant Collective",
   },
   description:
     "Quadrant Collective is a digital engineering and growth firm. We bring strategy, design, technology and growth together as one system, so businesses don't just grow, they scale.",
@@ -37,9 +37,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased dark`}
     >
-      <body className="flex min-h-full flex-col bg-transparent text-foreground">
+      <body className="flex min-h-full flex-col bg-[#0A0A0A] text-foreground">
         <DeepSpaceBg />
         <LenisProvider>
           <SiteHeader />

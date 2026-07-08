@@ -10,7 +10,7 @@ import { HeroChoreo } from "@/components/motion/hero-choreo";
  */
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-gutter py-section text-center">
+    <section className="relative flex min-h-[100svh] flex-col items-center overflow-hidden px-gutter text-center">
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">
@@ -22,49 +22,57 @@ export function HeroSection() {
 
       <HeroChoreo />
 
-      {/* Step 1: The signal (logo mark) */}
-      <div data-choreo className="mb-12 flex justify-center text-clarity">
-        <LogoMark className="w-16 md:w-20" />
+      {/* Top spacer to center content visually */}
+      <div className="flex-1" />
+
+      <div className="flex flex-col items-center justify-center py-section">
+        {/* Step 1: The signal (logo mark) */}
+        <div data-choreo className="mb-12 flex justify-center text-clarity">
+          <LogoMark className="w-16 md:w-20" />
+        </div>
+
+        {/* Step 2: The thesis */}
+        <div data-choreo className="flex max-w-4xl flex-col items-center gap-6">
+          <h1 className="font-heading text-display-xl font-medium tracking-tight text-clarity">
+            Four disciplines.<br />One system.
+          </h1>
+          <p className="max-w-2xl text-lead text-muted-2">
+            Most businesses don&apos;t have a marketing problem. They have a systems problem. 
+            We engineer strategy, design, technology and growth into a single architecture 
+            built to compound.
+          </p>
+        </div>
+
+        {/* Step 3: The call to action */}
+        <div data-choreo className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
+          <Button
+            asChild
+            size="lg"
+            className="group h-12 w-full gap-2 rounded-sm bg-clarity px-8 text-depth transition-colors hover:bg-clarity/90 sm:w-auto"
+          >
+            <Link href="/services">
+              Examine the system
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            className="h-12 w-full gap-2 rounded-sm border border-hairline-strong bg-raised px-8 text-clarity shadow-none transition-colors hover:border-clarity hover:bg-transparent sm:w-auto"
+          >
+            <Link href="/contact">Start a conversation</Link>
+          </Button>
+        </div>
       </div>
 
-      {/* Step 2: The thesis */}
-      <div data-choreo className="flex max-w-4xl flex-col items-center gap-6">
-        <h1 className="font-heading text-display-xl font-medium tracking-tight text-clarity">
-          Four disciplines.<br />One system.
-        </h1>
-        <p className="max-w-2xl text-lead text-muted-2">
-          Most businesses don&apos;t have a marketing problem. They have a systems problem. 
-          We engineer strategy, design, technology and growth into a single architecture 
-          built to compound.
-        </p>
-      </div>
+      {/* Bottom spacer to push scroll indicator down */}
+      <div className="flex-1" />
 
-      {/* Step 3: The call to action */}
-      <div data-choreo className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
-        <Button
-          asChild
-          size="lg"
-          className="group h-12 w-full gap-2 rounded-sm bg-clarity px-8 text-depth transition-colors hover:bg-clarity/90 sm:w-auto"
-        >
-          <Link href="/services">
-            Examine the system
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="h-12 w-full gap-2 rounded-sm border border-hairline-strong bg-transparent px-8 text-clarity shadow-none transition-colors hover:border-clarity hover:bg-raised sm:w-auto"
-        >
-          <Link href="/contact">Start a conversation</Link>
-        </Button>
-      </div>
-
-      {/* Scroll indicator (absolute bottom) */}
+      {/* Scroll indicator (document flow, bottom) */}
       <div
         data-choreo
         aria-hidden="true"
-        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 opacity-0"
+        className="mb-10 flex flex-col items-center gap-3 opacity-0"
       >
         <span className="label-mono text-faint">Initiate</span>
         <div className="h-12 w-px overflow-hidden bg-grid-line">
