@@ -167,6 +167,16 @@
   text-transform: uppercase;
 }
 
+/* Hero scroll cue: a highlight travels down a hairline. Disabled under
+   prefers-reduced-motion by the global rule below. */
+@keyframes hero-scroll {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(360%); }
+}
+@utility animate-hero-scroll {
+  animation: hero-scroll 2.4s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
