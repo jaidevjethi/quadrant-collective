@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { DeepSpaceBg } from "@/components/motion/deep-space-bg";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,10 +39,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col bg-transparent text-foreground">
+        <DeepSpaceBg />
         <LenisProvider>
           <SiteHeader />
-          <main className="flex flex-1 flex-col pb-28 md:pb-0">
+          <main className="flex flex-1 flex-col pb-28 md:pb-0 relative z-10">
             {children}
           </main>
           <SiteFooter />

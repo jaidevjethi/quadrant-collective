@@ -118,7 +118,7 @@ export default function AboutPage() {
             <CornerTicks />
             <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
               {PRINCIPLES.map((p) => (
-                <div key={p.n} className="flex flex-col gap-4 bg-depth p-8">
+                <div key={p.n} className="flex flex-col gap-4 bg-depth/50 backdrop-blur-md p-8">
                   <span className="label-mono text-muted-2">{p.n}</span>
                   <h3 className="text-title font-medium text-clarity">{p.title}</h3>
                   <p className="text-lead text-muted-2">{p.body}</p>
@@ -136,7 +136,7 @@ export default function AboutPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <div className="mx-auto max-w-4xl">
-          <div className="group relative overflow-hidden rounded-lg border border-hairline bg-raised">
+          <div className="group relative overflow-hidden rounded-lg border border-hairline bg-raised/30 backdrop-blur-md transition-colors hover:border-hairline-strong">
             <CornerTicks />
             <div className="grid md:grid-cols-[300px_1fr]">
               <div className="relative aspect-[4/5] md:aspect-auto">

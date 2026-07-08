@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
  */
 
 const field =
-  "w-full rounded-sm border border-hairline-strong bg-raised px-4 py-3 text-clarity placeholder:text-faint outline-none transition-colors duration-200 focus:border-clarity";
+  "w-full rounded-sm border border-hairline-strong bg-raised/30 backdrop-blur-md px-4 py-3 text-clarity placeholder:text-faint outline-none transition-colors duration-200 focus:border-clarity";
 
 function composeMessage(data: ContactInput): string {
   const lines = [
@@ -45,7 +45,7 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div className="flex h-full flex-col items-start justify-center gap-4 rounded-lg border border-hairline bg-raised p-8">
+      <div className="flex h-full flex-col items-start justify-center gap-4 rounded-lg border border-hairline bg-raised/30 backdrop-blur-md p-8">
         <span className="flex size-10 items-center justify-center rounded-full border border-growth/40 text-growth">
           <Check className="size-5" />
         </span>

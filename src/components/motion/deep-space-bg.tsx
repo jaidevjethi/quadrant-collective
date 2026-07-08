@@ -5,9 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * A highly performant, pure canvas starfield that creates the illusion of 
- * deep space travel and 'discovering' the agency. Built for 60fps even on mobile.
- * Features scroll-responsive warp speed using GSAP.
+ * The Infinite System Background.
+ * Not a generic sci-fi starfield. This is an architectural coordinate space.
+ * Features a mathematical drafting grid (the 'system') and data nodes (the 'disciplines')
+ * that drift slowly, reacting to scroll velocity with restraint, not chaos.
+ * Illuminates the 4 quadrants of the business (Vision, Spark, Intelligence, Growth)
+ * via ambient radial glows at the vanishing point.
  */
 export function DeepSpaceBg() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,86 +28,156 @@ export function DeepSpaceBg() {
     canvas.width = width;
     canvas.height = height;
 
-    const STAR_COUNT = Math.floor((width * height) / 2000); // Responsive star density
-    const stars: { x: number; y: number; z: number; size: number; alpha: number }[] = [];
+    const NODE_COUNT = Math.floor((width * height) / 3000); 
+    const nodes: { x: number; y: number; z: number; size: number; alpha: number; color: string }[] = [];
 
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push({
+    // The Quadrant Collective Colors
+    const COLORS = [
+      "124, 58, 237",   // Vision (Strategy)
+      "217, 119, 6",    // Spark (Design)
+      "37, 99, 235",    // Intelligence (Technology)
+      "0, 209, 178"     // Growth
+    ];
+
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
         x: Math.random() * width - width / 2,
         y: Math.random() * height - height / 2,
         z: Math.random() * width,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random(),
+        size: Math.random() * 1.2 + 0.3,
+        alpha: Math.random() * 0.8 + 0.2,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
       });
     }
 
     let animationFrameId: number;
-    let currentSpeed = 1.5;
-    const baseSpeed = 1.5;
+    // Lower base speed for a calm, architectural drift
+    const baseSpeed = 0.5;
+    let currentSpeed = baseSpeed;
 
-    // Scroll velocity tracking
     const st = ScrollTrigger.create({
       trigger: document.body,
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
         const velocity = Math.abs(self.getVelocity());
-        // Map velocity to speed, capping it so it doesn't break
-        const targetSpeed = baseSpeed + Math.min(velocity / 100, 30);
+        const targetSpeed = baseSpeed + Math.min(velocity / 80, 20);
         currentSpeed = targetSpeed;
       },
     });
 
+    // To draw the architectural floor grid
+    const drawGrid = (cx: number, cy: number, currentZOffset: number) => {
+      ctx.lineWidth = 1;
+      // Very faint structural lines
+      ctx.strokeStyle = "rgba(230, 230, 230, 0.03)";
+      
+      const gridSpacing = 100;
+      const vanishingY = cy; // Horizon line at center
+      
+      // Draw receding vertical lines
+      ctx.beginPath();
+      for(let x = -width; x < width; x += gridSpacing) {
+        ctx.moveTo(cx, vanishingY);
+        ctx.lineTo(cx + x * 3, height);
+      }
+      ctx.stroke();
+
+      // Draw horizontal lines moving forward
+      ctx.beginPath();
+      for(let z = 10; z < width; z += gridSpacing) {
+        // Move lines toward camera based on scroll
+        let actualZ = (z - currentZOffset % gridSpacing);
+        if(actualZ <= 0) actualZ += width; // loop it
+
+        const k = 200.0 / actualZ;
+        const py = vanishingY + 200 * k;
+        
+        if (py > vanishingY && py < height) {
+          ctx.moveTo(0, py);
+          ctx.lineTo(width, py);
+        }
+      }
+      ctx.stroke();
+    };
+
+    let zOffset = 0;
+
     const render = () => {
-      // Clear with solid depth color (from our design tokens)
       ctx.fillStyle = "#0A0A0A"; 
       ctx.fillRect(0, 0, width, height);
 
       const cx = width / 2;
       const cy = height / 2;
 
-      // Smoothly interpolate speed back to base
+      // Ambient Quadrant Glows (The Four Disciplines)
+      // Top Left: Strategy (Vision)
+      const gradTL = ctx.createRadialGradient(cx - width/4, cy - height/4, 0, cx - width/4, cy - height/4, width/2);
+      gradTL.addColorStop(0, "rgba(124, 58, 237, 0.05)");
+      gradTL.addColorStop(1, "transparent");
+      ctx.fillStyle = gradTL;
+      ctx.fillRect(0, 0, cx, cy);
+
+      // Top Right: Design (Spark)
+      const gradTR = ctx.createRadialGradient(cx + width/4, cy - height/4, 0, cx + width/4, cy - height/4, width/2);
+      gradTR.addColorStop(0, "rgba(217, 119, 6, 0.04)");
+      gradTR.addColorStop(1, "transparent");
+      ctx.fillStyle = gradTR;
+      ctx.fillRect(cx, 0, width, cy);
+
+      // Bottom Left: Tech (Intelligence)
+      const gradBL = ctx.createRadialGradient(cx - width/4, cy + height/4, 0, cx - width/4, cy + height/4, width/2);
+      gradBL.addColorStop(0, "rgba(37, 99, 235, 0.05)");
+      gradBL.addColorStop(1, "transparent");
+      ctx.fillStyle = gradBL;
+      ctx.fillRect(0, cy, cx, height);
+
+      // Bottom Right: Growth (Teal)
+      const gradBR = ctx.createRadialGradient(cx + width/4, cy + height/4, 0, cx + width/4, cy + height/4, width/2);
+      gradBR.addColorStop(0, "rgba(0, 209, 178, 0.04)");
+      gradBR.addColorStop(1, "transparent");
+      ctx.fillStyle = gradBR;
+      ctx.fillRect(cx, cy, width, height);
+
       currentSpeed += (baseSpeed - currentSpeed) * 0.05;
+      zOffset += currentSpeed;
 
-      for (let i = 0; i < STAR_COUNT; i++) {
-        const star = stars[i];
+      // Draw the mathematical floor
+      drawGrid(cx, cy, zOffset);
 
-        // Move star closer (warp effect)
-        star.z -= currentSpeed;
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const node = nodes[i];
 
-        // Reset if it passes the camera
-        if (star.z <= 0) {
-          star.x = Math.random() * width - cx;
-          star.y = Math.random() * height - cy;
-          star.z = width;
+        node.z -= currentSpeed;
+
+        if (node.z <= 0) {
+          node.x = Math.random() * width - cx;
+          node.y = Math.random() * height - cy;
+          node.z = width;
         }
 
-        // 3D to 2D projection
-        const k = 128.0 / star.z;
-        const px = star.x * k + cx;
-        const py = star.y * k + cy;
+        const k = 128.0 / node.z;
+        const px = node.x * k + cx;
+        const py = node.y * k + cy;
 
-        // Only draw if within bounds
         if (px >= 0 && px <= width && py >= 0 && py <= height) {
-          const size = star.size * k;
+          const size = node.size * k;
+          const stretch = currentSpeed > baseSpeed * 2 ? currentSpeed * 0.4 : 0;
           
-          // Stretching effect based on speed
-          const stretch = currentSpeed > baseSpeed * 2 ? currentSpeed * 0.5 : 0;
-          
-          const intensity = Math.min(255, Math.floor((255 * 200) / star.z));
-          ctx.fillStyle = `rgba(${intensity}, ${intensity}, ${intensity + 20}, ${star.alpha})`;
+          // Nodes fade in as they get closer, mimicking structural clarity
+          const intensity = Math.min(1, 100 / node.z);
           
           ctx.beginPath();
           if (stretch > 0) {
-            // Draw a streak if moving fast
-            const pxOld = star.x * (128.0 / (star.z + currentSpeed * 2)) + cx;
-            const pyOld = star.y * (128.0 / (star.z + currentSpeed * 2)) + cy;
+            const pxOld = node.x * (128.0 / (node.z + currentSpeed * 2)) + cx;
+            const pyOld = node.y * (128.0 / (node.z + currentSpeed * 2)) + cy;
             ctx.moveTo(px, py);
             ctx.lineTo(pxOld, pyOld);
             ctx.lineWidth = size;
-            ctx.strokeStyle = ctx.fillStyle;
+            ctx.strokeStyle = `rgba(${node.color}, ${intensity * node.alpha})`;
             ctx.stroke();
           } else {
+            ctx.fillStyle = `rgba(${node.color}, ${intensity * node.alpha})`;
             ctx.arc(px, py, size, 0, Math.PI * 2);
             ctx.fill();
           }
@@ -133,14 +206,14 @@ export function DeepSpaceBg() {
   }, []);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-depth">
+    <div className="fixed inset-0 z-[-1] overflow-hidden bg-[#0A0A0A]">
       <canvas
         ref={canvasRef}
         className="block h-full w-full"
         aria-hidden="true"
       />
-      {/* Radial gradient overlay to blend edges into the black background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#0A0A0A_100%)] pointer-events-none" />
+      {/* Heavy vignette overlay to blend edges into pure black and hide grid pop-in */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0A0A0A_80%)] pointer-events-none" />
     </div>
   );
 }

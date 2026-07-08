@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
-import { DeepSpaceBg } from "@/components/motion/deep-space-bg";
 import { HeroChoreo } from "@/components/motion/hero-choreo";
 
 /**
@@ -13,8 +12,6 @@ import { HeroChoreo } from "@/components/motion/hero-choreo";
 export function HeroSection() {
   return (
     <section className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center overflow-hidden px-gutter py-section text-center">
-      {/* Cinematic Deep Space Field */}
-      <DeepSpaceBg />
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">

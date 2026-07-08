@@ -38,7 +38,7 @@ export default function WorkPage() {
                 <CornerTicks />
                 <Link
                   href={`/work/${c.slug}`}
-                  className="flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-colors hover:border-hairline-strong"
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised/40 backdrop-blur-md transition-all duration-300 ease-[var(--ease-precision)] hover:-translate-y-2 hover:border-clarity hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)]"
                 >
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
                   <Image
@@ -80,7 +80,7 @@ export default function WorkPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-start gap-6 rounded-lg border border-hairline bg-raised p-10">
+          <div className="flex flex-col items-start gap-6 rounded-lg border border-hairline bg-raised/40 backdrop-blur-md p-10">
             <span className="label-mono text-faint">In preparation</span>
             <p className="max-w-xl text-lead text-muted-2">
               Case studies are being written up now. We&apos;d rather show you

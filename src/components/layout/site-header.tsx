@@ -50,7 +50,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b bg-depth transition-colors duration-300 ${
+      className={`sticky top-0 z-50 border-b bg-depth/60 backdrop-blur-md transition-colors duration-300 ${
         scrolled ? "border-hairline" : "border-transparent"
       }`}
     >

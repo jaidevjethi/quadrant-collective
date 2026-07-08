@@ -55,7 +55,7 @@ export function SiteFooter() {
   const year = 2026;
 
   return (
-    <footer className="border-t border-hairline px-gutter py-16">
+    <footer className="border-t border-hairline bg-depth/60 backdrop-blur-md px-gutter py-16 mt-auto">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}

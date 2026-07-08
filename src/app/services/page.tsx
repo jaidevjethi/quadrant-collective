@@ -58,7 +58,7 @@ export default function ServicesPage() {
               <a
                 key={s.slug}
                 href={`#${s.slug}`}
-                className="rounded-full border border-hairline bg-depth px-4 py-2 text-sm text-muted-2 transition-colors hover:border-hairline-strong hover:text-clarity"
+                className="rounded-full border border-hairline bg-depth/50 backdrop-blur-sm px-4 py-2 text-sm text-muted-2 transition-colors hover:border-hairline-strong hover:text-clarity"
               >
                 {s.title}
               </a>
@@ -75,7 +75,7 @@ export default function ServicesPage() {
               <article
                 id={s.slug}
                 data-reveal
-                className="group relative scroll-mt-24 rounded-lg border border-hairline bg-raised p-8 md:p-10 transition-colors hover:border-hairline-strong"
+                className="group relative scroll-mt-24 rounded-lg border border-hairline bg-raised/40 backdrop-blur-md p-8 md:p-10 transition-colors hover:border-hairline-strong"
               >
                 <CornerTicks />
                 <div className="flex flex-col gap-8">
@@ -85,7 +85,7 @@ export default function ServicesPage() {
                         {s.n} · Package
                       </span>
                       {s.pricing && (
-                        <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth">
+                        <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth/50 backdrop-blur-sm">
                           {s.pricing}
                         </span>
                       )}
@@ -99,7 +99,7 @@ export default function ServicesPage() {
                   </div>
                   <div className="grid gap-px overflow-hidden rounded-md border border-hairline bg-hairline sm:grid-cols-2">
                     {s.deliverables.map((d) => (
-                      <div key={d.title} className="flex flex-col gap-2 bg-depth p-6">
+                      <div key={d.title} className="flex flex-col gap-2 bg-depth/60 p-6 backdrop-blur-sm">
                         <h3 className="flex items-center gap-3 text-sm font-medium text-clarity">
                           <span aria-hidden className="size-1.5 rounded-full bg-growth" />
                           {d.title}
@@ -116,7 +116,7 @@ export default function ServicesPage() {
       </section>
 
       {/* How it fits the system */}
-      <section className="border-t border-hairline bg-raised px-gutter py-20">
+      <section className="border-t border-hairline bg-raised/20 backdrop-blur-lg px-gutter py-20">
         <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2">
           <div className="flex flex-col gap-4">
             <span className="label-mono text-muted-2">One system</span>
