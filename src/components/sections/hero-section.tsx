@@ -4,6 +4,7 @@ import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
 import { HeroChoreo } from "@/components/motion/hero-choreo";
 import { Magnetic } from "@/components/motion/magnetic";
+import { TextReveal } from "@/components/motion/text-reveal";
 
 /**
  * Beat 1 — Arrival (STRATEGY.md). The arrival is staged as deep space travel,
@@ -33,15 +34,18 @@ export function HeroSection() {
         </div>
 
         {/* Step 2: The thesis */}
-        <div data-choreo className="flex max-w-4xl flex-col items-center gap-6">
-          <h1 className="font-heading text-display-xl font-medium tracking-tight text-clarity">
-            Four disciplines.<br />One system.
-          </h1>
-          <p className="max-w-2xl text-lead text-muted-2">
-            Most businesses don&apos;t have a marketing problem. They have a systems problem. 
-            We engineer strategy, design, technology and growth into a single architecture 
-            built to compound.
-          </p>
+        <div className="flex max-w-4xl flex-col items-center gap-6">
+          <TextReveal as="h1" className="font-heading text-display-xl font-medium tracking-tight text-clarity">
+            Four disciplines. One system.
+          </TextReveal>
+          
+          <div data-choreo>
+            <p className="max-w-2xl text-lead text-muted-2">
+              Most businesses don&apos;t have a marketing problem. They have a systems problem. 
+              We engineer strategy, design, technology and growth into a single architecture 
+              built to compound.
+            </p>
+          </div>
         </div>
 
         {/* Step 3: The call to action */}
