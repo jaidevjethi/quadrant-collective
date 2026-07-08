@@ -7,90 +7,69 @@ import { HeroChoreo } from "@/components/motion/hero-choreo";
 /**
  * Beat 1 — Arrival (STRATEGY.md). The arrival is staged as deep space travel,
  * creating a cinematic discovery of the agency.
- * The backdrop uses a pure canvas starfield for 60fps performance on mobile.
  */
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center overflow-hidden px-gutter py-section text-center">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-gutter py-section text-center">
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">
-        <span className="absolute left-0 top-0 size-4 border-l border-t border-hairline-strong" />
-        <span className="absolute right-0 top-0 size-4 border-r border-t border-hairline-strong" />
-        <span className="absolute bottom-0 left-0 size-4 border-b border-l border-hairline-strong" />
-        <span className="absolute bottom-0 right-0 size-4 border-b border-r border-hairline-strong" />
+        <div className="absolute left-0 top-0 size-3 border-l border-t border-hairline-strong" />
+        <div className="absolute right-0 top-0 size-3 border-r border-t border-hairline-strong" />
+        <div className="absolute bottom-0 left-0 size-3 border-b border-l border-hairline-strong" />
+        <div className="absolute bottom-0 right-0 size-3 border-b border-r border-hairline-strong" />
       </div>
 
-      <HeroChoreo />
-      <div className="relative z-10 flex flex-col items-center gap-8">
-        <div data-choreo>
-          <LogoMark size={140} variant="construction" glow />
+      <HeroChoreo>
+        {/* Step 1: The signal (logo mark) */}
+        <div data-hero-signal className="mb-12 flex justify-center text-clarity">
+          <LogoMark className="w-16 md:w-20" />
         </div>
 
-        <div className="flex flex-col items-center gap-5">
-          <span data-choreo className="label-mono text-muted-2">
-            Strategy. Design. Technology. Growth.
-          </span>
-          <h1 className="flex max-w-3xl flex-col items-center gap-3">
-            <span
-              data-choreo
-              className="font-heading text-display font-medium tracking-tight text-clarity"
-            >
-              Four disciplines.
-            </span>
-            <span
-              data-choreo
-              className="font-heading -mr-[0.34em] bg-gradient-to-r from-vision via-intelligence to-growth bg-clip-text text-title font-medium uppercase tracking-[0.34em] text-transparent"
-            >
-              One system
-            </span>
+        {/* Step 2: The thesis */}
+        <div data-hero-text className="flex max-w-4xl flex-col items-center gap-6">
+          <h1 className="font-heading text-display-xl font-medium tracking-tight text-clarity">
+            Four disciplines.<br />One system.
           </h1>
-          <span
-            data-choreo
-            className="mt-4 max-w-lg text-lg text-muted-2"
-          >
-            For ambitious clinics, practices, and founders who want growth that compounds.
-          </span>
+          <p className="max-w-2xl text-lead text-muted-2">
+            Most businesses don&apos;t have a marketing problem. They have a systems problem. 
+            We engineer strategy, design, technology and growth into a single architecture 
+            built to compound.
+          </p>
         </div>
 
-        <div className="flex flex-col items-center gap-6">
-          <div
-            data-choreo
-            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
+        {/* Step 3: The call to action */}
+        <div data-hero-action className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
+          <Button
+            asChild
+            size="lg"
+            className="group h-12 w-full gap-2 rounded-sm bg-clarity px-8 text-depth transition-colors hover:bg-clarity/90 sm:w-auto"
           >
-            <Button
-              asChild
-              size="lg"
-              className="h-11 gap-2 rounded-sm border border-hairline-strong bg-transparent px-6 text-clarity shadow-none transition-all duration-200 ease-[var(--ease-precision)] hover:border-clarity hover:bg-raised active:scale-[0.98]"
-            >
-              <Link href="/contact">
-                Start a conversation
-                <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover/button:translate-x-0.5" />
-              </Link>
-            </Button>
-            <Link
-              href="/work"
-              className="group inline-flex items-center gap-2 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
-            >
-              See the work
-              <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
+            <Link href="/services">
+              Examine the system
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
-          </div>
-          <span data-choreo className="label-mono text-faint">
-            Founder-led · Gujarat corridor · India
-          </span>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            className="h-12 w-full gap-2 rounded-sm border border-hairline-strong bg-transparent px-8 text-clarity shadow-none transition-colors hover:border-clarity hover:bg-raised sm:w-auto"
+          >
+            <Link href="/contact">Start a conversation</Link>
+          </Button>
         </div>
-      </div>
+      </HeroChoreo>
 
-      {/* Scroll cue with a traveling highlight */}
+      {/* Scroll indicator (absolute bottom) */}
       <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
+        data-hero-scroll
+        aria-hidden="true"
+        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 opacity-0"
       >
-        <span className="label-mono text-faint">Scroll</span>
-        <span className="relative h-10 w-px overflow-hidden bg-hairline">
-          <span className="absolute inset-x-0 top-0 h-1/2 animate-hero-scroll bg-gradient-to-b from-transparent via-clarity/60 to-transparent" />
-        </span>
+        <span className="label-mono text-faint">Initiate</span>
+        <div className="h-12 w-px overflow-hidden bg-grid-line">
+          <div className="h-full w-full animate-hero-scroll bg-clarity" />
+        </div>
       </div>
     </section>
   );

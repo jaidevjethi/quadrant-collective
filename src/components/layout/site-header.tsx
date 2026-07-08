@@ -10,8 +10,7 @@ import { Button } from "@/components/ui/button";
 /**
  * Site navigation. Sticky, solid depth surface. The bottom hairline appears
  * only once the page scrolls (the header "wakes up"), and the active route
- * carries a growth-accent underline. No glassmorphism (BRAND.md): the surface
- * stays solid; only the seam responds.
+ * carries a growth-accent underline.
  */
 
 const LINKS = [
@@ -55,7 +54,17 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-gutter">
-        <Link href="/" aria-label="Quadrant Collective, home" className="shrink-0">
+        <Link
+          href="/"
+          aria-label="Quadrant Collective, home"
+          className="shrink-0"
+          onClick={(e) => {
+            if (pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+        >
           <LogoLockup size="sm" orientation="horizontal" />
         </Link>
 
