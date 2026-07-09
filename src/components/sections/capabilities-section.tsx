@@ -34,7 +34,7 @@ export function CapabilitiesSection() {
             href="/services"
             className="group inline-flex items-center gap-2 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
           >
-            See the service packages
+            See services and pricing
             <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
           </Link>
         </Reveal>

@@ -11,6 +11,46 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
+/**
+ * The questions people actually have before sending a first message, answered
+ * plainly. One source drives both the visible FAQ and the FAQPage schema so
+ * the answers search engines quote are the answers visitors read. Price and
+ * timeline questions are deliberately absent until the founder supplies real
+ * ranges: no invented facts.
+ */
+const FAQ: { q: string; a: string }[] = [
+  {
+    q: "What does Quadrant Collective do?",
+    a: "We design and build digital systems for growing businesses: websites, brand identity, SEO, content and AI integrations. Strategy, design, technology and growth are planned together as one system so the results compound instead of cancelling out.",
+  },
+  {
+    q: "Where are you based, and do you work remotely?",
+    a: "We are based in Gujarat, India and work across Mehsana, Ahmedabad and Vadodara, as well as remotely with clients across India.",
+  },
+  {
+    q: "What happens after I send a message?",
+    a: "We reply within one business day. Then we set up a short call to map the business and the gap. After the call you get a written recommendation you keep, whether or not we work together.",
+  },
+  {
+    q: "Who will I actually be working with?",
+    a: "Quadrant Collective is a founder-led studio. You talk directly to Jaidev Jethi, the founder, who leads every engagement and brings in specialists as the work requires them.",
+  },
+  {
+    q: "Do you only work with healthcare businesses?",
+    a: "No. Much of our recent work is in healthcare and local services, and the same system serves any business that values quality: professional services, tourism, manufacturing, product companies.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
 export default function ContactPage() {
   return (
     <main className="relative flex flex-1 flex-col overflow-hidden px-gutter py-section">
@@ -68,6 +108,26 @@ export default function ContactPage() {
           </div>
         </Reveal>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Reveal className="mx-auto mt-24 w-full max-w-4xl">
+        <div data-reveal className="flex flex-col gap-8 border-t border-hairline pt-12">
+          <h2 className="label-mono text-muted-2">Before you write</h2>
+          <dl className="grid gap-x-12 gap-y-8 md:grid-cols-2">
+            {FAQ.map((item) => (
+              <div key={item.q} className="flex flex-col gap-2">
+                <dt className="text-sm font-medium text-clarity">{item.q}</dt>
+                <dd className="text-sm leading-relaxed text-muted-2">
+                  {item.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Reveal>
     </main>
   );
 }

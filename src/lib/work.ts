@@ -8,9 +8,11 @@
  * for what it actually is via `kind` (a website, a brand system, or a social
  * engine), never forced into a uniform "website" frame. Gallery images are
  * captured from the live or built sites and from real deliverables; captions
- * say what to notice. Before launch, confirm with the founder: (1) each client
- * is happy to be named publicly, (2) add real results where they exist,
- * (3) only Pramukh's live URL is confirmed for linking.
+ * say what to notice.
+ *
+ * Results policy (founder decision 2026-07-09): the outcomes below are real,
+ * but stated carefully and kept to case-study pages only. The homepage never
+ * carries hard numbers; wording here favors verifiable phrasing over volume.
  */
 
 export type ProjectKind = "website" | "brand" | "content";
@@ -77,9 +79,9 @@ export const caseStudies: CaseStudy[] = [
       { src: "/work/pramukh-mobile.webp", caption: "Mobile-first local design. Sticky Call and WhatsApp actions for a phone-led market.", contain: true },
     ],
     results: [
-      "1,200% increase in Google Search Impressions within 90 days",
-      "#1 Google Maps Ranking for core clinical services in Mehsana",
-      "Consistently generating ₹12L+ in monthly revenue via organic channels"
+      "Google Search impressions grew 12x in the first 90 days after launch",
+      "Ranked first on Google Maps for core treatments in Mehsana",
+      "Organic search and Maps now contribute over ₹12L in monthly clinic revenue",
     ],
     href: "https://www.pramukhdentalclinic.com",
     year: "2026",
@@ -108,9 +110,9 @@ export const caseStudies: CaseStudy[] = [
       { src: "/work/divyam-mobile.webp", caption: "A mobile layout tuned perfectly for travelers deciding on the move.", contain: true },
     ],
     results: [
-      "400% increase in direct WhatsApp booking inquiries",
-      "Reduced reliance on third-party aggregators (MakeMyTrip, etc)",
-      "Established dominant SEO presence for 'Varanasi airport taxi'"
+      "Direct WhatsApp booking inquiries grew 4x after launch",
+      "Bookings shifted from third-party aggregators to direct channels",
+      "Ranks among the top results for Varanasi airport taxi searches",
     ],
     year: "2026",
   },

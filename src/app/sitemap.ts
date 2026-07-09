@@ -5,10 +5,10 @@ import { SITE_URL } from "@/lib/site";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/work", "/about", "/contact"].map((path) => ({
+  const routes = ["", "/services", "/work", "/about", "/contact", "/privacy"].map((path) => ({
     url: `${SITE_URL}${path}/`,
     changeFrequency: "monthly" as const,
-    priority: path === "" ? 1 : 0.8,
+    priority: path === "" ? 1 : path === "/privacy" ? 0.3 : 0.8,
   }));
 
   const work = caseStudies.map((c) => ({

@@ -11,12 +11,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Title and description are answer-shaped on purpose: this is the one line
+  // search engines and AI assistants quote, so it states category and place.
   title: {
-    default: "Quadrant Collective. Strategy. Design. Technology. Growth.",
+    default: "Quadrant Collective · Digital engineering and growth studio",
     template: "%s | Quadrant Collective",
   },
   description:
-    "Quadrant Collective is a digital engineering and growth firm. We bring strategy, design, technology and growth together as one system, so businesses don't just grow, they scale.",
+    "Quadrant Collective is a digital engineering and growth studio in Gujarat, India. Websites, brands, SEO and AI built as one system designed to compound.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

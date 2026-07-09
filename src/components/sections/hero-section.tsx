@@ -33,8 +33,12 @@ export function HeroSection() {
           <LogoMark className="w-16 md:w-20" />
         </div>
 
-        {/* Step 2: The thesis */}
+        {/* Step 2: The thesis. The eyebrow answers "what is this company?"
+            before the H1 makes its argument: comprehension precedes admiration. */}
         <div className="flex max-w-4xl flex-col items-center gap-6">
+          <span data-choreo className="label-mono text-muted-2">
+            A digital engineering and growth studio · Gujarat, India
+          </span>
           <TextReveal as="h1" className="font-heading text-display-xl font-medium tracking-tight text-clarity">
             Four disciplines. One system.
           </TextReveal>
@@ -48,7 +52,9 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Step 3: The call to action */}
+        {/* Step 3: The call to action. Primary is the conversation (the money
+            action); secondary sends skeptics to proof, not pricing. Value is
+            established before /services ever enters the journey. */}
         <div data-choreo className="mt-12 flex flex-col items-center gap-6 sm:flex-row">
           <Magnetic strength={0.2}>
             <Button
@@ -56,9 +62,9 @@ export function HeroSection() {
               size="lg"
               className="group relative overflow-hidden h-14 rounded-sm bg-clarity px-10 text-depth shadow-[0_0_40px_rgba(230,230,230,0.15)] transition-all hover:scale-105 hover:bg-white hover:shadow-[0_0_60px_rgba(230,230,230,0.3)] sm:w-auto"
             >
-              <Link href="/services">
+              <Link href="/contact">
                 <span className="relative z-10 flex items-center gap-2">
-                  Examine the system
+                  Start a conversation
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
                 </span>
               </Link>
@@ -71,8 +77,8 @@ export function HeroSection() {
               size="lg"
               className="group relative overflow-hidden h-14 rounded-sm border border-hairline-strong bg-raised/30 backdrop-blur-sm px-10 text-clarity transition-all hover:scale-105 hover:border-clarity hover:bg-transparent sm:w-auto"
             >
-              <Link href="/contact">
-                <span className="relative z-10">Start a conversation</span>
+              <Link href="/work">
+                <span className="relative z-10">See the work</span>
               </Link>
             </Button>
           </Magnetic>

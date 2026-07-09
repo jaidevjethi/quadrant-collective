@@ -44,6 +44,21 @@ const orgSchema = {
   ],
 };
 
+/** WebSite schema so search and AI systems bind the site name, URL and
+ *  publisher together; complements the Organization schema above. */
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Quadrant Collective",
+  url: SITE_URL,
+  publisher: {
+    "@type": "Organization",
+    name: "Quadrant Collective",
+    legalName: "Quadrant Ops India",
+  },
+  inLanguage: "en-IN",
+};
+
 const NAV = [
   { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
@@ -59,6 +74,10 @@ export function SiteFooter() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
@@ -88,7 +107,15 @@ export function SiteFooter() {
 
         <div className="flex flex-col justify-between gap-2 border-t border-hairline pt-6 text-xs text-faint sm:flex-row">
           <span>© {year} Quadrant Ops India. All rights reserved.</span>
-          <span>Quadrant Collective is a brand of Quadrant Ops India.</span>
+          <span className="flex gap-4">
+            <Link
+              href="/privacy"
+              className="transition-colors duration-200 hover:text-clarity"
+            >
+              Privacy
+            </Link>
+            <span>Quadrant Collective is a brand of Quadrant Ops India.</span>
+          </span>
         </div>
       </div>
     </footer>

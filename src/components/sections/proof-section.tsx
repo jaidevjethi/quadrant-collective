@@ -83,21 +83,34 @@ export function ProofSection() {
           ))}
         </Reveal>
 
+        {/* One client voice, kept quiet on purpose: a short verbatim fragment,
+            attributed, linking to the full case where the details live.
+            Restraint here reads as confidence; the work above carries the sell. */}
         <Reveal className="mt-6">
-          <div data-reveal>
-            <SpotlightCard as="figure" className="p-8 md:p-10">
-              <CornerTicks />
-              <div className="flex flex-col gap-6">
-                <blockquote className="text-xl text-clarity font-medium">
-                  &ldquo;They didn&apos;t just build a website, they re-engineered how patients find us and book treatments. Our organic traffic and clinic revenue compounded far beyond what we thought possible.&rdquo;
-                </blockquote>
-                <figcaption className="flex flex-col gap-1">
-                  <span className="text-sm font-medium text-clarity">Dr. Akshar Patel</span>
-                  <span className="label-mono text-faint">Founder, Pramukh Dental Clinic</span>
-                </figcaption>
-              </div>
-            </SpotlightCard>
-          </div>
+          <figure
+            data-reveal
+            className="flex flex-col gap-4 border-l border-hairline-strong pl-6 md:pl-8"
+          >
+            <blockquote className="max-w-2xl text-lead text-muted-2">
+              &ldquo;They re-engineered how patients find us and book
+              treatments.&rdquo;
+            </blockquote>
+            <figcaption className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="text-sm font-medium text-clarity">
+                Dr. Akshar Patel
+              </span>
+              <span className="label-mono text-faint">
+                Founder, Pramukh Dental Clinic
+              </span>
+              <Link
+                href="/work/pramukh-dental"
+                className="group inline-flex items-center gap-1.5 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
+              >
+                Read the case
+                <ArrowRight className="size-3.5 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
+              </Link>
+            </figcaption>
+          </figure>
         </Reveal>
 
         <Reveal className="flex flex-col gap-5 mt-6">

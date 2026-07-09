@@ -1,6 +1,17 @@
+import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 import { ContactFormLazy } from "@/components/contact/contact-form-lazy";
 import { FlowStreak } from "@/components/motion/flow-streak";
+
+/** The after-contact path, stated plainly: the unknown after "send" is the
+ *  last friction before a first message, so we remove it. Every promise here
+ *  is one we keep. Step 02 deliberately echoes Method step 01 (map the
+ *  business and the gap): contact is where the method begins. */
+const NEXT_STEPS = [
+  "We reply within one business day.",
+  "A short call to map the business and the gap.",
+  "A written recommendation you keep, whether or not we work together.",
+];
 
 /**
  * Beat 7 — The invitation (STRATEGY.md). The energy slows: one sentence, one
@@ -45,7 +56,31 @@ export function InvitationSection() {
           </h2>
           <p data-reveal className="max-w-sm text-lead text-muted-2">
             Tell us where you are and where you want to be. We read every
-            message ourselves and reply within one business day.
+            message ourselves.
+          </p>
+
+          <div data-reveal className="mt-2 flex flex-col gap-4">
+            <span className="label-mono text-faint">What happens next</span>
+            <ol className="flex flex-col gap-3">
+              {NEXT_STEPS.map((step, i) => (
+                <li key={step} className="flex gap-4 text-sm text-muted-2">
+                  <span className="label-mono text-faint">
+                    0{i + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <p data-reveal className="mt-2 max-w-sm text-sm text-faint">
+            The person who replies is the person who builds.{" "}
+            <Link
+              href="/about"
+              className="text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
+            >
+              Meet Jaidev Jethi, the founder.
+            </Link>
           </p>
         </Reveal>
 

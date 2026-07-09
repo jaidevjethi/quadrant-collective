@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { VelocitySkew } from "@/components/motion/velocity-skew";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -28,12 +27,12 @@ export default function WorkPage() {
           <p className="max-w-2xl text-lead text-muted-2">
             A selection of recent projects across dental, travel, wellness and
             healthcare. Every one was made for a real client with a real market
-            to win. Full, results-led write-ups are in progress.
+            to win.
           </p>
         </div>
 
         {hasWork ? (
-          <VelocitySkew className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2">
             {caseStudies.map((c) => (
               <SpotlightCard key={c.slug} as="div" lift className="h-full">
                 <CornerTicks />
@@ -62,15 +61,17 @@ export default function WorkPage() {
                         {c.industry}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 mt-auto pt-2 text-clarity opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    {/* Always visible: a hover-only affordance is invisible on
+                        touch, where most Indian B2B visitors browse. */}
+                    <div className="flex items-center gap-2 mt-auto pt-2 text-muted-2 transition-colors duration-300 group-hover:text-clarity">
                       <span className="text-sm font-medium">Read case study</span>
-                      <ArrowRight className="size-4" />
+                      <ArrowRight className="size-4 transition-transform duration-300 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
                     </div>
                   </div>
                 </Link>
               </SpotlightCard>
             ))}
-          </VelocitySkew>
+          </div>
         ) : (
           <div className="flex min-h-[40svh] items-center justify-center rounded-lg border border-dashed border-hairline-strong bg-raised/20">
             <p className="label-mono text-muted-2">

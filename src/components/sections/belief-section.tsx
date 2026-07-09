@@ -1,11 +1,12 @@
 import { Reveal } from "@/components/motion/reveal";
 
 /**
- * Beat 2 — The belief (STRATEGY.md). What do we believe? Names the problem
- * the audience already feels, then turns. Emphasis comes from value contrast
- * (muted problem → clarity stance), not a second accent colour — restraint
- * between the hero and Capabilities makes both land harder. The gradient
- * registration rule ties the section to the brand system (cf. BrandTagline).
+ * Beat 2 — The belief (STRATEGY.md). What do we believe? The hero states the
+ * thesis (a systems problem); this beat advances it with the felt pain: most
+ * business websites are expenses wearing an asset's clothes. Emphasis comes
+ * from value contrast (muted problem → clarity stance), not a second accent
+ * colour — restraint between the hero and Capabilities makes both land
+ * harder. The gradient registration rule ties the section to the brand system.
  */
 export function BeliefSection() {
   return (
@@ -23,14 +24,13 @@ export function BeliefSection() {
             data-reveal
             className="text-headline font-medium tracking-tight text-muted-2"
           >
-            Most businesses don&apos;t have a marketing problem.{" "}
-            <span className="text-clarity">
-              They have a systems problem.
-            </span>
+            Most business websites are expenses dressed up as assets.{" "}
+            <span className="text-clarity">We build the opposite.</span>
           </p>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Good tools, working in isolation, quietly cancel each other out. We
-            build the system that makes them compound instead.
+            An expense sits there and costs money. An asset earns more the
+            longer it runs. The difference is whether the pieces behind it
+            work as one system or quietly cancel each other out.
           </p>
         </Reveal>
       </div>
