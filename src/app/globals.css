@@ -203,6 +203,17 @@
   }
 }
 
+/* Capability knowledge nodes: every story is in the DOM (crawlable); JS
+   reveals the active one via data-active. A class, not the [hidden]
+   attribute, because Tailwind's preflight makes [hidden] display:none
+   !important, which a <noscript> override could not beat. */
+.capability-story {
+  display: none;
+}
+.capability-story[data-active="true"] {
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
