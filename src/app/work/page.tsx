@@ -33,46 +33,44 @@ export default function WorkPage() {
         </div>
 
         {hasWork ? (
-          <div className="grid gap-8 md:grid-cols-2">
+          <VelocitySkew className="grid gap-8 md:grid-cols-2">
             {caseStudies.map((c) => (
-              <VelocitySkew key={c.slug}>
-                <SpotlightCard as="div" className="h-full">
-                  <CornerTicks />
-                  <Link
-                    href={`/work/${c.slug}`}
-                    className="group flex h-full flex-col overflow-hidden transition-all duration-300 ease-[var(--ease-precision)]"
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
-                      <Image
-                        src={c.image}
-                        alt={`${c.client} project by Quadrant Collective`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover object-top transition-transform duration-700 ease-[var(--ease-precision)] group-hover:scale-[1.05]"
-                      />
-                      <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm shadow-xl">
-                        {KIND_LABEL[c.kind]}
+              <SpotlightCard key={c.slug} as="div" lift className="h-full">
+                <CornerTicks />
+                <Link
+                  href={`/work/${c.slug}`}
+                  className="flex h-full flex-col overflow-hidden"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
+                    <Image
+                      src={c.image}
+                      alt={`${c.client} project by Quadrant Collective`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-top transition-transform duration-700 ease-[var(--ease-precision)] group-hover:scale-[1.05]"
+                    />
+                    <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm shadow-xl">
+                      {KIND_LABEL[c.kind]}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-4 p-6">
+                    <div className="flex flex-col gap-1">
+                      <span className="label-mono text-muted-2">
+                        {c.client} · {c.year}
+                      </span>
+                      <span className="label-mono text-faint">
+                        {c.industry}
                       </span>
                     </div>
-                    <div className="flex flex-1 flex-col gap-4 p-6">
-                      <div className="flex flex-col gap-1">
-                        <span className="label-mono text-muted-2">
-                          {c.client} A {c.year}
-                        </span>
-                        <span className="label-mono text-faint">
-                          {c.industry}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 mt-auto pt-2 text-clarity opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <span className="text-sm font-medium">Read case study</span>
-                        <ArrowRight className="size-4" />
-                      </div>
+                    <div className="flex items-center gap-2 mt-auto pt-2 text-clarity opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="text-sm font-medium">Read case study</span>
+                      <ArrowRight className="size-4" />
                     </div>
-                  </Link>
-                </SpotlightCard>
-              </VelocitySkew>
+                  </div>
+                </Link>
+              </SpotlightCard>
             ))}
-          </div>
+          </VelocitySkew>
         ) : (
           <div className="flex min-h-[40svh] items-center justify-center rounded-lg border border-dashed border-hairline-strong bg-raised/20">
             <p className="label-mono text-muted-2">

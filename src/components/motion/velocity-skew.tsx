@@ -2,57 +2,59 @@
 
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { prefersReducedMotion } from "@/lib/motion";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EASE, prefersReducedMotion } from "@/lib/motion";
 
 interface VelocitySkewProps {
   children: React.ReactNode;
   className?: string;
 }
 
+/**
+ * Skews children with scroll velocity. Reads velocity from ScrollTrigger,
+ * which Lenis keeps updated, so the skew tracks the smoothed scroll instead
+ * of raw wheel input. Pointer-fine only: on touch the content stays still.
+ */
 export function VelocitySkew({ children, className }: VelocitySkewProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
-    
-    // We import lenis from a global store or we can just use gsap scrollTrigger velocity
-    const ctx = gsap.context(() => {
-      // Create a quickTo for performance
-      const skewSetter = gsap.quickTo(ref.current, "skewY", { duration: 0.5, ease: "power3" });
-      
-      let lastScroll = window.scrollY;
-      let lastTime = Date.now();
-      
-      const onScroll = () => {
-        const now = Date.now();
-        const dt = now - lastTime || 1; // avoid divide by zero
-        const currentScroll = window.scrollY;
-        
-        // Calculate velocity (pixels per ms)
-        const v = (currentScroll - lastScroll) / dt;
-        
-        // Clamp velocity to a reasonable visual skew (max 5 degrees)
-        const clampedSkew = Math.max(Math.min(v * -2, 5), -5);
-        
-        skewSetter(clampedSkew);
-        
-        lastScroll = currentScroll;
-        lastTime = now;
-        
-        // Return to 0 when scrolling stops
-        if (v !== 0) {
-          gsap.to(ref.current, { skewY: 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
-        }
-      };
+    if (prefersReducedMotion() || window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
 
-      window.addEventListener("scroll", onScroll, { passive: true });
-      
-      return () => {
-        window.removeEventListener("scroll", onScroll);
-      };
+    gsap.registerPlugin(ScrollTrigger);
+
+    const element = ref.current;
+    if (!element) return;
+
+    const skewSetter = gsap.quickSetter(element, "skewY", "deg");
+    const clampSkew = gsap.utils.clamp(-5, 5);
+    const proxy = { skew: 0 };
+
+    const trigger = ScrollTrigger.create({
+      onUpdate: (self) => {
+        const skew = clampSkew(self.getVelocity() / -400);
+        // Only restart the settle tween when the new impulse is stronger
+        // than whatever is still easing back to zero.
+        if (Math.abs(skew) > Math.abs(proxy.skew)) {
+          proxy.skew = skew;
+          gsap.to(proxy, {
+            skew: 0,
+            duration: 0.6,
+            ease: EASE.precision,
+            overwrite: true,
+            onUpdate: () => skewSetter(proxy.skew),
+          });
+        }
+      },
     });
 
-    return () => ctx.revert();
+    return () => {
+      trigger.kill();
+      gsap.killTweensOf(proxy);
+      skewSetter(0);
+    };
   }, []);
 
   return (

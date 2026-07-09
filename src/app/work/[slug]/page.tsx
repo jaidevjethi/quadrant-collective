@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { caseStudies, getCaseStudy, KIND_LABEL } from "@/lib/work";
+import { Reveal } from "@/components/motion/reveal";
 
 /**
  * Case-study detail. Statically generated from the work data. Leads with a
@@ -40,6 +41,12 @@ export default async function CaseStudyPage({
   const study = getCaseStudy(slug);
   if (!study) notFound();
 
+  const index = caseStudies.findIndex((c) => c.slug === study.slug);
+  const nextStudy =
+    caseStudies.length > 1
+      ? caseStudies[(index + 1) % caseStudies.length]
+      : null;
+
   return (
     <main className="flex flex-1 flex-col px-gutter py-section">
       <article className="mx-auto flex w-full max-w-4xl flex-col gap-12">
@@ -51,49 +58,58 @@ export default async function CaseStudyPage({
           All work
         </Link>
 
-        <header className="flex flex-col gap-6">
-          <div className="flex flex-col gap-1">
-            <span className="label-mono text-muted-2">
-              {study.client} · {study.year}
-            </span>
-            <span className="label-mono text-faint">
-              {KIND_LABEL[study.kind]} · {study.industry}
-              {study.location ? ` · ${study.location}` : ""}
-            </span>
-          </div>
-          <h1 className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity">
-            {study.title}
-          </h1>
-          <p className="max-w-2xl text-lead text-muted-2">{study.summary}</p>
-        </header>
+        <Reveal>
+          <header className="flex flex-col gap-6">
+            <div data-reveal className="flex flex-col gap-1">
+              <span className="label-mono text-muted-2">
+                {study.client} · {study.year}
+              </span>
+              <span className="label-mono text-faint">
+                {KIND_LABEL[study.kind]} · {study.industry}
+                {study.location ? ` · ${study.location}` : ""}
+              </span>
+            </div>
+            <h1
+              data-reveal
+              className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity"
+            >
+              {study.title}
+            </h1>
+            <p data-reveal className="max-w-2xl text-lead text-muted-2">
+              {study.summary}
+            </p>
+          </header>
+        </Reveal>
 
         {/* Captioned gallery: different aspects of the work */}
         <div className="flex flex-col gap-10">
           {study.gallery.map((g, i) => (
-            <figure key={g.src} className="flex flex-col gap-3">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-hairline bg-depth">
-                <Image
-                  src={g.src}
-                  alt={g.caption}
-                  fill
-                  sizes="(max-width: 896px) 100vw, 896px"
-                  className={
-                    g.contain
-                      ? "object-contain p-3"
-                      : "object-cover object-top"
-                  }
-                  priority={i === 0}
-                />
-              </div>
-              <figcaption className="max-w-2xl text-sm text-muted-2">
-                {g.caption}
-              </figcaption>
-            </figure>
+            <Reveal key={g.src}>
+              <figure data-reveal className="flex flex-col gap-3">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-hairline bg-depth">
+                  <Image
+                    src={g.src}
+                    alt={g.caption}
+                    fill
+                    sizes="(max-width: 896px) 100vw, 896px"
+                    className={
+                      g.contain
+                        ? "object-contain p-3"
+                        : "object-cover object-top"
+                    }
+                    priority={i === 0}
+                  />
+                </div>
+                <figcaption className="max-w-2xl text-sm text-muted-2">
+                  {g.caption}
+                </figcaption>
+              </figure>
+            </Reveal>
           ))}
         </div>
 
-        <div className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
-          <div className="flex flex-col gap-4">
+        <Reveal className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
+          <div data-reveal className="flex flex-col gap-4">
             <span className="label-mono text-muted-2">Disciplines</span>
             <ul className="flex flex-wrap gap-2">
               {study.services.map((s) => (
@@ -108,7 +124,7 @@ export default async function CaseStudyPage({
           </div>
 
           {study.approach && study.approach.length > 0 && (
-            <div className="flex flex-col gap-5">
+            <div data-reveal className="flex flex-col gap-5">
               <span className="label-mono text-muted-2">What we did</span>
               <ul className="flex flex-col gap-4">
                 {study.approach.map((a) => (
@@ -123,14 +139,14 @@ export default async function CaseStudyPage({
               </ul>
             </div>
           )}
-        </div>
+        </Reveal>
 
         {study.results && study.results.length > 0 && (
-          <div className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
-            <div className="flex flex-col gap-4">
+          <Reveal className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
+            <div data-reveal className="flex flex-col gap-4">
               <span className="label-mono text-muted-2">Outcomes</span>
             </div>
-            <div className="flex flex-col gap-5">
+            <div data-reveal className="flex flex-col gap-5">
               <span className="label-mono text-muted-2">Compounding Results</span>
               <ul className="flex flex-col gap-4">
                 {study.results.map((r) => (
@@ -144,7 +160,7 @@ export default async function CaseStudyPage({
                 ))}
               </ul>
             </div>
-          </div>
+          </Reveal>
         )}
 
         {study.href && (
@@ -157,6 +173,27 @@ export default async function CaseStudyPage({
             Visit the live site
             <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
+        )}
+
+        {nextStudy && (
+          <nav
+            aria-label="Next case study"
+            className="border-t border-hairline pt-12"
+          >
+            <Link
+              href={`/work/${nextStudy.slug}`}
+              className="group flex flex-col gap-3"
+            >
+              <span className="label-mono text-faint">Next case</span>
+              <span className="flex flex-wrap items-center gap-3 font-heading text-headline font-medium tracking-tight text-muted-2 transition-colors duration-200 group-hover:text-clarity">
+                {nextStudy.client}
+                <ArrowRight className="size-6 shrink-0 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-1" />
+              </span>
+              <span className="max-w-2xl text-lead text-muted-2">
+                {nextStudy.title}
+              </span>
+            </Link>
+          </nav>
         )}
       </article>
     </main>

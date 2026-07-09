@@ -84,7 +84,7 @@ export default function ServicesPage() {
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between gap-4 flex-wrap">
                       <span className="label-mono text-muted-2">
-                        {s.n} A Package
+                        {s.n} · Package
                       </span>
                       {s.pricing && (
                         <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth/50 backdrop-blur-sm">

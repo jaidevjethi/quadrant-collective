@@ -8,7 +8,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 
 /**
  * Site-wide smooth scrolling synced with GSAP ScrollTrigger.
- * Disabled entirely under prefers-reduced-motion ?" native scroll remains.
+ * Disabled entirely under prefers-reduced-motion; native scroll remains.
  */
 export function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {

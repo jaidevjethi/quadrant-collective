@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   spotlightColor?: string;
   as?: React.ElementType;
+  /** Adds a subtle hover lift. Reserve for cards that navigate somewhere. */
+  lift?: boolean;
 }
 
 export function SpotlightCard({
@@ -14,10 +16,10 @@ export function SpotlightCard({
   className = "",
   spotlightColor = "rgba(230, 230, 230, 0.15)",
   as: Tag = "div",
+  lift = false,
   ...props
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
 
@@ -30,12 +32,10 @@ export function SpotlightCard({
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  const handleMouseEnter = () => setOpacity(1);
+  const handleMouseEnter = () => {
+    if (!prefersReducedMotion()) setOpacity(1);
+  };
   const handleMouseLeave = () => setOpacity(0);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <Tag
@@ -43,18 +43,16 @@ export function SpotlightCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group relative overflow-hidden rounded-lg border border-hairline bg-raised/40 backdrop-blur-md transition-colors hover:border-hairline-strong ${className}`}
+      className={`group relative overflow-hidden rounded-lg border border-hairline bg-raised/40 backdrop-blur-md transition-[border-color,transform] duration-300 ease-[var(--ease-precision)] hover:border-hairline-strong ${lift ? "hover:-translate-y-1" : ""} ${className}`}
       {...props}
     >
-      {isMounted && !prefersReducedMotion() && (
-        <div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
-          style={{
-            opacity,
-            background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
-          }}
-        />
-      )}
+      <div
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+        style={{
+          opacity,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
+        }}
+      />
       {/* Content wrapper to ensure z-index stays above spotlight gradient */}
       <div className="relative z-10 h-full w-full">{children}</div>
     </Tag>

@@ -10,7 +10,7 @@ export default function NotFound() {
         Page not found.
       </h1>
       <p className="max-w-md text-lg text-muted-2 mb-10">
-        The system couldn't locate this route. It may have been moved or removed.
+        The system couldn&apos;t locate this route. It may have been moved or removed.
       </p>
       <Button
         asChild

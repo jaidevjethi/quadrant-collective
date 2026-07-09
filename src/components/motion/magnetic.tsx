@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { prefersReducedMotion } from "@/lib/motion";
+import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
 
 interface MagneticProps {
   children: React.ReactElement;
@@ -20,8 +20,8 @@ export function Magnetic({ children, strength = 0.3 }: MagneticProps) {
     const element = ref.current;
     if (!element) return;
 
-    const xTo = gsap.quickTo(element, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
-    const yTo = gsap.quickTo(element, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
+    const xTo = gsap.quickTo(element, "x", { duration: DURATION.standard, ease: EASE.precision });
+    const yTo = gsap.quickTo(element, "y", { duration: DURATION.standard, ease: EASE.precision });
 
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -47,7 +47,7 @@ export function Magnetic({ children, strength = 0.3 }: MagneticProps) {
     };
   }, [strength]);
 
-  return React.cloneElement(children as React.ReactElement<any>, {
+  return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
     ref,
     "data-magnetic": "true",
   });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form";
 import { IntroField } from "@/components/ui/intro-field";
+import { Reveal } from "@/components/motion/reveal";
 import { PHONE_HREF, WHATSAPP_DISPLAY, waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -15,16 +16,22 @@ export default function ContactPage() {
     <main className="relative flex flex-1 flex-col overflow-hidden px-gutter py-section">
       <IntroField />
       <div className="mx-auto grid w-full max-w-4xl gap-12 md:grid-cols-2">
-        <div className="flex flex-col gap-6">
-          <span className="label-mono text-muted-2">Contact</span>
-          <h1 className="font-heading text-headline font-medium tracking-tight text-clarity">
+        <Reveal className="flex flex-col gap-6">
+          <span data-reveal className="label-mono text-muted-2">Contact</span>
+          <h1
+            data-reveal
+            className="font-heading text-headline font-medium tracking-tight text-clarity"
+          >
             Let&apos;s build the system your business actually needs.
           </h1>
-          <p className="max-w-sm text-lead text-muted-2">
+          <p data-reveal className="max-w-sm text-lead text-muted-2">
             Tell us where you are and where you want to be. We read every message
             ourselves and reply within one business day.
           </p>
-          <dl className="mt-2 flex flex-col gap-4 border-t border-hairline pt-6 text-sm">
+          <dl
+            data-reveal
+            className="mt-2 flex flex-col gap-4 border-t border-hairline pt-6 text-sm"
+          >
             <div className="flex flex-col gap-1">
               <dt className="label-mono text-faint">Where</dt>
               <dd className="text-muted-2">Mehsana · Ahmedabad · Vadodara, and remote across India.</dd>
@@ -53,9 +60,13 @@ export default function ContactPage() {
               <dd className="text-muted-2">Within one business day.</dd>
             </div>
           </dl>
-        </div>
+        </Reveal>
 
-        <ContactForm />
+        <Reveal>
+          <div data-reveal>
+            <ContactForm />
+          </div>
+        </Reveal>
       </div>
     </main>
   );

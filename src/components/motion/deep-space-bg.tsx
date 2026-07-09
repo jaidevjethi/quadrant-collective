@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion } from "@/lib/motion";
 
 /**
  * The Infinite System Background (Revised: Deep Flow).
@@ -14,6 +15,7 @@ export function DeepSpaceBg() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    const reduced = prefersReducedMotion();
     gsap.registerPlugin(ScrollTrigger);
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -54,17 +56,19 @@ export function DeepSpaceBg() {
     let currentSpeed = baseSpeed;
     let scrollDirection = 1; // 1 for down (forward), -1 for up (backward)
 
-    const st = ScrollTrigger.create({
-      trigger: document.body,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        const velocity = Math.abs(self.getVelocity());
-        const targetSpeed = baseSpeed + Math.min(velocity / 60, 25);
-        currentSpeed = targetSpeed;
-        scrollDirection = self.direction; // 1 or -1
-      },
-    });
+    const st = reduced
+      ? null
+      : ScrollTrigger.create({
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+            const velocity = Math.abs(self.getVelocity());
+            const targetSpeed = baseSpeed + Math.min(velocity / 60, 25);
+            currentSpeed = targetSpeed;
+            scrollDirection = self.direction; // 1 or -1
+          },
+        });
 
     const render = () => {
       ctx.fillStyle = "#0A0A0A"; 
@@ -149,23 +153,41 @@ export function DeepSpaceBg() {
         }
       }
 
-      animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    const tick = () => {
+      render();
+      animationFrameId = requestAnimationFrame(tick);
+    };
+
+    // Reduced motion: one static frame of the field, no travel, no rAF loop.
+    if (reduced) {
+      render();
+    } else {
+      tick();
+    }
+
+    // Don't burn frames while the tab is hidden.
+    const handleVisibility = () => {
+      cancelAnimationFrame(animationFrameId);
+      if (!document.hidden && !reduced) tick();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
 
     const handleResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width;
       canvas.height = height;
+      if (reduced) render();
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      st.kill();
+      document.removeEventListener("visibilitychange", handleVisibility);
+      st?.kill();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { ProofCounters } from "@/components/motion/proof-counters";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
 import { CornerTicks } from "@/components/ui/corner-ticks";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 /**
  * Beat 5 — Proof (STRATEGY.md). Why trust us? Real client work leads, exactly
@@ -49,47 +50,53 @@ export function ProofSection() {
 
         <Reveal className="grid gap-8 md:grid-cols-2">
           {featured.map((c) => (
-            <div key={c.slug} data-reveal className="group relative">
-              <CornerTicks />
-              <Link
-                href={`/work/${c.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-raised transition-all duration-300 ease-[var(--ease-precision)] hover:-translate-y-2 hover:border-clarity hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)]"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
-                  <Image
-                    src={c.image}
-                    alt={`${c.client} project by Quadrant Collective`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-top transition-transform duration-500 ease-[var(--ease-precision)] group-hover:scale-[1.03]"
-                  />
-                  <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm">
-                    {KIND_LABEL[c.kind]}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col gap-3 p-6">
-                  <span className="label-mono text-muted-2">
-                    {c.client} · {c.year}
-                  </span>
-                  <h3 className="text-title font-medium text-clarity">
-                    {c.title}
-                  </h3>
-                </div>
-              </Link>
+            <div key={c.slug} data-reveal className="h-full">
+              <SpotlightCard as="div" lift className="h-full">
+                <CornerTicks />
+                <Link
+                  href={`/work/${c.slug}`}
+                  className="flex h-full flex-col overflow-hidden"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
+                    <Image
+                      src={c.image}
+                      alt={`${c.client} project by Quadrant Collective`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-top transition-transform duration-500 ease-[var(--ease-precision)] group-hover:scale-[1.03]"
+                    />
+                    <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm">
+                      {KIND_LABEL[c.kind]}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3 p-6">
+                    <span className="label-mono text-muted-2">
+                      {c.client} · {c.year}
+                    </span>
+                    <h3 className="text-title font-medium text-clarity">
+                      {c.title}
+                    </h3>
+                  </div>
+                </Link>
+              </SpotlightCard>
             </div>
           ))}
         </Reveal>
 
-        <Reveal className="group relative mt-6 rounded-lg border border-hairline bg-depth p-8 md:p-10 transition-colors hover:border-hairline-strong">
-          <CornerTicks />
-          <div className="flex flex-col gap-6">
-            <blockquote className="text-xl text-clarity font-medium">
-              "They didn't just build a website, they re-engineered how patients find us and book treatments. Our organic traffic and clinic revenue compounded far beyond what we thought possible."
-            </blockquote>
-            <div className="flex flex-col gap-1">
-              <span className="text-sm font-medium text-clarity">Dr. Akshar Patel</span>
-              <span className="label-mono text-faint">Founder, Pramukh Dental Clinic</span>
-            </div>
+        <Reveal className="mt-6">
+          <div data-reveal>
+            <SpotlightCard as="figure" className="p-8 md:p-10">
+              <CornerTicks />
+              <div className="flex flex-col gap-6">
+                <blockquote className="text-xl text-clarity font-medium">
+                  &ldquo;They didn&apos;t just build a website, they re-engineered how patients find us and book treatments. Our organic traffic and clinic revenue compounded far beyond what we thought possible.&rdquo;
+                </blockquote>
+                <figcaption className="flex flex-col gap-1">
+                  <span className="text-sm font-medium text-clarity">Dr. Akshar Patel</span>
+                  <span className="label-mono text-faint">Founder, Pramukh Dental Clinic</span>
+                </figcaption>
+              </div>
+            </SpotlightCard>
           </div>
         </Reveal>
 
