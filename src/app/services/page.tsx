@@ -102,26 +102,16 @@ export default function ServicesPage() {
 
                   <div className="h-px w-full bg-hairline" />
 
-                  <div className="grid gap-8 md:grid-cols-2">
-                    <div className="flex flex-col gap-4">
-                      <h3 className="label-mono text-clarity">Capabilities</h3>
-                      <ul className="flex flex-col gap-2 text-muted-2">
-                        {s.features.map((f, i) => (
-                          <li key={i} className="flex gap-3">
-                            <span className="text-faint">A</span>
-                            <span>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex flex-col gap-4">
-                      <h3 className="label-mono text-clarity">The outcome</h3>
-                      <p className="text-muted-2 leading-relaxed">
-                        {s.outcome}
-                      </p>
-                    </div>
-                  </div>
+                  <ul className="grid gap-8 sm:grid-cols-2">
+                    {s.deliverables.map((d, i) => (
+                      <li key={i} className="flex flex-col gap-2">
+                        <h3 className="label-mono text-clarity">{d.title}</h3>
+                        <p className="text-sm text-muted-2 leading-relaxed">
+                          {d.body}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
 
                   <div className="mt-4 pt-8 border-t border-hairline flex flex-wrap gap-4 items-center">
                     <Button

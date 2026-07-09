@@ -60,7 +60,7 @@ export default function WorkPage() {
                           {c.client} A {c.year}
                         </span>
                         <span className="label-mono text-faint">
-                          {c.category}
+                          {c.industry}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 mt-auto pt-2 text-clarity opacity-0 transition-opacity duration-300 group-hover:opacity-100">
