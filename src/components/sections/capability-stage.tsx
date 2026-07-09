@@ -91,6 +91,17 @@ export function CapabilityStage({ className }: { className?: string }) {
     if (expanded && headingRef.current) {
       headingRef.current.focus({ preventScroll: true });
     }
+    // A short rise-in makes the in-place swap read as deliberate, not a jump.
+    if (expanded && !prefersReducedMotion()) {
+      const panel = stageRef.current?.querySelector(`#story-${expanded}`);
+      if (panel) {
+        gsap.fromTo(
+          panel,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: DURATION.standard, ease: EASE.precision },
+        );
+      }
+    }
     ScrollTrigger.refresh();
   }, [expanded]);
 
@@ -204,11 +215,15 @@ export function CapabilityStage({ className }: { className?: string }) {
 
   return (
     <div ref={stageRef} className={className}>
-      {/* Desktop: the coordinate stage. */}
-      <div
-        className="relative hidden w-full md:block"
-        style={{ aspectRatio: `${VW} / ${VH}` }}
-      >
+      {/* The grid yields its place to the open story: hidden while a node is
+          expanded, so the story appears where the grid was (in view, at the
+          click point) rather than below the fold. */}
+      <div className={expanded ? "hidden" : undefined}>
+        {/* Desktop: the coordinate stage. */}
+        <div
+          className="relative hidden w-full md:block"
+          style={{ aspectRatio: `${VW} / ${VH}` }}
+        >
         <svg className="cap-scaffold absolute inset-0 h-full w-full" viewBox={`0 0 ${VW} ${VH}`} aria-hidden="true">
           {QUADRANTS.map((q) => (
             <rect key={`field-${q.id}`} className="quad-field" x={q.x} y={q.y} width={300} height={240} fill={disciplines[q.id].color} opacity={0.1} />
@@ -280,13 +295,16 @@ export function CapabilityStage({ className }: { className?: string }) {
             </ul>
           </div>
         ))}
+        </div>
       </div>
 
-      {/* Story region: every story in the DOM (crawlable), active one shown. */}
+      {/* Story region: every story in the DOM (crawlable), active one shown.
+          It sits directly after the grid, so hiding the grid brings the open
+          story up into the same position the grid occupied. */}
       <noscript>
         <style>{`.capability-story{display:block !important}`}</style>
       </noscript>
-      <div className="mt-8">
+      <div>
         {capabilityNodes.map((n) => (
           <div
             key={n.id}
