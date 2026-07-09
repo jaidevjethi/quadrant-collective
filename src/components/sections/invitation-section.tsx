@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
-import { ContactForm } from "@/components/contact/contact-form";
+import { ContactFormLazy } from "@/components/contact/contact-form-lazy";
 import { FlowStreak } from "@/components/motion/flow-streak";
 
 /**
@@ -51,7 +51,7 @@ export function InvitationSection() {
 
         <Reveal>
           <div data-reveal>
-            <ContactForm />
+            <ContactFormLazy />
           </div>
         </Reveal>
       </div>

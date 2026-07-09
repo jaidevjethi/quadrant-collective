@@ -28,8 +28,13 @@ export function DeepSpaceBg() {
     canvas.width = width;
     canvas.height = height;
 
-    // Use more nodes but softer for a "dust / deep flow" feel
-    const NODE_COUNT = Math.floor((width * height) / 2000); 
+    // Density scales with viewport but is capped: past ~800 nodes the field
+    // reads no denser, while the per-frame draw cost keeps climbing (a 4K
+    // screen would otherwise spawn 4000+). Coarse pointers (phones/tablets)
+    // get a lighter field to protect battery and the main thread.
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const NODE_CAP = isCoarse ? 400 : 800;
+    const NODE_COUNT = Math.min(Math.floor((width * height) / 2000), NODE_CAP);
     const nodes: { x: number; y: number; z: number; size: number; alpha: number; color: string }[] = [];
 
     // The Quadrant Collective Colors
@@ -56,6 +61,31 @@ export function DeepSpaceBg() {
     let currentSpeed = baseSpeed;
     let scrollDirection = 1; // 1 for down (forward), -1 for up (backward)
 
+    // The four ambient quadrant glows depend only on canvas size, not on the
+    // animation. Building them once (and on resize) instead of every frame
+    // removes four createRadialGradient allocations per tick — the single
+    // biggest per-frame cost after the node loop.
+    type Glow = { grad: CanvasGradient; x: number; y: number; w: number; h: number };
+    let glows: Glow[] = [];
+    const buildGlows = () => {
+      const cx = width / 2;
+      const cy = height / 2;
+      const r = width / 1.5;
+      const make = (gx: number, gy: number, rgba: string) => {
+        const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, r);
+        grad.addColorStop(0, rgba);
+        grad.addColorStop(1, "transparent");
+        return grad;
+      };
+      glows = [
+        { grad: make(cx - width / 3, cy - height / 3, "rgba(124, 58, 237, 0.03)"), x: 0, y: 0, w: cx, h: cy },
+        { grad: make(cx + width / 3, cy - height / 3, "rgba(217, 119, 6, 0.02)"), x: cx, y: 0, w: width - cx, h: cy },
+        { grad: make(cx - width / 3, cy + height / 3, "rgba(37, 99, 235, 0.03)"), x: 0, y: cy, w: cx, h: height - cy },
+        { grad: make(cx + width / 3, cy + height / 3, "rgba(0, 209, 178, 0.02)"), x: cx, y: cy, w: width - cx, h: height - cy },
+      ];
+    };
+    buildGlows();
+
     const st = reduced
       ? null
       : ScrollTrigger.create({
@@ -71,36 +101,17 @@ export function DeepSpaceBg() {
         });
 
     const render = () => {
-      ctx.fillStyle = "#0A0A0A"; 
+      ctx.fillStyle = "#0A0A0A";
       ctx.fillRect(0, 0, width, height);
 
       const cx = width / 2;
       const cy = height / 2;
 
-      // Extremely subtle, ethereal ambient glows (reduced opacity)
-      const gradTL = ctx.createRadialGradient(cx - width/3, cy - height/3, 0, cx - width/3, cy - height/3, width/1.5);
-      gradTL.addColorStop(0, "rgba(124, 58, 237, 0.03)");
-      gradTL.addColorStop(1, "transparent");
-      ctx.fillStyle = gradTL;
-      ctx.fillRect(0, 0, cx, cy);
-
-      const gradTR = ctx.createRadialGradient(cx + width/3, cy - height/3, 0, cx + width/3, cy - height/3, width/1.5);
-      gradTR.addColorStop(0, "rgba(217, 119, 6, 0.02)");
-      gradTR.addColorStop(1, "transparent");
-      ctx.fillStyle = gradTR;
-      ctx.fillRect(cx, 0, width, cy);
-
-      const gradBL = ctx.createRadialGradient(cx - width/3, cy + height/3, 0, cx - width/3, cy + height/3, width/1.5);
-      gradBL.addColorStop(0, "rgba(37, 99, 235, 0.03)");
-      gradBL.addColorStop(1, "transparent");
-      ctx.fillStyle = gradBL;
-      ctx.fillRect(0, cy, cx, height);
-
-      const gradBR = ctx.createRadialGradient(cx + width/3, cy + height/3, 0, cx + width/3, cy + height/3, width/1.5);
-      gradBR.addColorStop(0, "rgba(0, 209, 178, 0.02)");
-      gradBR.addColorStop(1, "transparent");
-      ctx.fillStyle = gradBR;
-      ctx.fillRect(cx, cy, width, height);
+      // Extremely subtle, ethereal ambient glows (prebuilt; see buildGlows)
+      for (const g of glows) {
+        ctx.fillStyle = g.grad;
+        ctx.fillRect(g.x, g.y, g.w, g.h);
+      }
 
       // Smoothly return to base speed after scrolling stops
       currentSpeed += (baseSpeed - currentSpeed) * 0.03;
@@ -179,6 +190,7 @@ export function DeepSpaceBg() {
       height = window.innerHeight;
       canvas.width = width;
       canvas.height = height;
+      buildGlows();
       if (reduced) render();
     };
 
