@@ -1,16 +1,26 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { CapabilitiesAssembly } from "./capabilities-assembly";
+import { CapabilityStage } from "./capability-stage";
+import { capabilitySchema } from "@/lib/capabilities";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Beat 3 — Capabilities (STRATEGY.md). What do we solve? Outcomes, not a
  * service menu: the four disciplines are the answer, and the assembly moment
- * below makes the thesis move. Copy stays short — the diagram does the work.
+ * below makes the thesis move. Copy stays short; the stage does the work.
+ * A DefinedTermSet feeds each capability to search and AI as an answer-shaped,
+ * quotable definition (the interactive stories build on the same data).
  */
 export function CapabilitiesSection() {
   return (
     <section id="capabilities" className="scroll-mt-24 px-gutter py-section">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(capabilitySchema(SITE_URL)),
+        }}
+      />
       <div className="mx-auto max-w-4xl">
         <Reveal className="flex flex-col items-center gap-6 text-center">
           <span data-reveal className="label-mono text-muted-2">
@@ -27,7 +37,7 @@ export function CapabilitiesSection() {
             they reinforce each other. Four disciplines, one connected operation.
           </p>
         </Reveal>
-        <CapabilitiesAssembly className="mt-16" />
+        <CapabilityStage className="mt-16" />
         <Reveal className="mt-12 flex justify-center">
           <Link
             data-reveal
