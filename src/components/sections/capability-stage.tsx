@@ -59,6 +59,12 @@ export function CapabilityStage({ className }: { className?: string }) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   // Both the desktop and mobile chip for each node, keyed `${id}-d` / `${id}-m`.
   const chipRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  // Set when the page loads already pointed at a node (#capabilities/<id>),
+  // so the entrance skips its scatter and the node opens immediately.
+  const deepLinkedRef = useRef(false);
+  // Skip the mount write so a plain visit never gets a hash appended; only
+  // user-driven open/close touches the URL.
+  const firstWrite = useRef(true);
   const [expanded, setExpanded] = useState<CapabilityNodeId | null>(null);
 
   const focusChip = useCallback((id: CapabilityNodeId) => {
@@ -98,10 +104,49 @@ export function CapabilityStage({ className }: { className?: string }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [expanded, close]);
 
+  // Deep link: open the node named in #capabilities/<id> on load, and bring
+  // the section into view. Runs client-side only (window), so initial render
+  // stays closed and hydration matches. Must be defined before the entrance
+  // effect so it can flag a deep link and skip the scatter.
+  useEffect(() => {
+    const match = window.location.hash.match(/^#capabilities\/([a-z-]+)$/);
+    const id = match?.[1];
+    if (id && capabilityNodes.some((n) => n.id === id)) {
+      deepLinkedRef.current = true;
+      // Reading the URL is only possible on the client; a lazy initializer
+      // would desync from the server's null render. setState-in-effect is the
+      // correct pattern for hydrating from a browser-only source.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setExpanded(id as CapabilityNodeId);
+      requestAnimationFrame(() =>
+        stageRef.current?.closest("section")?.scrollIntoView({ block: "start" }),
+      );
+    }
+  }, []);
+
+  // Reflect the open node in the URL so a story is shareable and refreshes in
+  // place. replaceState, not pushState: this is inline disclosure, not a page
+  // navigation, so Back should leave the page rather than unwind node visits.
+  // The mount write is skipped so a plain visit keeps a clean URL.
+  useEffect(() => {
+    if (firstWrite.current) {
+      firstWrite.current = false;
+      return;
+    }
+    const base = window.location.pathname + window.location.search;
+    window.history.replaceState(
+      null,
+      "",
+      expanded ? `${base}#capabilities/${expanded}` : `${base}#capabilities`,
+    );
+  }, [expanded]);
+
   // Entrance: scattered chips + scaffold resolve into the grid, once on view.
+  // Skipped on a deep link, where the resolved markup should show at once and
+  // a scatter would fight the already-open story.
   useEffect(() => {
     const stage = stageRef.current;
-    if (!stage || prefersReducedMotion()) return;
+    if (!stage || prefersReducedMotion() || deepLinkedRef.current) return;
 
     const svg = stage.querySelector<SVGSVGElement>(".cap-scaffold");
     const chips = Array.from(stage.querySelectorAll<HTMLElement>(".cap-chip-d"));
