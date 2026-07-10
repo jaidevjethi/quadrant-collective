@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getLenis } from "@/components/providers/lenis-provider";
 import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
 import {
   capabilityNodes,
@@ -94,6 +95,21 @@ const LABELS = (Object.keys(SECTOR_MID) as DisciplineId[]).map((id) => {
 
 const CENTER_PCT = (v: number) => `${(v / VB) * 100}%`;
 
+/** Nav clearance in px; matches the stage's scroll-mt-20 (5rem). */
+const NAV_OFFSET = -80;
+
+/** Scroll the stage under the nav via Lenis (native scrollIntoView fights
+ *  its lerp loop); falls back to native when Lenis is off (reduced motion). */
+function scrollStageIntoView(stage: HTMLElement | null, immediate: boolean) {
+  if (!stage) return;
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(stage, { offset: NAV_OFFSET, immediate });
+  } else {
+    stage.scrollIntoView({ block: "start" });
+  }
+}
+
 export function CapabilityStage({ className }: { className?: string }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -115,10 +131,36 @@ export function CapabilityStage({ className }: { className?: string }) {
     candidates.find((el) => el && el.offsetParent !== null)?.focus();
   }, []);
 
+  // Close mirrors the open's care: the panel eases out, then the swap, then
+  // the Q fades back in (effect below). A ref guards double-Escape mid-fade.
+  const closingRef = useRef(false);
   const close = useCallback(() => {
-    setExpanded((current) => {
-      if (current) requestAnimationFrame(() => focusChip(current));
-      return null;
+    if (closingRef.current) return;
+    const finish = () => {
+      closingRef.current = false;
+      setExpanded((current) => {
+        if (current) requestAnimationFrame(() => focusChip(current));
+        return null;
+      });
+    };
+
+    const panel = stageRef.current?.querySelector<HTMLElement>(
+      ".capability-story[data-active] .cap-story-inner",
+    );
+    if (!panel || prefersReducedMotion()) {
+      finish();
+      return;
+    }
+    closingRef.current = true;
+    gsap.to(panel, {
+      opacity: 0,
+      y: 8,
+      duration: 0.25,
+      ease: EASE.precision,
+      onComplete: () => {
+        gsap.set(panel, { clearProps: "all" });
+        finish();
+      },
     });
   }, [focusChip]);
 
@@ -128,15 +170,16 @@ export function CapabilityStage({ className }: { className?: string }) {
 
   const jump = useCallback((id: CapabilityNodeId) => setExpanded(id), []);
 
-  // Move focus into the opened story and align the panel top just below the
-  // sticky nav (scroll-mt-20 on the stage), so the header is never tucked
-  // behind it; keep triggers honest after the in-flow swap.
+  // Move focus into the opened story and glide the panel top just below the
+  // sticky nav, so the header is never tucked behind it; keep triggers honest
+  // after the in-flow swap. The deep-link mount handles its own scroll (it
+  // must wait out initial layout), so it is skipped here.
   useEffect(() => {
     if (expanded) {
       headingRef.current?.focus({ preventScroll: true });
-      requestAnimationFrame(() =>
-        stageRef.current?.scrollIntoView({ block: "start" }),
-      );
+      if (!deepLinkedRef.current) {
+        requestAnimationFrame(() => scrollStageIntoView(stageRef.current, false));
+      }
     }
     ScrollTrigger.refresh();
   }, [expanded]);
@@ -151,16 +194,47 @@ export function CapabilityStage({ className }: { className?: string }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [expanded, close]);
 
-  // Deep link: open #capabilities/<id> on load and bring the section into view.
+  // Deep link: open #capabilities/<id> on load and land on it instantly.
+  // The scroll waits out first paint and the LenisProvider's 150ms mount
+  // refresh (fonts/images shift layout under an immediate scroll), then
+  // refreshes triggers itself and jumps. Scroll restoration goes manual for
+  // matched links only, so the browser's own restore (which fires after
+  // load) cannot override the deliberate landing. The flag also skips the
+  // scatter entrance; it is released afterwards so later clicks glide.
   useEffect(() => {
-    const match = window.location.hash.match(/^#capabilities\/([a-z-]+)$/);
-    const id = match?.[1];
-    if (id && capabilityNodes.some((n) => n.id === id)) {
+    const parseHash = (): CapabilityNodeId | null => {
+      const match = window.location.hash.match(/^#capabilities\/([a-z-]+)$/);
+      const id = match?.[1];
+      return id && capabilityNodes.some((n) => n.id === id)
+        ? (id as CapabilityNodeId)
+        : null;
+    };
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const initial = parseHash();
+    if (initial) {
+      window.history.scrollRestoration = "manual";
       deepLinkedRef.current = true;
-      // The open effect brings the panel into view; just record the target.
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setExpanded(id as CapabilityNodeId);
+      setExpanded(initial);
+      timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+        scrollStageIntoView(stageRef.current, true);
+        deepLinkedRef.current = false;
+      }, 250);
     }
+
+    // Same-document hash navigation (a link to #capabilities/<id> from the
+    // live page) opens the node too; the open effect handles the glide.
+    const onHashChange = () => {
+      const id = parseHash();
+      if (id) setExpanded(id);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("hashchange", onHashChange);
+    };
   }, []);
 
   // Reflect the open node in the URL (replaceState, skip the mount write).
@@ -229,21 +303,38 @@ export function CapabilityStage({ className }: { className?: string }) {
     return () => ctx.revert();
   }, []);
 
-  // A short rise-in on the opening story (desktop crossfade is CSS-driven).
+  // A short rise-in on the opening story; when a story closes, the returning
+  // Q fades back in rather than snapping (opacity only, display is CSS).
+  const wasOpenRef = useRef(false);
   useEffect(() => {
-    if (!expanded || prefersReducedMotion()) return;
-    const panel = stageRef.current?.querySelector(`#story-${expanded} .cap-story-inner`);
-    if (panel) {
-      gsap.fromTo(
-        panel,
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: DURATION.standard, ease: EASE.precision },
-      );
+    if (prefersReducedMotion()) {
+      wasOpenRef.current = Boolean(expanded);
+      return;
     }
+    if (expanded) {
+      const panel = stageRef.current?.querySelector(`#story-${expanded} .cap-story-inner`);
+      if (panel) {
+        gsap.fromTo(
+          panel,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: DURATION.standard, ease: EASE.precision },
+        );
+      }
+    } else if (wasOpenRef.current) {
+      const layer = stageRef.current?.querySelector(".cap-ring-layer");
+      if (layer) {
+        gsap.fromTo(
+          layer,
+          { opacity: 0 },
+          { opacity: 1, duration: DURATION.standard, ease: EASE.precision },
+        );
+      }
+    }
+    wasOpenRef.current = Boolean(expanded);
   }, [expanded]);
 
   const chipClass =
-    "cap-chip flex items-center gap-2 whitespace-nowrap rounded-md border bg-[#14171d] px-3 py-2 text-sm font-medium text-clarity outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-clarity";
+    "cap-chip flex items-center gap-1.5 md:gap-2 whitespace-nowrap rounded-md border bg-[#14171d] px-2.5 py-1.5 md:px-3 md:py-2 text-xs md:text-sm font-medium text-clarity outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-clarity";
 
   const arcOpacity = (id: DisciplineId) =>
     activeDisc && activeDisc !== id ? 0.32 : 1;
@@ -254,9 +345,10 @@ export function CapabilityStage({ className }: { className?: string }) {
       data-open={expanded ? "" : undefined}
       className={`cap-stage relative scroll-mt-20 ${className ?? ""}`}
     >
-      {/* Desktop: the Q mark. Ring + orbiting chips, hidden when a story opens. */}
-      <div className="cap-ring-layer hidden md:flex md:justify-center">
-        <div className="relative aspect-square w-full max-w-[520px]">
+      {/* The Q mark at every breakpoint. On phones the ring is narrowed so the
+          orbiting chip labels stay inside the viewport. Hidden when a story opens. */}
+      <div className="cap-ring-layer flex justify-center">
+        <div className="relative aspect-square w-[82%] max-w-[520px] sm:w-full">
           <svg className="cap-ring absolute inset-0 h-full w-full" viewBox={`0 0 ${VB} ${VB}`} aria-hidden="true">
             <path className="cap-cross" pathLength={1} d={`M${C} 70 V${VB - 70}`} stroke="rgba(230,230,230,0.14)" strokeWidth={1} fill="none" />
             <path className="cap-cross" pathLength={1} d={`M70 ${C} H${VB - 70}`} stroke="rgba(230,230,230,0.14)" strokeWidth={1} fill="none" />
@@ -334,34 +426,8 @@ export function CapabilityStage({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* Mobile: readable stacked layout, grouped by discipline. */}
-      <div className="cap-mobile-layer grid grid-cols-2 gap-4 md:hidden">
-        {(["strategy", "design", "technology", "growth"] as DisciplineId[]).map((d) => (
-          <div key={d} className="flex flex-col gap-3 rounded-md border border-hairline bg-raised/30 p-4">
-            <span className="label-mono" style={{ color: disciplines[d].color }}>{disciplines[d].label}</span>
-            <ul className="flex flex-col gap-2">
-              {capabilityNodes.filter((n) => n.discipline === d).map((n) => (
-                <li key={n.id}>
-                  <button
-                    type="button"
-                    ref={(el) => { chipRefs.current[`${n.id}-m`] = el; }}
-                    onClick={() => toggle(n.id)}
-                    aria-expanded={expanded === n.id}
-                    aria-controls={`story-${n.id}`}
-                    className={`${chipClass} w-full ${expanded === n.id ? "border-clarity" : "border-hairline"}`}
-                  >
-                    <span aria-hidden className="size-2 shrink-0 rounded-full" style={{ backgroundColor: disciplines[d].color }} />
-                    {n.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
       {/* Story region: every story in the DOM (crawlable); the active one is
-          shown, as a crossfaded overlay on desktop and in flow on mobile. */}
+          shown in flow, replacing the ring, at every breakpoint. */}
       <noscript>
         <style>{`.cap-story-overlay,.capability-story{display:block !important;opacity:1 !important;position:static !important}`}</style>
       </noscript>

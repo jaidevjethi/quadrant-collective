@@ -10,6 +10,16 @@ import { prefersReducedMotion } from "@/lib/motion";
  * Site-wide smooth scrolling synced with GSAP ScrollTrigger.
  * Disabled entirely under prefers-reduced-motion; native scroll remains.
  */
+
+/** The live Lenis instance, for components that must scroll programmatically
+ *  (native scrollIntoView fights the lerp loop). Null before mount, after
+ *  unmount, and under reduced motion — callers fall back to native scroll. */
+let lenisInstance: Lenis | null = null;
+
+export function getLenis(): Lenis | null {
+  return lenisInstance;
+}
+
 export function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -30,6 +40,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       smoothWheel: true,
       syncTouch: true,
     });
+    lenisInstance = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time: number) => lenis.raf(time * 1000);
@@ -39,6 +50,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     return () => {
       clearTimeout(timer);
       gsap.ticker.remove(raf);
+      lenisInstance = null;
       lenis.destroy();
     };
   }, []);

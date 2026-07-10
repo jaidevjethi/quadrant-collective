@@ -224,8 +224,7 @@
 .cap-stage[data-open] .cap-story-overlay {
   display: block;
 }
-.cap-stage[data-open] .cap-ring-layer,
-.cap-stage[data-open] .cap-mobile-layer {
+.cap-stage[data-open] .cap-ring-layer {
   display: none;
 }
 
