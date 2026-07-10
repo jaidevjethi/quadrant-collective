@@ -214,44 +214,19 @@
   display: block;
 }
 
-/* The story region. On mobile it sits in flow and only takes space when a
-   node is open (so a closed grid reserves nothing below it). On desktop it
-   becomes a crossfaded overlay filling the fixed-height Q frame, so opening
-   a node swaps the ring for the story with no layout jump. */
+/* The story region sits in flow and swaps with the Q: closed, the ring is
+   shown and the story takes no space; open, the ring and mobile grid are
+   hidden and the story appears in their place at natural height (no internal
+   scroll, no clipping). The opening rise-in is animated in the component. */
 .cap-story-overlay {
   display: none;
 }
 .cap-stage[data-open] .cap-story-overlay {
   display: block;
 }
+.cap-stage[data-open] .cap-ring-layer,
 .cap-stage[data-open] .cap-mobile-layer {
   display: none;
-}
-
-@media (min-width: 768px) {
-  .cap-story-overlay {
-    display: block;
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    overflow: hidden;
-    transition: opacity 0.4s var(--ease-precision);
-  }
-  .cap-stage[data-open] .cap-story-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .cap-ring-layer {
-    transition:
-      opacity 0.35s var(--ease-precision),
-      transform 0.35s var(--ease-precision);
-  }
-  .cap-stage[data-open] .cap-ring-layer {
-    opacity: 0;
-    transform: scale(0.97);
-    pointer-events: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

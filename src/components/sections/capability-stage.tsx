@@ -128,10 +128,15 @@ export function CapabilityStage({ className }: { className?: string }) {
 
   const jump = useCallback((id: CapabilityNodeId) => setExpanded(id), []);
 
-  // Move focus into the opened story; keep triggers honest after the swap.
+  // Move focus into the opened story and align the panel top just below the
+  // sticky nav (scroll-mt-20 on the stage), so the header is never tucked
+  // behind it; keep triggers honest after the in-flow swap.
   useEffect(() => {
-    if (expanded && headingRef.current) {
-      headingRef.current.focus({ preventScroll: true });
+    if (expanded) {
+      headingRef.current?.focus({ preventScroll: true });
+      requestAnimationFrame(() =>
+        stageRef.current?.scrollIntoView({ block: "start" }),
+      );
     }
     ScrollTrigger.refresh();
   }, [expanded]);
@@ -152,11 +157,9 @@ export function CapabilityStage({ className }: { className?: string }) {
     const id = match?.[1];
     if (id && capabilityNodes.some((n) => n.id === id)) {
       deepLinkedRef.current = true;
+      // The open effect brings the panel into view; just record the target.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setExpanded(id as CapabilityNodeId);
-      requestAnimationFrame(() =>
-        stageRef.current?.closest("section")?.scrollIntoView({ block: "start" }),
-      );
     }
   }, []);
 
@@ -243,17 +246,17 @@ export function CapabilityStage({ className }: { className?: string }) {
     "cap-chip flex items-center gap-2 whitespace-nowrap rounded-md border bg-[#14171d] px-3 py-2 text-sm font-medium text-clarity outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-clarity";
 
   const arcOpacity = (id: DisciplineId) =>
-    activeDisc && activeDisc !== id ? 0.22 : 1;
+    activeDisc && activeDisc !== id ? 0.32 : 1;
 
   return (
     <div
       ref={stageRef}
       data-open={expanded ? "" : undefined}
-      className={`cap-stage relative md:h-[640px] ${className ?? ""}`}
+      className={`cap-stage relative scroll-mt-20 ${className ?? ""}`}
     >
-      {/* Desktop: the Q mark. Ring + orbiting chips, faded out when a story opens. */}
-      <div className="cap-ring-layer hidden md:absolute md:inset-0 md:flex md:items-center md:justify-center">
-        <div className="relative aspect-square h-full max-h-[640px]">
+      {/* Desktop: the Q mark. Ring + orbiting chips, hidden when a story opens. */}
+      <div className="cap-ring-layer hidden md:flex md:justify-center">
+        <div className="relative aspect-square w-full max-w-[520px]">
           <svg className="cap-ring absolute inset-0 h-full w-full" viewBox={`0 0 ${VB} ${VB}`} aria-hidden="true">
             <path className="cap-cross" pathLength={1} d={`M${C} 70 V${VB - 70}`} stroke="rgba(230,230,230,0.14)" strokeWidth={1} fill="none" />
             <path className="cap-cross" pathLength={1} d={`M70 ${C} H${VB - 70}`} stroke="rgba(230,230,230,0.14)" strokeWidth={1} fill="none" />
@@ -317,8 +320,6 @@ export function CapabilityStage({ className }: { className?: string }) {
                 onClick={() => toggle(node.id)}
                 onMouseEnter={() => setHovered(node.id)}
                 onMouseLeave={() => setHovered(null)}
-                onFocus={() => setHovered(node.id)}
-                onBlur={() => setHovered(null)}
                 aria-expanded={expanded === node.id}
                 aria-controls={`story-${node.id}`}
                 data-flyx={flyx}
@@ -372,9 +373,9 @@ export function CapabilityStage({ className }: { className?: string }) {
             role="region"
             aria-labelledby={`heading-${n.id}`}
             data-active={expanded === n.id ? "true" : undefined}
-            className="capability-story group overflow-hidden rounded-lg border border-hairline bg-balance shadow-[0_24px_80px_-24px_rgba(0,0,0,0.7)] md:h-full"
+            className="capability-story group overflow-hidden rounded-lg border border-hairline bg-balance shadow-[0_24px_80px_-24px_rgba(0,0,0,0.7)]"
           >
-            <div className="cap-story-inner md:h-full md:overflow-y-auto" data-lenis-prevent>
+            <div className="cap-story-inner">
               <CapabilityStory
                 node={n}
                 onClose={close}

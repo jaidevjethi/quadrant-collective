@@ -30,7 +30,7 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
     const accent = disciplines[node.discipline].color;
 
     return (
-      <article className="relative flex h-full flex-col gap-7 p-6 md:gap-8 md:p-9">
+      <article className="relative flex h-full flex-col gap-5 p-6 md:gap-6 md:p-8">
         {/* Discipline accent: a hairline in the node's colour across the top. */}
         <span
           aria-hidden
@@ -49,7 +49,7 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
         </button>
 
         {/* Identity */}
-        <header className="flex flex-col gap-3 pr-12">
+        <header className="flex flex-col gap-2 pr-12">
           <span className="label-mono flex items-center gap-2" style={{ color: accent }}>
             <span aria-hidden className="size-1.5 rounded-full" style={{ backgroundColor: accent }} />
             {disciplines[node.discipline].label}
@@ -62,12 +62,11 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
           >
             {node.label}
           </h3>
-          <p className="max-w-2xl text-lead text-muted-2">{node.definition}</p>
+          <p className="max-w-3xl text-base leading-relaxed text-muted-2">{node.definition}</p>
         </header>
 
-        {/* Body: prose column + process column */}
-        <div className="grid flex-1 gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
-          {/* How we think */}
+        {/* Body: prose column + process column, balanced */}
+        <div className="grid flex-1 gap-8 md:grid-cols-2 md:gap-12">
           <div className="flex flex-col gap-3">
             <span className="label-mono text-faint">How we think</span>
             {node.philosophy.map((p) => (
@@ -77,47 +76,38 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
             ))}
           </div>
 
-          {/* Process + shift */}
-          <div className="flex flex-col gap-7 md:border-l md:border-hairline md:pl-10">
-            <div className="flex flex-col gap-4">
-              <span className="label-mono text-faint">{node.framework.name}</span>
-              <ol className="flex flex-col gap-3">
-                {node.framework.steps.map((step, i) => (
-                  <li key={step.name} className="flex gap-3">
-                    <span
-                      aria-hidden
-                      className="label-mono w-6 shrink-0 pt-0.5"
-                      style={{ color: accent }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex flex-col gap-0.5">
-                      <span className="text-sm font-medium text-clarity">{step.name}</span>
-                      <span className="text-sm leading-relaxed text-muted-2">{step.detail}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <dl className="grid grid-cols-2 overflow-hidden rounded-md border border-hairline">
-              <div className="flex flex-col gap-1 border-r border-hairline bg-depth p-4">
-                <dt className="label-mono text-faint">Before</dt>
-                <dd className="text-sm font-medium text-muted-2">{node.beforeAfter.before.label}</dd>
-              </div>
-              <div
-                className="flex flex-col gap-1 bg-depth p-4"
-                style={{ boxShadow: `inset 2px 0 0 ${accent}` }}
-              >
-                <dt className="label-mono" style={{ color: accent }}>After</dt>
-                <dd className="text-sm font-medium text-clarity">{node.beforeAfter.after.label}</dd>
-              </div>
-            </dl>
+          <div className="flex flex-col gap-4 md:border-l md:border-hairline md:pl-12">
+            <span className="label-mono text-faint">{node.framework.name}</span>
+            <ol className="flex flex-col gap-3">
+              {node.framework.steps.map((step, i) => (
+                <li key={step.name} className="flex gap-3">
+                  <span aria-hidden className="label-mono w-6 shrink-0 pt-0.5" style={{ color: accent }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="text-sm font-medium text-clarity">{step.name}</span>
+                    <span className="text-sm leading-relaxed text-muted-2">{step.detail}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
 
+        {/* The shift: one compact full-width row */}
+        <dl className="grid grid-cols-1 overflow-hidden rounded-md border border-hairline sm:grid-cols-2">
+          <div className="flex items-baseline gap-3 border-hairline p-4 max-sm:border-b sm:border-r">
+            <dt className="label-mono shrink-0 text-faint">Before</dt>
+            <dd className="text-sm text-muted-2">{node.beforeAfter.before.label}</dd>
+          </div>
+          <div className="flex items-baseline gap-3 p-4" style={{ boxShadow: `inset 2px 0 0 ${accent}` }}>
+            <dt className="label-mono shrink-0" style={{ color: accent }}>After</dt>
+            <dd className="text-sm text-clarity">{node.beforeAfter.after.label}</dd>
+          </div>
+        </dl>
+
         {/* Cross-discipline links: the exploration affordance */}
-        <footer className="flex flex-col gap-3 border-t border-hairline pt-6">
+        <footer className="flex flex-col gap-3 border-t border-hairline pt-5">
           <span className="label-mono text-faint">Shapes the system</span>
           <ul className="grid gap-3 sm:grid-cols-3">
             {node.influences.map((inf) => {
@@ -128,7 +118,7 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
                   <button
                     type="button"
                     onClick={() => onJump(inf.target)}
-                    className="group flex h-full w-full flex-col gap-1.5 rounded-md border border-hairline bg-depth p-3 text-left transition-colors duration-200 hover:border-hairline-strong"
+                    className="group flex h-full w-full flex-col gap-1 rounded-md border border-hairline bg-depth p-3 text-left transition-colors duration-200 hover:border-hairline-strong"
                   >
                     <span className="flex items-center gap-2">
                       <span aria-hidden className="size-2 shrink-0 rounded-full" style={{ backgroundColor: targetAccent }} />
