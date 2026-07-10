@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+// The form is imported EAGERLY on purpose: this page exists for the form, so
+// its fields must be in the first-paint HTML (the lazy variant is for the
+// homepage, where the form is below the fold in the final beat).
 import { ContactForm } from "@/components/contact/contact-form";
 import { IntroField } from "@/components/ui/intro-field";
 import { Reveal } from "@/components/motion/reveal";
+import { TextReveal } from "@/components/motion/text-reveal";
 import { PHONE_HREF, WHATSAPP_DISPLAY, waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -58,12 +62,12 @@ export default function ContactPage() {
       <div className="mx-auto grid w-full max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">Contact</span>
-          <h1
-            data-reveal
-            className="font-heading text-headline font-medium tracking-tight text-clarity"
+          <TextReveal
+            as="h1"
+            className="font-heading text-display font-medium tracking-tight text-clarity"
           >
-            Let&apos;s build the system your business actually needs.
-          </h1>
+            {"Let's build the system your business actually needs."}
+          </TextReveal>
           <p data-reveal className="max-w-sm text-lead text-muted-2">
             Tell us where you are and where you want to be. We read every message
             ourselves and reply within one business day.

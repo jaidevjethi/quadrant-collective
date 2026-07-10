@@ -39,6 +39,22 @@ export function SiteHeader() {
     };
   }, []);
 
+  // Open menu behaves like a real layer: Escape closes it, and the page
+  // behind it does not scroll. Both restore cleanly on close/unmount.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
+
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
@@ -99,34 +115,48 @@ export function SiteHeader() {
         </button>
       </div>
 
-      {open && (
-        <nav
-          aria-label="Primary"
-          className="flex flex-col gap-1 border-t border-hairline px-gutter py-4 md:hidden"
-        >
-          {LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              aria-current={isActive(l.href) ? "page" : undefined}
-              onClick={() => setOpen(false)}
-              className={`py-2 text-lead ${
-                isActive(l.href) ? "text-clarity" : "text-muted-2"
-              } transition-colors duration-200 hover:text-clarity`}
-            >
-              {l.label}
-            </Link>
-          ))}
-          <Button
-            asChild
-            size="lg"
-            className="mt-4 w-full rounded-sm border border-hairline-strong bg-transparent text-clarity shadow-none transition-colors duration-200 active:scale-[0.98]"
-            onClick={() => setOpen(false)}
+      {/* Always mounted so open/close can animate; the grid-rows trick
+          animates to content height without measuring it. */}
+      <div
+        className={`grid overflow-hidden transition-all duration-300 ease-[var(--ease-precision)] md:hidden ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="min-h-0">
+          <nav
+            aria-label="Primary"
+            aria-hidden={!open}
+            className="flex flex-col gap-1 border-t border-hairline px-gutter py-4"
           >
-            <Link href="/contact">Start a conversation</Link>
-          </Button>
-        </nav>
-      )}
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={isActive(l.href) ? "page" : undefined}
+                onClick={() => setOpen(false)}
+                tabIndex={open ? undefined : -1}
+                className={`py-2 text-lead transition-colors duration-200 hover:text-clarity ${
+                  isActive(l.href)
+                    ? "text-clarity underline decoration-growth/70 decoration-1 underline-offset-8"
+                    : "text-muted-2"
+                }`}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Button
+              asChild
+              size="lg"
+              className="mt-4 w-full rounded-sm border border-hairline-strong bg-transparent text-clarity shadow-none transition-colors duration-200 active:scale-[0.98]"
+              onClick={() => setOpen(false)}
+            >
+              <Link href="/contact" tabIndex={open ? undefined : -1}>
+                Start a conversation
+              </Link>
+            </Button>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }

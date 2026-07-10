@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Reveal } from "@/components/motion/reveal";
+import { CornerTicks } from "@/components/ui/corner-ticks";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -69,9 +71,9 @@ export default function PrivacyPage() {
           <p className="label-mono text-faint">Last updated: 9 July 2026</p>
         </header>
 
-        <div className="flex flex-col gap-10">
+        <Reveal className="flex flex-col gap-10">
           {SECTIONS.map((s) => (
-            <section key={s.heading} className="flex flex-col gap-3">
+            <section key={s.heading} data-reveal className="flex flex-col gap-3">
               <h2 className="text-title font-medium text-clarity">
                 {s.heading}
               </h2>
@@ -82,17 +84,20 @@ export default function PrivacyPage() {
               ))}
             </section>
           ))}
-        </div>
+        </Reveal>
 
-        <p className="border-t border-hairline pt-6 text-sm text-muted-2">
-          Something unclear?{" "}
-          <Link
-            href="/contact"
-            className="text-clarity underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:decoration-clarity"
-          >
-            Ask us directly.
-          </Link>
-        </p>
+        <div className="group relative rounded-md border border-hairline bg-raised/30 p-6">
+          <CornerTicks />
+          <p className="text-sm text-muted-2">
+            Something unclear?{" "}
+            <Link
+              href="/contact"
+              className="text-clarity underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:decoration-clarity"
+            >
+              Ask us directly.
+            </Link>
+          </p>
+        </div>
       </div>
     </main>
   );
