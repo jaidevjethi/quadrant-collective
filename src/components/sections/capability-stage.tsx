@@ -252,7 +252,10 @@ export function CapabilityStage({ className }: { className?: string }) {
     );
   }, [expanded]);
 
-  // Entrance: the Q assembles. Arcs draw, chips fly out from center to orbit.
+  // Entrance: the Q assembles one discipline at a time, so every visitor
+  // (touch included, where the hover arc-light never fires) sees each colour
+  // claim its own capabilities. Reading order TL, TR, BL, BR; growth last so
+  // the Q tail welds at the end. Skipped on reduced motion / deep link.
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage || prefersReducedMotion() || deepLinkedRef.current) return;
@@ -270,6 +273,7 @@ export function CapabilityStage({ className }: { className?: string }) {
     // Chips live in the square ring box, so px-per-viewBox-unit is measured
     // from the SVG, not the full-width stage.
     const scale = svg.getBoundingClientRect().width / VB;
+    const ORDER: DisciplineId[] = ["strategy", "design", "technology", "growth"];
 
     const ctx = gsap.context(() => {
       gsap.set([arcs, tail, cross], { strokeDasharray: 1, strokeDashoffset: 1 });
@@ -289,16 +293,27 @@ export function CapabilityStage({ className }: { className?: string }) {
         scrollTrigger: { trigger: stage, start: "top 72%", once: true },
       });
 
-      tl.to(cross, { strokeDashoffset: 0, duration: DURATION.standard, ease: EASE.precision })
-        .to(arcs, { strokeDashoffset: 0, duration: DURATION.choreo, ease: EASE.precision, stagger: 0.12 }, "-=0.3")
-        .to(dot, { scale: 1, duration: 0.4, ease: EASE.precision }, "-=0.7")
-        .to(tail, { strokeDashoffset: 0, duration: 0.4, ease: EASE.precision }, "-=0.5")
-        .to(
-          chips,
-          { x: 0, y: 0, scale: 1, opacity: 1, duration: DURATION.choreo, ease: EASE.weighted, stagger: 0.07 },
-          "-=0.8",
-        )
-        .to(labels, { opacity: 1, duration: DURATION.standard, ease: EASE.precision, stagger: 0.05 }, "-=0.6");
+      // The axes divide the plane into quadrants first.
+      tl.to(cross, { strokeDashoffset: 0, duration: DURATION.standard, ease: EASE.precision });
+
+      // Then each discipline: its arc draws, its two capabilities settle onto
+      // it, its label appears. The grouping is the whole point, so it is paced
+      // to be read, not blurred past.
+      ORDER.forEach((disc, i) => {
+        const arc = svg.querySelector<SVGPathElement>(`.cap-arc[data-disc="${disc}"]`);
+        const label = svg.querySelector<SVGTextElement>(`.cap-label[data-disc="${disc}"]`);
+        const discChips = chips.filter((c) => c.dataset.disc === disc);
+
+        tl.to(arc, { strokeDashoffset: 0, duration: DURATION.standard, ease: EASE.precision }, i === 0 ? "-=0.2" : "-=0.15")
+          .to(discChips, { x: 0, y: 0, scale: 1, opacity: 1, duration: DURATION.standard, ease: EASE.weighted, stagger: 0.08 }, "-=0.35")
+          .to(label, { opacity: 1, duration: 0.4, ease: EASE.precision }, "-=0.3");
+
+        if (disc === "growth") {
+          tl.to(tail, { strokeDashoffset: 0, duration: 0.35, ease: EASE.precision }, "-=0.25");
+        }
+      });
+
+      tl.to(dot, { scale: 1, duration: 0.4, ease: EASE.precision }, "-=0.2");
     }, stage);
 
     return () => ctx.revert();
@@ -366,6 +381,7 @@ export function CapabilityStage({ className }: { className?: string }) {
               <path
                 key={a.id}
                 className="cap-arc"
+                data-disc={a.id}
                 pathLength={1}
                 d={a.d}
                 stroke={disciplines[a.id].color}
@@ -394,6 +410,7 @@ export function CapabilityStage({ className }: { className?: string }) {
               <text
                 key={l.id}
                 className="cap-label"
+                data-disc={l.id}
                 x={l.x}
                 y={l.y}
                 textAnchor="middle"
@@ -423,6 +440,7 @@ export function CapabilityStage({ className }: { className?: string }) {
                 onMouseLeave={() => setHovered(null)}
                 aria-expanded={expanded === node.id}
                 aria-controls={`story-${node.id}`}
+                data-disc={node.discipline}
                 data-flyx={flyx}
                 data-flyy={flyy}
                 className={`cap-chip-d group/chip pointer-events-auto ${chipClass} ${expanded === node.id ? "border-clarity" : "border-hairline hover:border-hairline-strong"}`}
