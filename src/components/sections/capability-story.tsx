@@ -1,7 +1,8 @@
 "use client";
 
 import { forwardRef } from "react";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
+import { CornerTicks } from "@/components/ui/corner-ticks";
 import {
   disciplines,
   getNode,
@@ -10,11 +11,12 @@ import {
 } from "@/lib/capabilities";
 
 /**
- * The expanded story for one capability node: definition, how we think, a
- * named framework, a before/after, and the cross-discipline links that let a
- * visitor keep exploring. Presentational; the stage owns state and focus.
- * Content is real HTML (h3 / p / ol / dl) so it is crawlable and answers
- * engines can extract it. Heading receives focus on open (ref forwarded).
+ * The expanded story for one capability, composed as an editorial spec card:
+ * an identity + prose column on the left, a process + before/after column on
+ * the right, and the cross-discipline links along the bottom. Solid surfaces
+ * throughout (the panel sits over the animated starfield, so any transparency
+ * reads as noise). Presentational; the stage owns state, focus and the open
+ * animation. Real semantic HTML (h3 / p / ol / dl) keeps it crawlable.
  */
 
 type Props = {
@@ -28,21 +30,28 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
     const accent = disciplines[node.discipline].color;
 
     return (
-      <div className="relative flex flex-col gap-8 p-6 md:p-8">
+      <article className="relative flex h-full flex-col gap-7 p-6 md:gap-8 md:p-9">
+        {/* Discipline accent: a hairline in the node's colour across the top. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px"
+          style={{ backgroundColor: accent, opacity: 0.7 }}
+        />
+        <CornerTicks />
+
         <button
           type="button"
           onClick={onClose}
           aria-label="Close and return to the system"
-          className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-md border border-hairline text-muted-2 transition-colors duration-200 hover:border-hairline-strong hover:text-clarity"
+          className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-md border border-hairline bg-depth text-muted-2 transition-colors duration-200 hover:border-hairline-strong hover:text-clarity"
         >
           <X className="size-4" />
         </button>
 
+        {/* Identity */}
         <header className="flex flex-col gap-3 pr-12">
-          <span
-            className="label-mono"
-            style={{ color: accent }}
-          >
+          <span className="label-mono flex items-center gap-2" style={{ color: accent }}>
+            <span aria-hidden className="size-1.5 rounded-full" style={{ backgroundColor: accent }} />
             {disciplines[node.discipline].label}
           </span>
           <h3
@@ -56,7 +65,8 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
           <p className="max-w-2xl text-lead text-muted-2">{node.definition}</p>
         </header>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        {/* Body: prose column + process column */}
+        <div className="grid flex-1 gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
           {/* How we think */}
           <div className="flex flex-col gap-3">
             <span className="label-mono text-faint">How we think</span>
@@ -67,62 +77,49 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
             ))}
           </div>
 
-          {/* The framework */}
-          <div className="flex flex-col gap-4">
-            <span className="label-mono text-faint">{node.framework.name}</span>
-            <ol className="flex flex-col gap-4">
-              {node.framework.steps.map((step, i) => (
-                <li key={step.name} className="flex gap-4">
-                  <span
-                    aria-hidden
-                    className="label-mono shrink-0 pt-0.5"
-                    style={{ color: accent }}
-                  >
-                    0{i + 1}
-                  </span>
-                  <span className="flex flex-col gap-1">
-                    <span className="text-sm font-medium text-clarity">
-                      {step.name}
+          {/* Process + shift */}
+          <div className="flex flex-col gap-7 md:border-l md:border-hairline md:pl-10">
+            <div className="flex flex-col gap-4">
+              <span className="label-mono text-faint">{node.framework.name}</span>
+              <ol className="flex flex-col gap-3">
+                {node.framework.steps.map((step, i) => (
+                  <li key={step.name} className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="label-mono w-6 shrink-0 pt-0.5"
+                      style={{ color: accent }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-sm leading-relaxed text-muted-2">
-                      {step.detail}
+                    <span className="flex flex-col gap-0.5">
+                      <span className="text-sm font-medium text-clarity">{step.name}</span>
+                      <span className="text-sm leading-relaxed text-muted-2">{step.detail}</span>
                     </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <dl className="grid grid-cols-2 overflow-hidden rounded-md border border-hairline">
+              <div className="flex flex-col gap-1 border-r border-hairline bg-depth p-4">
+                <dt className="label-mono text-faint">Before</dt>
+                <dd className="text-sm font-medium text-muted-2">{node.beforeAfter.before.label}</dd>
+              </div>
+              <div
+                className="flex flex-col gap-1 bg-depth p-4"
+                style={{ boxShadow: `inset 2px 0 0 ${accent}` }}
+              >
+                <dt className="label-mono" style={{ color: accent }}>After</dt>
+                <dd className="text-sm font-medium text-clarity">{node.beforeAfter.after.label}</dd>
+              </div>
+            </dl>
           </div>
         </div>
 
-        {/* Before / after */}
-        <dl className="grid gap-px overflow-hidden rounded-md border border-hairline sm:grid-cols-2">
-          <div className="flex flex-col gap-1 bg-raised/30 p-5">
-            <dt className="label-mono text-faint">Before</dt>
-            <dd className="text-sm font-medium text-muted-2">
-              {node.beforeAfter.before.label}
-            </dd>
-            <dd className="text-sm text-faint">{node.beforeAfter.before.note}</dd>
-          </div>
-          <div className="flex flex-col gap-1 bg-raised/50 p-5">
-            <dt className="label-mono" style={{ color: accent }}>
-              After
-            </dt>
-            <dd className="text-sm font-medium text-clarity">
-              {node.beforeAfter.after.label}
-            </dd>
-            <dd className="text-sm text-muted-2">{node.beforeAfter.after.note}</dd>
-          </div>
-          {node.beforeAfter.caption && (
-            <p className="label-mono border-t border-hairline bg-depth/40 p-3 text-center text-faint sm:col-span-2">
-              {node.beforeAfter.caption}
-            </p>
-          )}
-        </dl>
-
         {/* Cross-discipline links: the exploration affordance */}
-        <div className="flex flex-col gap-4">
-          <span className="label-mono text-faint">How it shapes the system</span>
-          <ul className="flex flex-col gap-2">
+        <footer className="flex flex-col gap-3 border-t border-hairline pt-6">
+          <span className="label-mono text-faint">Shapes the system</span>
+          <ul className="grid gap-3 sm:grid-cols-3">
             {node.influences.map((inf) => {
               const target = getNode(inf.target);
               const targetAccent = disciplines[target.discipline].color;
@@ -131,27 +128,21 @@ export const CapabilityStory = forwardRef<HTMLHeadingElement, Props>(
                   <button
                     type="button"
                     onClick={() => onJump(inf.target)}
-                    className="group flex w-full items-center gap-3 rounded-md border border-hairline bg-raised/20 p-3 text-left transition-colors duration-200 hover:border-hairline-strong"
+                    className="group flex h-full w-full flex-col gap-1.5 rounded-md border border-hairline bg-depth p-3 text-left transition-colors duration-200 hover:border-hairline-strong"
                   >
-                    <span
-                      aria-hidden
-                      className="size-2 shrink-0 rounded-full"
-                      style={{ backgroundColor: targetAccent }}
-                    />
-                    <span className="flex flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
-                      <span className="text-sm font-medium text-clarity">
-                        {target.label}
-                      </span>
-                      <span className="text-sm text-muted-2">{inf.why}</span>
+                    <span className="flex items-center gap-2">
+                      <span aria-hidden className="size-2 shrink-0 rounded-full" style={{ backgroundColor: targetAccent }} />
+                      <span className="text-sm font-medium text-clarity">{target.label}</span>
+                      <ArrowUpRight className="ml-auto size-3.5 text-faint transition-colors duration-200 group-hover:text-clarity" />
                     </span>
-                    <ArrowRight className="size-4 shrink-0 text-faint transition-all duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5 group-hover:text-clarity" />
+                    <span className="text-xs leading-relaxed text-muted-2">{inf.why}</span>
                   </button>
                 </li>
               );
             })}
           </ul>
-        </div>
-      </div>
+        </footer>
+      </article>
     );
   },
 );

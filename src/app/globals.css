@@ -203,7 +203,7 @@
   }
 }
 
-/* Capability knowledge nodes: every story is in the DOM (crawlable); JS
+/* Capability knowledge nodes. Every story is in the DOM (crawlable); JS
    reveals the active one via data-active. A class, not the [hidden]
    attribute, because Tailwind's preflight makes [hidden] display:none
    !important, which a <noscript> override could not beat. */
@@ -212,6 +212,46 @@
 }
 .capability-story[data-active="true"] {
   display: block;
+}
+
+/* The story region. On mobile it sits in flow and only takes space when a
+   node is open (so a closed grid reserves nothing below it). On desktop it
+   becomes a crossfaded overlay filling the fixed-height Q frame, so opening
+   a node swaps the ring for the story with no layout jump. */
+.cap-story-overlay {
+  display: none;
+}
+.cap-stage[data-open] .cap-story-overlay {
+  display: block;
+}
+.cap-stage[data-open] .cap-mobile-layer {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cap-story-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transition: opacity 0.4s var(--ease-precision);
+  }
+  .cap-stage[data-open] .cap-story-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .cap-ring-layer {
+    transition:
+      opacity 0.35s var(--ease-precision),
+      transform 0.35s var(--ease-precision);
+  }
+  .cap-stage[data-open] .cap-ring-layer {
+    opacity: 0;
+    transform: scale(0.97);
+    pointer-events: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
