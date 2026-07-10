@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion } from "@/lib/motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Beat 6 — The difference (STRATEGY.md), signature moment 3 of 3: the
@@ -9,6 +14,13 @@ import { useState } from "react";
  * growth happens at the intersection." Pure CSS transitions on stroke/opacity
  * (cheap, no rAF). Resting state is complete and legible, so no-JS, mobile,
  * and reduced-motion all read fine; interaction is enhancement.
+ *
+ * Touch users never hover, so the diagram demonstrates itself once on scroll
+ * into view: each node lights its connections in turn, then the graph settles
+ * to neutral. Any real interaction cancels the demo instantly (the visitor's
+ * gesture always wins). Skipped under reduced motion. Each node also carries
+ * an invisible enlarged hit rect so taps land on a phone (the visible pill is
+ * ~74x23px at 360px wide, well under the 44px minimum).
  */
 
 const VISION = "#7C3AED";
@@ -36,11 +48,64 @@ const EDGES: [Key, Key][] = [
   ["technology", "growth"],
 ];
 
+/** Seconds each node stays lit during the self-demo. */
+const DEMO_STEP = 0.75;
+
 export function NetworkDiagram({ className }: { className?: string }) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const demoRef = useRef<gsap.core.Timeline | null>(null);
+  const interactedRef = useRef(false);
   const [active, setActive] = useState<Key | null>(null);
+
+  // The visitor's gesture always beats the demo.
+  const cancelDemo = () => {
+    if (demoRef.current) {
+      demoRef.current.kill();
+      demoRef.current = null;
+    }
+    interactedRef.current = true;
+  };
+
+  const activate = (k: Key | null) => {
+    cancelDemo();
+    setActive(k);
+  };
+
+  // Self-demonstrating entrance: light each node's connections once, in
+  // reading order, then settle. Runs once when the diagram scrolls into view.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: svg,
+      start: "top 72%",
+      once: true,
+      onEnter: () => {
+        if (interactedRef.current) return;
+        const tl = gsap.timeline({ delay: 0.4 });
+        KEYS.forEach((k, i) => {
+          tl.call(() => setActive(k), undefined, i * DEMO_STEP);
+        });
+        tl.call(() => setActive(null), undefined, KEYS.length * DEMO_STEP);
+        tl.call(() => {
+          demoRef.current = null;
+        });
+        demoRef.current = tl;
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      demoRef.current?.kill();
+      demoRef.current = null;
+    };
+  }, []);
 
   return (
     <svg
+      ref={svgRef}
       viewBox="0 0 600 470"
       className={`h-auto w-full ${className ?? ""}`}
       role="img"
@@ -80,12 +145,17 @@ export function NetworkDiagram({ className }: { className?: string }) {
             role="button"
             aria-label={n.label}
             style={{ cursor: "pointer", outline: "none", opacity: dim ? 0.5 : 1, transition: "opacity 200ms ease" }}
-            onMouseEnter={() => setActive(k)}
-            onMouseLeave={() => setActive(null)}
-            onFocus={() => setActive(k)}
-            onBlur={() => setActive(null)}
-            onClick={() => setActive((cur) => (cur === k ? null : k))}
+            onMouseEnter={() => activate(k)}
+            onMouseLeave={() => activate(null)}
+            onFocus={() => activate(k)}
+            onBlur={() => activate(null)}
+            onClick={() => {
+              cancelDemo();
+              setActive((cur) => (cur === k ? null : k));
+            }}
           >
+            {/* Invisible enlarged hit area: >=44px tall at phone widths. */}
+            <rect x={-85} y={-38} width={170} height={76} rx={12} fill="rgba(0,0,0,0)" stroke="none" />
             <rect
               x={-62}
               y={-19}

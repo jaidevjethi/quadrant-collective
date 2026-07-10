@@ -35,7 +35,7 @@ export function ProofSection() {
             </h2>
             <Link
               href="/work"
-              className="group inline-flex items-center gap-2 pb-1.5 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
+              className="group inline-flex items-center gap-2 pb-1.5 text-sm text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
             >
               All work
               <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
@@ -104,7 +104,7 @@ export function ProofSection() {
               </span>
               <Link
                 href="/work/pramukh-dental"
-                className="group inline-flex items-center gap-1.5 text-sm text-muted-2 transition-colors duration-200 hover:text-clarity"
+                className="group inline-flex items-center gap-1.5 text-sm text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
               >
                 Read the case
                 <ArrowRight className="size-3.5 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />

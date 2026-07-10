@@ -47,7 +47,16 @@ export function DifferenceSection() {
           </p>
         </Reveal>
 
-        <Reveal>
+        <Reveal className="flex flex-col items-center gap-6">
+          {/* Affordance: same vocabulary as the capability ring; the only
+              reliable cue on touch, where hover never fires. */}
+          <p data-reveal className="label-mono flex items-center gap-2 text-muted-2">
+            <span
+              aria-hidden
+              className="size-1.5 animate-pulse rounded-full bg-clarity"
+            />
+            Tap a discipline. Watch the others respond.
+          </p>
           <div data-reveal className="mx-auto w-full max-w-2xl">
             <NetworkDiagram />
           </div>

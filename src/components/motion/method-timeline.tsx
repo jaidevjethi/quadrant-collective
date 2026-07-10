@@ -50,35 +50,32 @@ export function MethodTimeline({ className }: { className?: string }) {
 
     gsap.set(axis, { scaleY: 0, transformOrigin: "50% 0%" });
     gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
-    gsap.set(rows, { autoAlpha: 0, rotationX: -60, z: -200, y: 50, transformPerspective: 1000 });
+    gsap.set(rows, { autoAlpha: 0, y: 28 });
 
+    // Trigger-once like every other beat (this was the page's one scrubbed
+    // motion, which could land half-drawn on a fast mobile flick). The axis
+    // draws, then each step settles onto it: rise-and-fade only, no 3D, no
+    // overshoot (constitution: never bouncy, never exaggerated).
     const tl = gsap.timeline({
-      scrollTrigger: { 
-        trigger: root, 
-        start: "top 80%", 
-        end: "bottom 40%", 
-        scrub: 1 
-      },
+      scrollTrigger: { trigger: root, start: "top 72%", once: true },
     });
 
-    tl.to(axis, { scaleY: 1, duration: 2, ease: "none" }, 0)
+    tl.to(axis, { scaleY: 1, duration: DURATION.choreo, ease: EASE.weighted })
       .to(
         dots,
-        { scale: 1, duration: 0.2, stagger: 0.5, ease: "back.out(1.7)" },
-        0
+        { scale: 1, duration: 0.35, stagger: 0.18, ease: EASE.precision },
+        "-=0.8",
       )
       .to(
         rows,
         {
           autoAlpha: 1,
-          rotationX: 0,
-          z: 0,
           y: 0,
-          duration: 0.8,
-          stagger: 0.5,
-          ease: "power2.out",
+          duration: DURATION.standard,
+          stagger: 0.18,
+          ease: EASE.weighted,
         },
-        0
+        "-=0.9",
       );
 
     return () => {
