@@ -1,8 +1,10 @@
 /**
  * Service packages. The single source for /services. Content comes from the
- * founder's real offering (2026-07-06 brief), rewritten to the voice rules:
+ * founder's real offering (2026-07-06 brief), written to the voice rules:
  * calm, declarative, no hype vocabulary, no dashes. The positioning line is
  * his: we handle the strategy and tech, the client provides the expertise.
+ * Voice pass 2026-07-10 (founder-approved direction): heavy labels softened
+ * to plain language; offers, deliverables and prices unchanged.
  * Kept as data so the architecture never couples to the current list.
  */
 
@@ -12,6 +14,8 @@ export type Service = {
   title: string;
   positioning: string;
   pricing?: string;
+  /** Discipline accent for the package's top hairline (BRAND.md tokens). */
+  accent: string;
   deliverables: { title: string; body: string }[];
 };
 
@@ -22,73 +26,77 @@ export const services: Service[] = [
   {
     slug: "platform-architecture",
     n: "01",
-    title: "Platform Architecture & SEO",
-    positioning: "A high-performance digital asset that converts traffic into booked appointments. Built once, compounded forever.",
+    title: "Website & SEO foundation",
+    positioning:
+      "A fast, engineered website that turns searches into booked appointments, and keeps earning after launch.",
     pricing: "Custom engagement",
+    accent: "#2563EB",
     deliverables: [
       {
         title: "Engineering",
-        body: "A modern, clean aesthetic built on enterprise-grade architecture. No bloated templates.",
+        body: "Designed and built by hand on modern engineering. No bloated templates.",
       },
       {
-        title: "Speed & Accessibility",
-        body: "Lightning-fast mobile loading and 100% accessibility compliance as a baseline.",
+        title: "Speed & accessibility",
+        body: "Fast on real phones and fully accessible, as a baseline rather than a target.",
       },
       {
-        title: "Technical SEO Foundations",
-        body: "Proper indexing protocols: schema markup, semantic HTML, and structured data.",
+        title: "Technical SEO",
+        body: "Schema markup, semantic HTML and clean structure, so search engines read the site properly.",
       },
       {
-        title: "Security & Maintenance",
-        body: "Continuous monitoring, SSL, and data protection on a reliable infrastructure.",
+        title: "Security & maintenance",
+        body: "Monitoring, SSL and updates handled for you on reliable infrastructure.",
       },
     ],
   },
   {
     slug: "local-search-dominance",
     n: "02",
-    title: "Local Search Dominance",
+    title: "Google Business Profile & local search",
     positioning:
-      "We engineer your local search footprint to capture high-intent patients exactly when they need you. A continuous optimization cycle.",
+      "We build and run your Google presence so patients searching nearby find you first, and keep finding you.",
     pricing: "From ₹20,000/mo",
+    accent: "#00D1B2",
     deliverables: [
       {
-        title: "Algorithmic Positioning",
-        body: "Complete profile architecture: service menus, semantic descriptions, and structured data.",
+        title: "Profile built properly",
+        body: "The full profile set up right: services, descriptions, categories and structured data.",
       },
       {
-        title: "Reputation Operations",
-        body: "Strategic response management and automated systems for ethically capturing patient reviews.",
+        title: "Reviews, handled",
+        body: "Every review answered well, and a simple system that helps happy patients leave theirs.",
       },
       {
-        title: "Weekly Engagement",
-        body: "Continuous updates, health signals, and clinic news to keep the profile authoritative.",
+        title: "Kept alive weekly",
+        body: "Weekly posts, updates and clinic news so the profile stays active and trusted.",
       },
     ],
   },
   {
     slug: "brand-operations",
     n: "03",
-    title: "Continuous Brand Operations",
+    title: "Content & social operations",
     positioning:
-      "A compounding visual and narrative presence. We operate your content mechanics so you can operate your practice.",
+      "We run your content and social presence to one consistent standard, so you can run the practice.",
     pricing: "From ₹35,000/mo",
+    accent: "#D97706",
     deliverables: [
       {
-        title: "Strategic Curation",
-        body: "Topic architecture and scripting, mapped entirely to your practice's seasonal demands.",
+        title: "Planned, not improvised",
+        body: "A content plan mapped to your practice's calendar and seasons, scripted for you.",
       },
       {
-        title: "Visual System",
-        body: "15+ engineered posts a month, adhering strictly to a premium visual language.",
+        title: "One visual system",
+        body: "15 or more posts a month, all built on one visual system that looks unmistakably yours.",
       },
       {
-        title: "Video Production",
+        title: "Video production",
         body: "4 to 6 short-form videos a month. We script and edit; you simply record.",
       },
       {
-        title: "Platform Management",
-        body: "End-to-end operational control across Instagram, Facebook, and LinkedIn.",
+        title: "Publishing, managed",
+        body: "Posting, scheduling and replies managed across Instagram, Facebook and LinkedIn.",
       },
     ],
   },
