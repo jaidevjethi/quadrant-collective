@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { caseStudies, getCaseStudy, KIND_LABEL } from "@/lib/work";
+import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
+import { caseStudies, getCaseStudy, KIND_LABEL, type CaseStudy } from "@/lib/work";
 import { Reveal } from "@/components/motion/reveal";
+import { Button } from "@/components/ui/button";
+import { waLink } from "@/lib/whatsapp";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Case-study detail. Statically generated from the work data. Leads with a
@@ -12,6 +15,36 @@ import { Reveal } from "@/components/motion/reveal";
  * the strategy and design intent behind it. Each project is framed for what
  * it actually is (website / brand / content), never overstated.
  */
+
+/** BreadcrumbList + CreativeWork schema: the richest content on the site
+ *  shipped no structured data at all. Built entirely from the study record. */
+function caseSchema(study: CaseStudy) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Work", item: `${SITE_URL}/work/` },
+        { "@type": "ListItem", position: 2, name: study.client, item: `${SITE_URL}/work/${study.slug}/` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: study.title,
+      description: study.summary,
+      url: `${SITE_URL}/work/${study.slug}/`,
+      image: `${SITE_URL}${study.image}`,
+      dateCreated: study.year,
+      about: study.industry,
+      creator: {
+        "@type": "Organization",
+        name: "Quadrant Collective",
+        url: SITE_URL,
+      },
+    },
+  ];
+}
 
 export function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.slug }));
@@ -49,14 +82,27 @@ export default async function CaseStudyPage({
 
   return (
     <main className="flex flex-1 flex-col px-gutter py-section">
+      {caseSchema(study).map((schema) => (
+        <script
+          key={schema["@type"]}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <article className="mx-auto flex w-full max-w-4xl flex-col gap-12">
-        <Link
-          href="/work"
-          className="group inline-flex items-center gap-2 self-start text-sm text-muted-2 transition-colors hover:text-clarity"
-        >
-          <ArrowLeft className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-          All work
-        </Link>
+        {/* Breadcrumb: orientation + the BreadcrumbList schema made visible */}
+        <nav aria-label="Breadcrumb" className="label-mono flex items-center gap-2 text-faint">
+          <Link
+            href="/work"
+            className="text-muted-2 transition-colors duration-200 hover:text-clarity"
+          >
+            Work
+          </Link>
+          <span aria-hidden>/</span>
+          <span aria-current="page" className="text-clarity">
+            {study.client}
+          </span>
+        </nav>
 
         <Reveal>
           <header className="flex flex-col gap-6">
@@ -147,7 +193,6 @@ export default async function CaseStudyPage({
               <span className="label-mono text-muted-2">Outcomes</span>
             </div>
             <div data-reveal className="flex flex-col gap-5">
-              <span className="label-mono text-muted-2">Compounding Results</span>
               <ul className="flex flex-col gap-4">
                 {study.results.map((r) => (
                   <li key={r} className="flex gap-4 text-lead text-clarity font-medium">
@@ -174,6 +219,37 @@ export default async function CaseStudyPage({
             <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         )}
+
+        {/* The ask, where the proof just landed */}
+        <Reveal className="flex flex-col items-start gap-5 rounded-lg border border-hairline bg-raised p-8 md:p-10">
+          <h2
+            data-reveal
+            className="max-w-xl font-heading text-title font-medium tracking-tight text-clarity"
+          >
+            Have a project like this in mind?
+          </h2>
+          <p data-reveal className="max-w-xl text-sm leading-relaxed text-muted-2">
+            Tell us about the business and what you need. We reply within one
+            business day.
+          </p>
+          <div data-reveal className="flex flex-wrap items-center gap-x-6 gap-y-4">
+            <Button
+              asChild
+              className="group gap-2 rounded-sm bg-clarity px-6 text-depth transition-colors hover:bg-clarity/90"
+            >
+              <a href={waLink()} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="size-4" />
+                Start on WhatsApp
+              </a>
+            </Button>
+            <Link
+              href="/contact"
+              className="text-sm text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
+            >
+              Start a conversation
+            </Link>
+          </div>
+        </Reveal>
 
         {nextStudy && (
           <nav
