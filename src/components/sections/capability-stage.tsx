@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Plus } from "lucide-react";
 import { getLenis } from "@/components/providers/lenis-provider";
 import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
 import {
@@ -347,7 +348,15 @@ export function CapabilityStage({ className }: { className?: string }) {
     >
       {/* The Q mark at every breakpoint. On phones the ring is narrowed so the
           orbiting chip labels stay inside the viewport. Hidden when a story opens. */}
-      <div className="cap-ring-layer flex justify-center">
+      <div className="cap-ring-layer flex flex-col items-center gap-6">
+        {/* Affordance: the only reliable cue on touch, where there is no hover. */}
+        <p className="label-mono flex items-center gap-2 text-muted-2">
+          <span
+            aria-hidden
+            className="size-1.5 animate-pulse rounded-full bg-clarity"
+          />
+          Select any capability to see how we think
+        </p>
         <div className="relative aspect-square w-[82%] max-w-[520px] sm:w-full">
           <svg className="cap-ring absolute inset-0 h-full w-full" viewBox={`0 0 ${VB} ${VB}`} aria-hidden="true">
             <path className="cap-cross" pathLength={1} d={`M${C} 70 V${VB - 70}`} stroke="rgba(230,230,230,0.14)" strokeWidth={1} fill="none" />
@@ -416,10 +425,14 @@ export function CapabilityStage({ className }: { className?: string }) {
                 aria-controls={`story-${node.id}`}
                 data-flyx={flyx}
                 data-flyy={flyy}
-                className={`cap-chip-d pointer-events-auto ${chipClass} ${expanded === node.id ? "border-clarity" : "border-hairline hover:border-hairline-strong"}`}
+                className={`cap-chip-d group/chip pointer-events-auto ${chipClass} ${expanded === node.id ? "border-clarity" : "border-hairline hover:border-hairline-strong"}`}
               >
                 <span aria-hidden className="size-2 shrink-0 rounded-full" style={{ backgroundColor: disciplines[node.discipline].color }} />
                 {node.label}
+                <Plus
+                  aria-hidden
+                  className="size-3 shrink-0 text-faint transition-colors duration-200 group-hover/chip:text-clarity"
+                />
               </button>
             </div>
           ))}
