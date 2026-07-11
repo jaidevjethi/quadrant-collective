@@ -16,7 +16,7 @@ const orgSchema = {
   name: "Quadrant Collective",
   legalName: "Quadrant Ops India",
   url: SITE_URL,
-  logo: `${SITE_URL}/og.png`,
+  logo: `${SITE_URL}/og.jpg`,
   description:
     "A digital growth studio uniting strategy, design, technology and growth into one system.",
   founder: {
