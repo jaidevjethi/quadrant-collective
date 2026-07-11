@@ -115,9 +115,11 @@ export default async function CaseStudyPage({
                 {study.location ? ` · ${study.location}` : ""}
               </span>
             </div>
+            {/* headline, not display: case titles run long and four display
+                lines slow scanning (2026-07-11 audit). */}
             <h1
               data-reveal
-              className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity"
+              className="max-w-3xl font-heading text-headline font-medium tracking-tight text-clarity"
             >
               {study.title}
             </h1>

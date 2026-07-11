@@ -89,8 +89,10 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-archivo);
 
-  /* Fluid type scale — typography is the primary visual element */
-  --text-display-xl: clamp(3.5rem, 9vw, 8rem);
+  /* Fluid type scale — typography is the primary visual element.
+     display-xl carries a vh term so the hero thesis completes inside one
+     viewport on short laptop screens instead of spanning two. */
+  --text-display-xl: clamp(3.25rem, min(8vw, 12vh), 7rem);
   --text-display-xl--line-height: 0.98;
   --text-display-xl--letter-spacing: -0.03em;
   --text-display: clamp(2.75rem, 6vw, 5.5rem);
@@ -105,8 +107,9 @@
   --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
   --text-lead--line-height: 1.5;
 
-  /* Layout rhythm: py-section, px-gutter */
-  --spacing-section: clamp(7rem, 14vh, 11rem);
+  /* Layout rhythm: py-section, px-gutter. Tightened 2026-07-11 (audit):
+     the old 14vh beats left near-empty screens between homepage sections. */
+  --spacing-section: clamp(5rem, 10vh, 8rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 4.5rem);
 
   /* shadcn mappings */

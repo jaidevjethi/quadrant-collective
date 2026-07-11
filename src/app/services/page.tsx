@@ -107,6 +107,21 @@ export default function ServicesPage() {
             Built for clinics and local practices that want a professional
             presence without hiring a marketing department.
           </p>
+          {/* The bridge: the homepage promises "any business that values
+              quality"; this line keeps that promise without diluting the
+              healthcare framing of the current packages. */}
+          <p className="max-w-2xl text-sm leading-relaxed text-faint">
+            Running something other than a practice? The packages are framed
+            for healthcare because that is where our recent work is; the
+            system behind them serves any business that values quality.{" "}
+            <Link
+              href="/contact"
+              className="text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
+            >
+              Tell us what you are building
+            </Link>
+            {" "}and we will scope it individually.
+          </p>
           <PackageNav
             items={services.map((s) => ({
               slug: s.slug,

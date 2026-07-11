@@ -62,11 +62,13 @@ export function DifferenceSection() {
           </div>
         </Reveal>
 
+        {/* One data-reveal on the grid, not per card: staggering cells of a
+            gap-px table briefly shows empty slots that read as broken. */}
         <Reveal className="group relative">
           <CornerTicks />
-          <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
+          <div data-reveal className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
             {PRINCIPLES.map((p) => (
-              <div key={p.n} data-reveal className="flex flex-col gap-4 bg-depth p-8">
+              <div key={p.n} className="flex flex-col gap-4 bg-depth p-8">
                 <span className="label-mono text-muted-2">{p.n}</span>
                 <h3 className="text-title font-medium text-clarity">{p.title}</h3>
                 <p className="text-lead text-muted-2">{p.body}</p>

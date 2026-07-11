@@ -62,7 +62,7 @@ export function BlueprintEntry() {
           y1="70"
           x2="1200"
           y2="70"
-          stroke="rgba(230,230,230,0.16)"
+          stroke="rgba(230,230,230,0.28)"
           strokeWidth="1"
         />
         {TICKS.map((x, i) => (
@@ -73,7 +73,7 @@ export function BlueprintEntry() {
             y1={i % 2 === 0 ? 58 : 62}
             x2={x}
             y2="70"
-            stroke="rgba(230,230,230,0.3)"
+            stroke="rgba(230,230,230,0.45)"
             strokeWidth="1"
           />
         ))}
@@ -102,7 +102,7 @@ export function BlueprintEntry() {
           y1="70"
           x2="600"
           y2="0"
-          stroke="rgba(0,209,178,0.35)"
+          stroke="rgba(0,209,178,0.5)"
           strokeWidth="1"
         />
       </svg>

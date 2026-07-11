@@ -27,10 +27,13 @@ export function HeroSection() {
       {/* Top spacer to center content visually */}
       <div className="flex-1" />
 
-      <div className="flex flex-col items-center justify-center py-section z-10">
+      {/* py stays modest: the flex spacers center the block, and the whole
+          pitch (mark, eyebrow, thesis, lead, CTAs) must fit a 700px-tall
+          laptop viewport in one screen. */}
+      <div className="flex flex-col items-center justify-center py-10 z-10">
         {/* Step 1: The signal (logo mark) */}
-        <div data-choreo className="mb-12 flex justify-center text-clarity">
-          <LogoMark className="w-16 md:w-20" />
+        <div data-choreo className="mb-8 flex justify-center text-clarity">
+          <LogoMark className="w-14 md:w-16" />
         </div>
 
         {/* Step 2: The thesis. The eyebrow answers "what is this company?"
@@ -55,7 +58,7 @@ export function HeroSection() {
         {/* Step 3: The call to action. Primary is the conversation (the money
             action); secondary sends skeptics to proof, not pricing. Value is
             established before /services ever enters the journey. */}
-        <div data-choreo className="mt-12 flex flex-col items-center gap-6 sm:flex-row">
+        <div data-choreo className="mt-10 flex flex-col items-center gap-6 sm:flex-row">
           <Magnetic strength={0.2}>
             <Button
               asChild

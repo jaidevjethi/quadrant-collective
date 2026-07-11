@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoLockup } from "@/components/brand/logo-lockup";
 import { SITE_URL } from "@/lib/site";
+import { PHONE_HREF, WHATSAPP_DISPLAY, waLink } from "@/lib/whatsapp";
 
 /**
  * Beat 8 — Footer (STRATEGY.md). Completely still, static server component.
@@ -88,6 +89,24 @@ export function SiteFooter() {
             </p>
             <p className="label-mono text-faint">
               Mehsana · Ahmedabad · Vadodara
+            </p>
+            {/* A footer should never be a contact dead end. */}
+            <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-2">
+              <a
+                href={PHONE_HREF}
+                className="transition-colors duration-200 hover:text-clarity"
+              >
+                {WHATSAPP_DISPLAY}
+              </a>
+              <a
+                href={waLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-growth transition-colors duration-200 hover:text-clarity"
+              >
+                WhatsApp us
+              </a>
+              <span className="text-faint">Reply within one business day.</span>
             </p>
           </div>
 
