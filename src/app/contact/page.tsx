@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 // its fields must be in the first-paint HTML (the lazy variant is for the
 // homepage, where the form is below the fold in the final beat).
 import { ContactForm } from "@/components/contact/contact-form";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { IntroField } from "@/components/ui/intro-field";
 import { Reveal } from "@/components/motion/reveal";
 import { TextReveal } from "@/components/motion/text-reveal";
@@ -57,7 +58,16 @@ const faqSchema = {
 
 export default function ContactPage() {
   return (
-    <main className="relative flex flex-1 flex-col overflow-hidden px-gutter py-section">
+    <main className="relative isolate flex flex-1 flex-col overflow-hidden px-gutter py-section">
+      {/* The landing: contact shares the homepage destination, because
+          arriving here IS the journey's end (the Atmosphere System). The
+          teal horizon rises under the page's close. */}
+      <Atmosphere
+        src="/space/destination.jpg"
+        edge="bottom"
+        position="bottom"
+        opacity={80}
+      />
       <IntroField />
       <div className="mx-auto grid w-full max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
 import { HeroChoreo } from "@/components/motion/hero-choreo";
@@ -13,25 +13,12 @@ import { TextReveal } from "@/components/motion/text-reveal";
  */
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center overflow-hidden px-gutter text-center">
+    <section className="relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-gutter text-center">
 
-      {/* The arrival atmosphere: a faint real nebula in the discipline colors
-          (71KB progressive JPEG, generated dark-first so the text zone stays
-          near-black). Masked to dissolve into the live starfield below, so
-          the journey continues seamlessly past the first screen. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]"
-      >
-        <Image
-          src="/space/arrival.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-80"
-        />
-      </div>
+      {/* The arrival: a faint nebula in the discipline colors, dissolving
+          into the live starfield so the voyage continues past the first
+          screen (the Atmosphere System). */}
+      <Atmosphere src="/space/arrival.jpg" edge="top" opacity={80} priority />
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">

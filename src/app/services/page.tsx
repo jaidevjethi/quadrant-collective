@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { Button } from "@/components/ui/button";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { IntroField } from "@/components/ui/intro-field";
@@ -90,7 +91,10 @@ export default function ServicesPage() {
       />
 
       {/* Intro */}
-      <section className="relative overflow-hidden px-gutter pb-20 pt-24">
+      <section className="relative isolate overflow-hidden px-gutter pb-20 pt-24">
+        {/* The forge: warm amber craft-light for the page where things are
+            made (the Atmosphere System). Grid draws above it. */}
+        <Atmosphere src="/space/forge.jpg" edge="top" opacity={70} priority />
         <IntroField />
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <span className="label-mono text-muted-2">Services</span>

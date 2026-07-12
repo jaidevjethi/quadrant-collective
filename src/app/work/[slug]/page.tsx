@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
 import { caseStudies, getCaseStudy, KIND_LABEL, type CaseStudy } from "@/lib/work";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { waLink } from "@/lib/whatsapp";
@@ -81,7 +82,15 @@ export default async function CaseStudyPage({
       : null;
 
   return (
-    <main className="flex flex-1 flex-col px-gutter py-section">
+    <main className="relative isolate flex flex-1 flex-col overflow-hidden px-gutter py-section">
+      {/* Inside one constellation: the work field, dimmer, over the header
+          only. Gallery images keep LCP priority (the Atmosphere System). */}
+      <Atmosphere
+        src="/space/constellations.jpg"
+        edge="top"
+        opacity={50}
+        span="viewport"
+      />
       {caseSchema(study).map((schema) => (
         <script
           key={schema["@type"]}

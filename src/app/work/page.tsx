@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { Button } from "@/components/ui/button";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { Reveal } from "@/components/motion/reveal";
@@ -20,7 +21,16 @@ export default function WorkPage() {
   const hasWork = caseStudies.length > 0;
 
   return (
-    <main className="flex flex-1 flex-col px-gutter py-section">
+    <main className="relative isolate flex flex-1 flex-col overflow-hidden px-gutter py-section">
+      {/* The constellations: built things, looked back on. Blue-violet star
+          cluster over the arrival screen only (the Atmosphere System). */}
+      <Atmosphere
+        src="/space/constellations.jpg"
+        edge="top"
+        opacity={70}
+        span="viewport"
+        priority
+      />
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-16">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">Work</span>

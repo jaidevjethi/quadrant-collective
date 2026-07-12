@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "@/components/brand/logo-mark";
 
@@ -10,7 +11,10 @@ import { LogoMark } from "@/components/brand/logo-mark";
  */
 export default function NotFound() {
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center px-gutter text-center">
+    <div className="relative isolate flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-gutter text-center">
+      {/* Off the plane: adrift in the arrival dark, dimmed (the Atmosphere
+          System). */}
+      <Atmosphere src="/space/arrival.jpg" edge="top" opacity={40} />
       <div aria-hidden className="mb-10 opacity-80">
         <LogoMark size={88} variant="construction" tone="mono" decorative />
       </div>

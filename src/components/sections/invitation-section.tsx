@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { Atmosphere } from "@/components/ui/atmosphere";
 import { Reveal } from "@/components/motion/reveal";
 import { ContactFormLazy } from "@/components/contact/contact-form-lazy";
 import { FlowStreak } from "@/components/motion/flow-streak";
@@ -23,23 +23,16 @@ export function InvitationSection() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden border-y border-hairline bg-raised px-gutter py-section"
+      className="relative isolate scroll-mt-24 overflow-hidden border-y border-hairline bg-raised px-gutter py-section"
     >
-      {/* The destination: after the deep-space journey, a calm teal horizon
-          rises under the ask (61KB JPEG, lazy, upper region near-black so the
-          copy stays supreme). The voyage ends where the conversation starts. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_top,black_60%,transparent_100%)]"
-      >
-        <Image
-          src="/space/destination.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-bottom opacity-90"
-        />
-      </div>
+      {/* The destination: a calm teal horizon rises under the ask. The
+          voyage ends where the conversation starts (the Atmosphere System). */}
+      <Atmosphere
+        src="/space/destination.jpg"
+        edge="bottom"
+        position="bottom"
+        opacity={90}
+      />
 
       {/* Calm echo of the hero's coordinate field: the page ends in the same
           engineered space it began. Static CSS only. */}
