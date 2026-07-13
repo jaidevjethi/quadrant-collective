@@ -227,6 +227,29 @@
   }
 }
 
+/* The invitation-seam wave: one short bright segment travels the brand
+   streak on a slow loop, flowing toward the ask. pathLength is normalized to
+   100, so the 7-unit dash is a 7% pulse; offset 100 to 0 sweeps it end to end
+   once per cycle. Non-scaling stroke keeps it crisp at any width. */
+.flow-streak-light {
+  stroke-dasharray: 7 93;
+  filter: drop-shadow(0 0 3px rgba(200, 210, 255, 0.35));
+  animation: flow-streak 5s linear infinite;
+}
+@keyframes flow-streak {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-streak-light {
+    display: none;
+  }
+}
+
 /* Capability knowledge nodes. Every story is in the DOM (crawlable); JS
    reveals the active one via data-active. A class, not the [hidden]
    attribute, because Tailwind's preflight makes [hidden] display:none
