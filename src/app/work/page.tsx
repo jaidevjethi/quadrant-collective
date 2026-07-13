@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
 import { Atmosphere } from "@/components/ui/atmosphere";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { Reveal } from "@/components/motion/reveal";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { WorkImage } from "@/components/ui/work-image";
 import { waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -54,19 +54,18 @@ export default function WorkPage() {
                     href={`/work/${c.slug}`}
                     className="flex h-full flex-col overflow-hidden"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
-                      <Image
-                        src={c.image}
-                        alt={`${c.client} project by Quadrant Collective`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover object-top transition-transform duration-700 ease-[var(--ease-precision)] group-hover:scale-[1.05]"
-                        priority={i < 2}
-                      />
-                      <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm shadow-xl">
+                    <WorkImage
+                      src={c.image}
+                      alt={`${c.client} project by Quadrant Collective`}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={i < 2}
+                      interactive
+                      className="aspect-[16/10] border-b border-hairline"
+                    >
+                      <span className="label-mono absolute left-4 top-4 z-[2] rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm shadow-xl">
                         {KIND_LABEL[c.kind]}
                       </span>
-                    </div>
+                    </WorkImage>
                     <div className="flex flex-1 flex-col gap-3 p-6">
                       <span className="label-mono text-muted-2">
                         {c.client} · {c.year}

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
 import { caseStudies, getCaseStudy, KIND_LABEL, type CaseStudy } from "@/lib/work";
 import { Atmosphere } from "@/components/ui/atmosphere";
+import { WorkImage } from "@/components/ui/work-image";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { waLink } from "@/lib/whatsapp";
@@ -138,31 +138,39 @@ export default async function CaseStudyPage({
           </header>
         </Reveal>
 
-        {/* Captioned gallery: different aspects of the work */}
-        <div className="flex flex-col gap-10">
-          {study.gallery.map((g, i) => (
-            <Reveal key={g.src}>
-              <figure data-reveal className="flex flex-col gap-3">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-hairline bg-depth">
-                  <Image
+        {/* Captioned gallery, editorial rhythm: the first plate runs full
+            width; the rest alternate a wide plate with a caption set beside a
+            narrower one, so the sequence reads as a spread, not a stack. */}
+        <div className="flex flex-col gap-12">
+          {study.gallery.map((g, i) => {
+            const aside = i > 0 && i % 2 === 0;
+            return (
+              <Reveal key={g.src}>
+                <figure
+                  data-reveal
+                  className={
+                    aside
+                      ? "grid items-center gap-6 md:grid-cols-[1fr_minmax(0,16rem)]"
+                      : "flex flex-col gap-3"
+                  }
+                >
+                  <WorkImage
                     src={g.src}
                     alt={g.caption}
-                    fill
                     sizes="(max-width: 896px) 100vw, 896px"
-                    className={
-                      g.contain
-                        ? "object-contain p-3"
-                        : "object-cover object-top"
-                    }
                     priority={i === 0}
+                    contain={g.contain}
+                    className="aspect-[16/10] rounded-lg border border-hairline"
                   />
-                </div>
-                <figcaption className="max-w-2xl text-sm text-muted-2">
-                  {g.caption}
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
+                  <figcaption
+                    className={`text-sm text-muted-2 ${aside ? "md:text-base md:leading-relaxed" : "max-w-2xl"}`}
+                  >
+                    {g.caption}
+                  </figcaption>
+                </figure>
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal className="grid gap-12 border-t border-hairline pt-12 md:grid-cols-[200px_1fr]">
@@ -206,10 +214,10 @@ export default async function CaseStudyPage({
             <div data-reveal className="flex flex-col gap-5">
               <ul className="flex flex-col gap-4">
                 {study.results.map((r) => (
-                  <li key={r} className="flex gap-4 text-lead text-clarity font-medium">
-                    <span
+                  <li key={r} className="flex gap-4 text-lead font-medium text-clarity">
+                    <ArrowUpRight
                       aria-hidden
-                      className="mt-2.5 size-1.5 shrink-0 rounded-full bg-vision"
+                      className="mt-1 size-5 shrink-0 text-growth"
                     />
                     <span>{r}</span>
                   </li>

@@ -1,6 +1,15 @@
 import { Reveal } from "@/components/motion/reveal";
 import { NetworkDiagram } from "@/components/motion/network-diagram";
 import { CornerTicks } from "@/components/ui/corner-ticks";
+import {
+  StructureGlyph,
+  FlowGlyph,
+  IntersectionGlyph,
+} from "@/components/brand/glyphs";
+
+/** One glyph per principle: built like a product → structure; systems over
+ *  one-offs → flow; honesty → intersection (where claim and proof meet). */
+const PRINCIPLE_GLYPHS = [StructureGlyph, FlowGlyph, IntersectionGlyph];
 
 /**
  * Beat 6 — The difference (STRATEGY.md). Why us? The craft argument: three
@@ -67,13 +76,18 @@ export function DifferenceSection() {
         <Reveal className="group relative">
           <CornerTicks />
           <div data-reveal className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
-            {PRINCIPLES.map((p) => (
-              <div key={p.n} className="flex flex-col gap-4 bg-depth p-8">
-                <span className="label-mono text-muted-2">{p.n}</span>
-                <h3 className="text-title font-medium text-clarity">{p.title}</h3>
-                <p className="text-lead text-muted-2">{p.body}</p>
-              </div>
-            ))}
+            {PRINCIPLES.map((p, i) => {
+              const Glyph = PRINCIPLE_GLYPHS[i];
+              return (
+                <div key={p.n} className="relative flex flex-col gap-4 overflow-hidden bg-depth p-8">
+                  {/* The brand's own visual language, ghosted as card texture. */}
+                  <Glyph className="pointer-events-none absolute -bottom-5 -right-4 w-28 opacity-[0.14]" />
+                  <span className="label-mono text-muted-2">{p.n}</span>
+                  <h3 className="text-title font-medium text-clarity">{p.title}</h3>
+                  <p className="text-lead text-muted-2">{p.body}</p>
+                </div>
+              );
+            })}
           </div>
         </Reveal>
       </div>

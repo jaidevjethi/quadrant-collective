@@ -5,6 +5,11 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Atmosphere } from "@/components/ui/atmosphere";
 import { CornerTicks } from "@/components/ui/corner-ticks";
+import {
+  StructureGlyph,
+  FlowGlyph,
+  IntersectionGlyph,
+} from "@/components/brand/glyphs";
 import { IntroField } from "@/components/ui/intro-field";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Reveal } from "@/components/motion/reveal";
@@ -43,6 +48,9 @@ const personSchema = {
   image: `${SITE_URL}/founder/jaidev-jethi.webp`,
   url: `${SITE_URL}/about/`,
 };
+
+/** One glyph per principle, ghosted as card texture (matches Beat 6). */
+const PRINCIPLE_GLYPHS = [StructureGlyph, FlowGlyph, IntersectionGlyph];
 
 const PRINCIPLES = [
   {
@@ -127,13 +135,17 @@ export default function AboutPage() {
           <div data-reveal className="group relative">
             <CornerTicks />
             <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-3">
-              {PRINCIPLES.map((p) => (
-                <div key={p.n} className="flex flex-col gap-4 bg-depth/50 backdrop-blur-md p-8">
-                  <span className="label-mono text-muted-2">{p.n}</span>
-                  <h3 className="text-title font-medium text-clarity">{p.title}</h3>
-                  <p className="text-lead text-muted-2">{p.body}</p>
-                </div>
-              ))}
+              {PRINCIPLES.map((p, i) => {
+                const Glyph = PRINCIPLE_GLYPHS[i];
+                return (
+                  <div key={p.n} className="relative flex flex-col gap-4 overflow-hidden bg-depth/50 p-8 backdrop-blur-md">
+                    <Glyph className="pointer-events-none absolute -bottom-5 -right-4 w-28 opacity-[0.14]" />
+                    <span className="label-mono text-muted-2">{p.n}</span>
+                    <h3 className="text-title font-medium text-clarity">{p.title}</h3>
+                    <p className="text-lead text-muted-2">{p.body}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Reveal>

@@ -180,11 +180,19 @@ export default function ServicesPage() {
 
                   <div data-reveal className="h-px w-full bg-hairline" />
 
-                  <ul data-reveal className="grid gap-8 sm:grid-cols-2">
+                  <ul data-reveal className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
                     {s.deliverables.map((d) => (
                       <li key={d.title} className="flex flex-col gap-2">
-                        <h3 className="label-mono text-clarity">{d.title}</h3>
-                        <p className="text-sm text-muted-2 leading-relaxed">
+                        <h3 className="label-mono flex items-center gap-2.5 text-clarity">
+                          {/* Registration tick in the package's discipline colour. */}
+                          <span
+                            aria-hidden
+                            className="h-3.5 w-px shrink-0"
+                            style={{ backgroundColor: s.accent }}
+                          />
+                          {d.title}
+                        </h3>
+                        <p className="pl-[calc(0.625rem+1px)] text-sm leading-relaxed text-muted-2">
                           {d.body}
                         </p>
                       </li>

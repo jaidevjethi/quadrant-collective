@@ -196,6 +196,10 @@
   }
   html {
     @apply font-sans;
+    /* A thin dark scrollbar so the OS default does not run a bright strip
+       down the architectural dark site. */
+    scrollbar-color: rgba(230, 230, 230, 0.16) transparent;
+    scrollbar-width: thin;
   }
   body {
     @apply bg-background text-foreground;
@@ -203,6 +207,23 @@
   ::selection {
     background: var(--vision);
     color: #ffffff;
+  }
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(230, 230, 230, 0.14);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(230, 230, 230, 0.26);
+    background-clip: content-box;
   }
 }
 

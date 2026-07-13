@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ProofCounters } from "@/components/motion/proof-counters";
 import { caseStudies, KIND_LABEL } from "@/lib/work";
 import { CornerTicks } from "@/components/ui/corner-ticks";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { WorkImage } from "@/components/ui/work-image";
 
 /**
  * Beat 5 — Proof (STRATEGY.md). Why trust us? Real client work leads, exactly
@@ -57,18 +57,17 @@ export function ProofSection() {
                   href={`/work/${c.slug}`}
                   className="flex h-full flex-col overflow-hidden"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-depth">
-                    <Image
-                      src={c.image}
-                      alt={`${c.client} project by Quadrant Collective`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover object-top transition-transform duration-500 ease-[var(--ease-precision)] group-hover:scale-[1.03]"
-                    />
-                    <span className="label-mono absolute left-4 top-4 rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm">
+                  <WorkImage
+                    src={c.image}
+                    alt={`${c.client} project by Quadrant Collective`}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    interactive
+                    className="aspect-[16/10] border-b border-hairline"
+                  >
+                    <span className="label-mono absolute left-4 top-4 z-[2] rounded-sm border border-hairline-strong bg-depth/80 px-2.5 py-1 text-clarity backdrop-blur-sm">
                       {KIND_LABEL[c.kind]}
                     </span>
-                  </div>
+                  </WorkImage>
                   <div className="flex flex-1 flex-col gap-3 p-6">
                     <span className="label-mono text-muted-2">
                       {c.client} · {c.year}
@@ -89,9 +88,9 @@ export function ProofSection() {
         <Reveal className="mt-6">
           <figure
             data-reveal
-            className="flex flex-col gap-4 border-l border-hairline-strong pl-6 md:pl-8"
+            className="flex flex-col gap-5 border-l-2 border-growth/40 pl-6 md:pl-10"
           >
-            <blockquote className="max-w-2xl text-lead text-muted-2">
+            <blockquote className="max-w-3xl text-title font-medium tracking-tight text-clarity">
               &ldquo;They re-engineered how patients find us and book
               treatments.&rdquo;
             </blockquote>
