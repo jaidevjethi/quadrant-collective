@@ -25,7 +25,7 @@ export function ProblemSection() {
             <span data-reveal className="label-mono text-muted-2">
               02 · The problem
             </span>
-            <p
+            <h2
               data-reveal
               className="text-headline font-medium tracking-tight text-muted-2"
             >
@@ -33,7 +33,7 @@ export function ProblemSection() {
               <span className="text-clarity">
                 The cause is almost always the same.
               </span>
-            </p>
+            </h2>
             <p data-reveal className="max-w-xl text-lead text-muted-2">
               The pieces behind them do not work as one system. In practice,
               that shows up as one of these.
@@ -48,9 +48,9 @@ export function ProblemSection() {
           >
             {problems.map((p) => (
               <li key={p.id} className="flex flex-col gap-3 bg-depth p-6">
-                <p className="text-title font-medium text-clarity">
+                <h3 className="text-title font-medium text-clarity">
                   {`“${p.symptom}”`}
-                </p>
+                </h3>
                 <p className="text-sm leading-relaxed text-muted-2">
                   {p.reframe}
                 </p>
