@@ -13,6 +13,9 @@ export type Service = {
   n: string;
   title: string;
   positioning: string;
+  /** The problem this package answers, in the visitor's own words. Leads the
+   *  card so services are met as answers to a felt problem (problem-first). */
+  problem: string;
   pricing?: string;
   /** Discipline accent for the package's top hairline (BRAND.md tokens). */
   accent: string;
@@ -29,6 +32,8 @@ export const services: Service[] = [
     title: "Website & SEO foundation",
     positioning:
       "A fast, engineered website that turns searches into booked appointments, and keeps earning after launch.",
+    problem:
+      "You are hard to find, and the visitors who do arrive rarely turn into booked appointments.",
     pricing: "Custom engagement",
     accent: "#2563EB",
     deliverables: [
@@ -56,6 +61,8 @@ export const services: Service[] = [
     title: "Google Business Profile & local search",
     positioning:
       "We build and run your Google presence so patients searching nearby find you first, and keep finding you.",
+    problem:
+      "Patients searching nearby find your competitors first, or a listing so out of date it reads as neglect.",
     pricing: "From ₹20,000/mo",
     accent: "#00D1B2",
     deliverables: [
@@ -79,6 +86,8 @@ export const services: Service[] = [
     title: "Content & social operations",
     positioning:
       "We run your content and social presence to one consistent standard, so you can run the practice.",
+    problem:
+      "Your posts, page and profile each tell a slightly different story, so the effort never adds up to trust.",
     pricing: "From ₹35,000/mo",
     accent: "#D97706",
     deliverables: [

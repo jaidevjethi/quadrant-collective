@@ -176,6 +176,10 @@ export default function ServicesPage() {
                     <p className="max-w-2xl text-lead text-muted-2">
                       {s.positioning}
                     </p>
+                    <p className="max-w-2xl border-l-2 border-hairline-strong pl-4 text-sm leading-relaxed text-muted-2">
+                      <span className="text-clarity">The problem it solves.</span>{" "}
+                      {s.problem}
+                    </p>
                   </div>
 
                   <div data-reveal className="h-px w-full bg-hairline" />
