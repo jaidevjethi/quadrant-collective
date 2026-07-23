@@ -36,6 +36,14 @@ export type CaseStudy = {
   services: string[];
   /** What was actually delivered. Accurate scope and design intent. */
   approach?: string[];
+  /** The thinking behind the work: where the client started, what we noticed
+   *  that reframed the problem, and the key decisions and why. Real reasoning,
+   *  grounded in the project (design system: case studies show judgement). */
+  reasoning?: {
+    situation: string;
+    insight: string;
+    decisions: { title: string; body: string }[];
+  };
   /** Card thumbnail in public/work. */
   image: string;
   /** Curated, captioned gallery for the case-study detail page. */
@@ -71,6 +79,18 @@ export const caseStudies: CaseStudy[] = [
       "A full treatments library plus patient information and a smile gallery",
       "Local SEO foundations and a push-to-publish deploy pipeline",
     ],
+    reasoning: {
+      situation:
+        "The clinic was strong on care and invisible online. There was no real website, and patients in Mehsana were choosing a dentist by whoever surfaced first on a phone. The clinic assumed it needed a website. The real gap was being findable and trusted in the moment someone decides.",
+      insight:
+        "Two things decided this market, and neither was a homepage. Most searches here happen in Gujarati, on a phone, in the seconds before a booking. And a dental decision is a trust decision. So we built for the language people search in, and put the trust signals where the doubt lives.",
+      decisions: [
+        { title: "Bilingual, with a real toggle", body: "One tap flips the whole site to Gujarati, because that is how Mehsana searches. The Gujarati version is a first-class site, not a translation afterthought." },
+        { title: "Trust before treatments", body: "The Google rating, hospital-grade safety and doctor credentials sit up front, because the patient's real question is whether they can trust the clinic, not what a root canal is." },
+        { title: "Findable by construction", body: "Clean structure, schema and a treatments library mapped to how people actually search, so the clinic ranks for the procedures that pay rather than vanity terms." },
+        { title: "Built to keep earning", body: "Local SEO foundations and a push-to-publish pipeline, so the site compounds after launch instead of going stale." },
+      ],
+    },
     image: "/work/pramukh-dental.webp",
     gallery: [
       { src: "/work/pramukh-dental.webp", caption: "Premium positioning. Real trust signals. One clear next step: book a visit." },
@@ -102,6 +122,18 @@ export const caseStudies: CaseStudy[] = [
       "Structured around call-now and WhatsApp for fast booking",
       "Route and airport-transfer pages built for real search intent",
     ],
+    reasoning: {
+      situation:
+        "The operator was losing margin to aggregators. Travellers found them through third-party platforms that took a cut and owned the relationship. They thought they needed a booking website. The real problem was having no direct channel a traveller would trust enough to skip the aggregator.",
+      insight:
+        "Pilgrimage travel is emotional and local. Travellers were not comparing feature lists. They were deciding who felt like a local they could trust with a dawn arrival on the ghats. A generic travel template signals the opposite, so we made the site feel made by hand, by someone who knows the place.",
+      decisions: [
+        { title: "Editorial, not template", body: "A serif display over atmospheric dawn-ghat photography, so the site reads as a place with a point of view. The art direction does the trust work a booking form cannot." },
+        { title: "A voice that sounds local", body: "Copy written like someone who grew up on the ghats, because that is exactly the reassurance an inbound traveller is looking for." },
+        { title: "Built around the real decision", body: "Route and airport-transfer pages matched to what people search, with call and WhatsApp one tap away, because these bookings happen fast and on the move." },
+        { title: "Direct over aggregated", body: "Every path leads to a direct conversation, so the margin and the relationship stay with the operator instead of the platform." },
+      ],
+    },
     image: "/work/divyam-tours.webp",
     gallery: [
       { src: "/work/divyam-tours.webp", caption: "Cinematic art direction that feels made by hand. No generic templates here." },
@@ -132,6 +164,18 @@ export const caseStudies: CaseStudy[] = [
       "Information design: complex diagnostic packages made simple to compare",
       "A repeatable content and visual framework the clinic can keep running",
     ],
+    reasoning: {
+      situation:
+        "A doctor-led preventive-wellness clinic with real expertise and no brand to carry it. Preventive care is a hard sell, because people buy it before they feel unwell. They thought they needed social media posts. The real gap was a brand, and a system to run it.",
+      insight:
+        "Preventive wellness lives on two things: trust in the doctor, and clarity of the offer. Random posts build neither. What the clinic needed was a coherent brand, and an information system that made a dense package matrix feel simple to choose from.",
+      decisions: [
+        { title: "Positioning first, posts second", body: "We set the brand concept for preventive, doctor-led wellness before designing a single post, so everything after it reinforced one impression." },
+        { title: "The feed as one system", body: "The whole Instagram feed is designed as a single system, not a pile of one-offs, so each post compounds the last instead of resetting the brand." },
+        { title: "Made the complex choosable", body: "Information design turned dense diagnostic packages into something a patient can compare and choose, which is where preventive care usually loses people." },
+        { title: "A framework they can run", body: "A repeatable content and visual framework, so the clinic keeps producing on-brand work without us in the room." },
+      ],
+    },
     image: "/work/akshar-feed.webp",
     gallery: [
       { src: "/work/akshar-feed.webp", caption: "The whole Instagram feed is designed as one system. Every post reinforces the last.", contain: true },
@@ -155,6 +199,18 @@ export const caseStudies: CaseStudy[] = [
       "Educational carousels that turn clinical topics into something patients read",
       "A consistent clinical look, month after month, so the brand feels dependable",
     ],
+    reasoning: {
+      situation:
+        "A cardiology hospital with deep expertise and an occasional, inconsistent social presence. Content went out when someone remembered, in whatever style that day allowed. They thought they needed more posts. The real gap was a dependable engine that made the hospital look as trustworthy online as it is in person.",
+      insight:
+        "For a hospital, consistency is credibility. A patient choosing where to trust their heart reads an erratic feed as an erratic institution. The fix was not more volume. It was a reliable rhythm, and a look that holds month after month.",
+      decisions: [
+        { title: "Tied to a reason", body: "Monthly content mapped to the health calendar, so every post has a reason to exist instead of filling a slot." },
+        { title: "Trust in people, not buildings", body: "Doctor spotlights, because patients trust the cardiologist before the hospital, and the people are the real proof." },
+        { title: "Clinical topics made readable", body: "Educational carousels that turn dense clinical subjects into something a patient will actually read and remember." },
+        { title: "The same, dependably", body: "One consistent clinical look, held month after month, so the brand reads as steady. For a hospital, that is the whole point." },
+      ],
+    },
     image: "/work/galaxy-heart-institute.webp",
     gallery: [
       { src: "/work/galaxy-heart-institute.webp", caption: "Campaigns tied to the health calendar. Content is never just filler.", contain: true },

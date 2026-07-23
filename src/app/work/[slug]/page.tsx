@@ -138,6 +138,24 @@ export default async function CaseStudyPage({
           </header>
         </Reveal>
 
+        {/* The thinking leads, before the visuals: where the client started
+            and what we noticed that reframed the work (case studies as
+            judgement). Outcomes land later, as the consequence. */}
+        {study.reasoning && (
+          <Reveal className="flex max-w-3xl flex-col gap-8 border-t border-hairline pt-12">
+            <div data-reveal className="flex flex-col gap-3">
+              <span className="label-mono text-muted-2">The situation</span>
+              <p className="text-lead text-muted-2">
+                {study.reasoning.situation}
+              </p>
+            </div>
+            <div data-reveal className="flex flex-col gap-3">
+              <span className="label-mono text-muted-2">What we saw</span>
+              <p className="text-lead text-clarity">{study.reasoning.insight}</p>
+            </div>
+          </Reveal>
+        )}
+
         {/* Captioned gallery, editorial rhythm: the first plate runs full
             width; the rest alternate a wide plate with a caption set beside a
             narrower one, so the sequence reads as a spread, not a stack. */}
@@ -188,21 +206,40 @@ export default async function CaseStudyPage({
             </ul>
           </div>
 
-          {study.approach && study.approach.length > 0 && (
-            <div data-reveal className="flex flex-col gap-5">
-              <span className="label-mono text-muted-2">What we did</span>
-              <ul className="flex flex-col gap-4">
-                {study.approach.map((a) => (
-                  <li key={a} className="flex gap-4 text-lead text-muted-2">
-                    <span
-                      aria-hidden
-                      className="mt-2.5 size-1.5 shrink-0 rounded-full bg-growth"
-                    />
-                    <span>{a}</span>
+          {study.reasoning ? (
+            <div data-reveal className="flex flex-col gap-6">
+              <span className="label-mono text-muted-2">The decisions</span>
+              <ul className="flex flex-col gap-6">
+                {study.reasoning.decisions.map((d) => (
+                  <li key={d.title} className="flex flex-col gap-1.5">
+                    <p className="text-title font-medium text-clarity">
+                      {d.title}
+                    </p>
+                    <p className="text-base leading-relaxed text-muted-2">
+                      {d.body}
+                    </p>
                   </li>
                 ))}
               </ul>
             </div>
+          ) : (
+            study.approach &&
+            study.approach.length > 0 && (
+              <div data-reveal className="flex flex-col gap-5">
+                <span className="label-mono text-muted-2">What we did</span>
+                <ul className="flex flex-col gap-4">
+                  {study.approach.map((a) => (
+                    <li key={a} className="flex gap-4 text-lead text-muted-2">
+                      <span
+                        aria-hidden
+                        className="mt-2.5 size-1.5 shrink-0 rounded-full bg-growth"
+                      />
+                      <span>{a}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
           )}
         </Reveal>
 
