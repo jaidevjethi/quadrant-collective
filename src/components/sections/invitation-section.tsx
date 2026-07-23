@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Atmosphere } from "@/components/ui/atmosphere";
 import { Reveal } from "@/components/motion/reveal";
 import { ContactFormLazy } from "@/components/contact/contact-form-lazy";
-import { FlowStreak } from "@/components/motion/flow-streak";
 
 /** The after-contact path, stated plainly: the unknown after "send" is the
  *  last friction before a first message, so we remove it. Every promise here
@@ -49,10 +48,6 @@ export function InvitationSection() {
             "radial-gradient(ellipse 70% 80% at 50% 50%, #000 10%, transparent 75%)",
         }}
       />
-      {/* The brand's flow streak leads into the ask (motion vocabulary) */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0">
-        <FlowStreak />
-      </div>
       <div className="relative mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">

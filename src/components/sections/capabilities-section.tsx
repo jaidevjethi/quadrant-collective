@@ -33,8 +33,9 @@ export function CapabilitiesSection() {
             Not a stack of tools. One system.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            The capabilities most businesses buy piecemeal only compound when
-            they reinforce each other. Four disciplines, one connected operation.
+            Each of those problems usually goes to a different specialist.
+            Bought piecemeal, the fixes rarely compound, so the problem comes
+            back. We build the four disciplines as one connected operation.
           </p>
         </Reveal>
         <CapabilityStage className="mt-16" />
