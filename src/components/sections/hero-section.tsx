@@ -49,14 +49,14 @@ export function HeroSection() {
             A digital engineering and growth studio · Gujarat, India
           </span>
           <TextReveal as="h1" className="font-heading text-display-xl font-medium tracking-tight text-clarity">
-            Four disciplines. One system.
+            Digital growth, engineered as one system.
           </TextReveal>
-          
+
           <div data-choreo>
             <p className="max-w-2xl text-lead text-muted-2">
-              Most businesses don&apos;t have a marketing problem. They have a systems problem. 
-              We engineer strategy, design, technology and growth into a single architecture 
-              built to compound.
+              Most businesses don&apos;t have a marketing problem. They have a
+              systems problem. We bring websites, brand, SEO and AI together as
+              one operation, built to compound.
             </p>
           </div>
         </div>
