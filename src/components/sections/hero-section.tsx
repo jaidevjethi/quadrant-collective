@@ -1,9 +1,9 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Atmosphere } from "@/components/ui/atmosphere";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Button } from "@/components/ui/button";
-import { HeroChoreo } from "@/components/motion/hero-choreo";
 import { Magnetic } from "@/components/motion/magnetic";
 import { TextReveal } from "@/components/motion/text-reveal";
 
@@ -27,8 +27,6 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-0 size-3 border-b border-r border-hairline-strong" />
       </div>
 
-      <HeroChoreo />
-
       {/* Top spacer to center content visually */}
       <div className="flex-1" />
 
@@ -37,21 +35,25 @@ export function HeroSection() {
           laptop viewport in one screen. */}
       <div className="flex flex-col items-center justify-center py-10 z-10">
         {/* Step 1: The signal (logo mark) */}
-        <div data-choreo className="mb-8 flex justify-center text-clarity">
+        <div data-choreo="mark" className="mb-8 flex justify-center text-clarity">
           <LogoMark className="w-14 md:w-16" />
         </div>
 
         {/* Step 2: The thesis. The eyebrow answers "what is this company?"
             before the H1 makes its argument: comprehension precedes admiration. */}
         <div className="flex max-w-4xl flex-col items-center gap-6">
-          <span data-choreo className="label-mono text-muted-2">
+          <span
+            data-choreo
+            style={{ "--choreo-i": 0 } as CSSProperties}
+            className="label-mono text-muted-2"
+          >
             A digital engineering and growth studio · Gujarat, India
           </span>
           <TextReveal as="h1" className="font-heading text-display-xl font-medium tracking-tight text-clarity">
             Digital growth, engineered as one system.
           </TextReveal>
 
-          <div data-choreo>
+          <div data-choreo style={{ "--choreo-i": 1 } as CSSProperties}>
             <p className="max-w-2xl text-lead text-muted-2">
               Most businesses don&apos;t have a marketing problem. They have a
               systems problem. We bring websites, brand, SEO and AI together as
@@ -63,7 +65,11 @@ export function HeroSection() {
         {/* Step 3: The call to action. Primary is the conversation (the money
             action); secondary sends skeptics to proof, not pricing. Value is
             established before /services ever enters the journey. */}
-        <div data-choreo className="mt-10 flex flex-col items-center gap-6 sm:flex-row">
+        <div
+          data-choreo
+          style={{ "--choreo-i": 2 } as CSSProperties}
+          className="mt-10 flex flex-col items-center gap-6 sm:flex-row"
+        >
           <Magnetic strength={0.2}>
             <Button
               asChild
@@ -99,8 +105,9 @@ export function HeroSection() {
       {/* Scroll indicator (document flow, bottom) */}
       <div
         data-choreo
+        style={{ "--choreo-i": 3 } as CSSProperties}
         aria-hidden="true"
-        className="mb-10 flex flex-col items-center gap-3 opacity-0"
+        className="mb-10 flex flex-col items-center gap-3"
       >
         <span className="label-mono text-faint">Initiate</span>
         <div className="h-12 w-px overflow-hidden bg-grid-line">

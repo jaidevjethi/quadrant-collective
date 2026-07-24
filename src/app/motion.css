@@ -1,0 +1,129 @@
+/* ---------------------------------------------------------------------------
+   The motion system.
+
+   Every scroll-driven primitive on the site lives here so the whole language
+   is legible in one file. Four rules govern it:
+
+   1. Compositor properties only: transform, translate, scale, rotate, opacity.
+      Never filter (it is not composited and repaints every frame), never a
+      layout property.
+   2. Content is visible by default. Motion is added by @supports and by a
+      prefers-reduced-motion: no-preference query, so a browser without
+      scroll-timeline support, a reader with reduced motion, and a crawler
+      with no CSS at all each get the finished state rather than a hidden one.
+   3. On a scroll-driven (progress) timeline, animation-delay does nothing.
+      Stagger must be expressed as a shift in animation-range. Time-based load
+      animations are the exception: delay works normally there.
+   4. Nothing here animates opacity on an element that could be the LCP
+      candidate. Chrome ignores anything at opacity 0 when choosing one.
+--------------------------------------------------------------------------- */
+
+/* --- The scroll reveal ---------------------------------------------------
+   Replaces the GSAP + ScrollTrigger reveal. Each element reads its own
+   position, so it runs on the compositor and cannot stutter when the main
+   thread is busy. It also fixes a real defect in the old version: GSAP's
+   fromTo applied opacity 0 to all 66 homepage nodes at hydration, including
+   ones already on screen, so content that had painted was hidden and brought
+   back. A view() timeline cannot do that. An element already in view sits
+   past the end of its range, so fill-mode holds it at the finished state. */
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    /* Elements at different heights stagger for free, because each reads its
+       own position. Siblings sharing a row would otherwise resolve in perfect
+       unison, so they get a few percent of range each. This is a range shift,
+       not a delay: see rule 3. */
+    [data-reveal]:nth-child(2) {
+      animation-range: entry 3% entry 58%;
+    }
+    [data-reveal]:nth-child(3) {
+      animation-range: entry 6% entry 61%;
+    }
+    [data-reveal]:nth-child(4) {
+      animation-range: entry 9% entry 64%;
+    }
+    [data-reveal]:nth-child(n + 5) {
+      animation-range: entry 12% entry 67%;
+    }
+  }
+}
+
+/* --- The headline settle -------------------------------------------------
+   Runs on the H1, which is the LCP element on most routes. Transform only,
+   with opacity untouched, so the headline paints at first paint and still
+   moves. The previous version faded and blurred each word in over 1.2s and
+   pushed measured LCP past 4.5s. This is a load animation, not a scroll one,
+   so animation-delay is the correct tool for the cascade. */
+
+@keyframes tr-settle {
+  from {
+    transform: translateY(0.3em);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tr-word {
+    animation: tr-settle 800ms var(--ease-precision) both;
+    animation-delay: calc(var(--tr-i, 0) * 45ms);
+  }
+}
+
+/* --- The hero arrival ----------------------------------------------------
+   The mark settles, then the eyebrow, lead, actions and scroll cue plot in.
+   Replaces a GSAP timeline. The elements sit at different nesting depths, so
+   order comes from an inline --choreo-i rather than nth-child. */
+
+@keyframes choreo-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes choreo-plot {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-choreo] {
+    animation: choreo-plot var(--dur-standard) var(--ease-precision) both;
+    animation-delay: calc(260ms + var(--choreo-i, 0) * 90ms);
+  }
+
+  [data-choreo="mark"] {
+    animation-name: choreo-mark;
+    animation-duration: var(--dur-choreo);
+    animation-delay: 80ms;
+  }
+}
