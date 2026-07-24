@@ -31,6 +31,11 @@ export type CaseStudy = {
   summary: string;
   kind: ProjectKind;
   industry: string;
+  /** The discipline persona for this case: an accent colour (a Quadrant
+   *  discipline token) chosen to fit the project, plus a one-word feel. Themes
+   *  the card and detail page so each case feels like its own world, without
+   *  leaving Quadrant's palette. */
+  persona: { accent: string; feel: string };
   /** City, for local-SEO relevance and the corridor story. */
   location?: string;
   services: string[];
@@ -64,6 +69,7 @@ export const KIND_LABEL: Record<ProjectKind, string> = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "pramukh-dental",
+    persona: { accent: "#2563EB", feel: "clinical" },
     client: "Pramukh Multispeciality Dental Clinic",
     title: "A bilingual dental site built for a local-first patient base",
     summary:
@@ -108,6 +114,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "divyam-tours",
+    persona: { accent: "#D97706", feel: "editorial" },
     client: "Divyam Tours & Taxi Services",
     title: "A conversion-first tourism site for Varanasi's pilgrimage market",
     summary:
@@ -150,6 +157,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "akshar-wellness",
+    persona: { accent: "#00D1B2", feel: "calm" },
     client: "Akshar Wellness 360",
     title: "Brand and content system for a doctor-led wellness clinic",
     summary:
@@ -186,6 +194,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "galaxy-heart-institute",
+    persona: { accent: "#7C3AED", feel: "steady" },
     client: "Galaxy Heart Institute & Multispeciality Hospital",
     title: "A social and content engine for a cardiology hospital",
     summary:

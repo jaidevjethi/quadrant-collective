@@ -50,6 +50,12 @@ export default function WorkPage() {
               <div key={c.slug} data-reveal className="h-full">
                 <SpotlightCard as="div" lift className="h-full">
                   <CornerTicks />
+                  {/* Persona spine: each case wears its discipline colour. */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-[3px]"
+                    style={{ backgroundColor: c.persona.accent, opacity: 0.85 }}
+                  />
                   <Link
                     href={`/work/${c.slug}`}
                     className="flex h-full flex-col overflow-hidden"
@@ -80,7 +86,8 @@ export default function WorkPage() {
                         <p className="flex gap-2 text-sm text-muted-2">
                           <span
                             aria-hidden
-                            className="mt-1.5 size-1.5 shrink-0 rounded-full bg-growth"
+                            className="mt-1.5 size-1.5 shrink-0 rounded-full"
+                            style={{ backgroundColor: c.persona.accent }}
                           />
                           {c.results[0]}
                         </p>

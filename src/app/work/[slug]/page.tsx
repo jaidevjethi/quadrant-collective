@@ -115,6 +115,13 @@ export default async function CaseStudyPage({
 
         <Reveal>
           <header className="flex flex-col gap-6">
+            {/* Persona tick: this case's discipline colour, set at the top. */}
+            <span
+              aria-hidden
+              data-reveal
+              className="h-1 w-10 rounded-full"
+              style={{ backgroundColor: study.persona.accent }}
+            />
             <div data-reveal className="flex flex-col gap-1">
               <span className="label-mono text-muted-2">
                 {study.client} · {study.year}
@@ -211,7 +218,12 @@ export default async function CaseStudyPage({
               <span className="label-mono text-muted-2">The decisions</span>
               <ul className="flex flex-col gap-6">
                 {study.reasoning.decisions.map((d) => (
-                  <li key={d.title} className="flex flex-col gap-1.5">
+                  <li key={d.title} className="flex flex-col gap-2">
+                    <span
+                      aria-hidden
+                      className="h-0.5 w-6"
+                      style={{ backgroundColor: study.persona.accent }}
+                    />
                     <p className="text-title font-medium text-clarity">
                       {d.title}
                     </p>
@@ -254,7 +266,8 @@ export default async function CaseStudyPage({
                   <li key={r} className="flex gap-4 text-lead font-medium text-clarity">
                     <ArrowUpRight
                       aria-hidden
-                      className="mt-1 size-5 shrink-0 text-growth"
+                      className="mt-1 size-5 shrink-0"
+                      style={{ color: study.persona.accent }}
                     />
                     <span>{r}</span>
                   </li>
