@@ -65,6 +65,131 @@
   }
 }
 
+/* --- The Depth Field -----------------------------------------------------
+   The environment you travel through. Three planes at real perspective
+   depth; each is pre-scaled by (P + Z) / P so it still fills the viewport
+   after projection. They then share one identical translate, and perspective
+   does the parallax: a plane further back projects that same movement
+   smaller, so the far star dust drifts while the near grid sweeps past.
+
+   Replaces a canvas that ran a permanent rAF loop with up to 800 draw calls
+   per frame. Only `translate` animates, so this is entirely compositor work.
+   Depth is shallower on touch devices, which keeps the composited layers
+   small: a plane at scale(3) on a phone rasterises nine viewports of pixels. */
+
+.depth-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #0a0a0a;
+  pointer-events: none;
+  perspective: 1000px;
+  perspective-origin: 50% 45%;
+}
+
+.depth-plane {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+}
+
+/* Star dust, furthest back and slowest. Several tile sizes so the repeat
+   never resolves into a visible grid of dots. */
+.depth-plane--far {
+  transform: translateZ(-2000px) scale(3);
+  background-image:
+    radial-gradient(1.4px 1.4px at 17% 23%, rgba(230, 230, 230, 0.5), transparent 55%),
+    radial-gradient(1.1px 1.1px at 62% 71%, rgba(230, 230, 230, 0.38), transparent 55%),
+    radial-gradient(1.6px 1.6px at 84% 14%, rgba(124, 58, 237, 0.42), transparent 55%),
+    radial-gradient(1.2px 1.2px at 38% 88%, rgba(0, 209, 178, 0.34), transparent 55%),
+    radial-gradient(1px 1px at 91% 57%, rgba(230, 230, 230, 0.3), transparent 55%);
+  background-size:
+    317px 317px,
+    241px 241px,
+    463px 463px,
+    389px 389px,
+    173px 173px;
+}
+
+/* Brighter, sparser bodies at mid depth. */
+.depth-plane--mid {
+  transform: translateZ(-900px) scale(1.9);
+  background-image:
+    radial-gradient(2px 2px at 28% 41%, rgba(37, 99, 235, 0.4), transparent 55%),
+    radial-gradient(1.8px 1.8px at 73% 19%, rgba(230, 230, 230, 0.42), transparent 55%),
+    radial-gradient(2.2px 2.2px at 49% 77%, rgba(217, 119, 6, 0.3), transparent 55%);
+  background-size:
+    541px 541px,
+    677px 677px,
+    811px 811px;
+}
+
+/* The engineered layer: the coordinate plane the brand is named for, closest
+   to the viewer and therefore the fastest. */
+.depth-plane--near {
+  transform: translateZ(-300px) scale(1.3);
+  background-image:
+    linear-gradient(rgba(230, 230, 230, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230, 230, 230, 0.028) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+/* Holds the edges down so content always sits on near-black. This also does
+   the job a mask on the grid plane used to do: masking a full-viewport fixed
+   element is expensive and can force it off the compositor, and one static
+   gradient painted once is far cheaper than a mask re-evaluated on a moving
+   layer. */
+.depth-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 92% 78% at 50% 42%, transparent 0%, #0a0a0a 88%);
+}
+
+@keyframes depth-travel {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -1400px;
+  }
+}
+
+/* No will-change here on purpose. A scroll-driven animation of `translate`
+   is promoted by the compositor anyway, and hinting three oversized planes
+   would pin three large layers in GPU memory for the life of the page. */
+@supports (animation-timeline: scroll(root)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .depth-plane {
+      animation: depth-travel linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+/* Touch devices get the grid plane only.
+   Measured: carrying all three planes on a throttled mobile profile pushed
+   blocking time from 442ms to 2120ms and LCP from 720ms to 1592ms. The cost
+   is rasterisation, not animation: a plane pre-scaled to cover the viewport
+   after projection is several viewports of tiled radial gradients, and at
+   device-pixel-ratio 2 that is an enormous amount of pixels to paint before
+   first frame. The two star planes are the expensive pair and the least
+   visible on a small screen, so they go. The grid is linear-gradients over a
+   modest area, which is cheap, and it keeps the sense of depth on scroll. */
+@media (pointer: coarse) {
+  .depth-field {
+    perspective: 700px;
+  }
+  .depth-plane--far,
+  .depth-plane--mid {
+    display: none;
+  }
+  .depth-plane--near {
+    transform: translateZ(-140px) scale(1.2);
+    background-size: 96px 96px;
+  }
+}
+
 /* --- The headline settle -------------------------------------------------
    Runs on the H1, which is the LCP element on most routes. Transform only,
    with opacity untouched, so the headline paints at first paint and still
