@@ -4,7 +4,6 @@ import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { WhatsAppFab } from "@/components/ui/whatsapp-fab";
-import { CustomCursor } from "@/components/ui/custom-cursor";
 import { Analytics } from "@/components/analytics/analytics";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -44,7 +43,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} h-full antialiased dark`}
     >
       <body className="flex min-h-full flex-col bg-[#0A0A0A] text-foreground">
-        <CustomCursor />
         <DeepSpaceBg />
         <LenisProvider>
           <SiteHeader />

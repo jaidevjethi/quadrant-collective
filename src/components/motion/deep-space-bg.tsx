@@ -185,13 +185,21 @@ export function DeepSpaceBg() {
     };
     document.addEventListener("visibilitychange", handleVisibility);
 
-    const handleResize = () => {
+    // Debounced: every resize event reallocates the canvas backing store and
+    // rebuilds four radial gradients. Undebounced, a single drag of a window
+    // edge fires that dozens of times.
+    let resizeTimer: number | undefined;
+    const applyResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width;
       canvas.height = height;
       buildGlows();
       if (reduced) render();
+    };
+    const handleResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(applyResize, 150);
     };
 
     window.addEventListener("resize", handleResize);

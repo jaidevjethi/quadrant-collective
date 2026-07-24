@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,31 +11,42 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   lift?: boolean;
 }
 
+/**
+ * A card whose highlight follows the pointer.
+ *
+ * Pointer position is written straight to CSS custom properties on the element.
+ * This used to sit in React state, which re-rendered the whole card subtree on
+ * every mousemove; now the handler touches only the style attribute, so the
+ * effect never enters the React render path and costs nothing measurable.
+ */
 export function SpotlightCard({
   children,
   className = "",
   spotlightColor = "rgba(230, 230, 230, 0.15)",
   as: Tag = "div",
   lift = false,
+  style,
   ...props
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState(0);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!divRef.current || prefersReducedMotion()) return;
-
     const div = divRef.current;
+    if (!div || prefersReducedMotion()) return;
     const rect = div.getBoundingClientRect();
-
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    div.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+    div.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
   };
 
   const handleMouseEnter = () => {
-    if (!prefersReducedMotion()) setOpacity(1);
+    const div = divRef.current;
+    if (!div || prefersReducedMotion()) return;
+    div.style.setProperty("--spot-opacity", "1");
   };
-  const handleMouseLeave = () => setOpacity(0);
+
+  const handleMouseLeave = () => {
+    divRef.current?.style.setProperty("--spot-opacity", "0");
+  };
 
   return (
     <Tag
@@ -43,14 +54,23 @@ export function SpotlightCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      style={
+        {
+          ...style,
+          "--spot-x": "50%",
+          "--spot-y": "50%",
+          "--spot-opacity": "0",
+        } as React.CSSProperties
+      }
       className={`group relative overflow-hidden rounded-lg border border-hairline bg-raised/40 backdrop-blur-md transition-[border-color,transform] duration-300 ease-[var(--ease-precision)] hover:border-hairline-strong ${lift ? "hover:-translate-y-1" : ""} ${className}`}
       {...props}
     >
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+        aria-hidden
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{
-          opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
+          opacity: "var(--spot-opacity)",
+          background: `radial-gradient(600px circle at var(--spot-x) var(--spot-y), ${spotlightColor}, transparent 40%)`,
         }}
       />
       {/* Content wrapper to ensure z-index stays above spotlight gradient */}
