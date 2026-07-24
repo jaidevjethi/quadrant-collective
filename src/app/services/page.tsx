@@ -92,9 +92,9 @@ export default function ServicesPage() {
 
       {/* Intro */}
       <section className="relative isolate overflow-hidden px-gutter pb-20 pt-24">
-        {/* The forge: warm amber craft-light for the page where things are
-            made (the Atmosphere System). Grid draws above it. */}
-        <Atmosphere src="/space/forge.jpg" edge="top" opacity={70} priority />
+        {/* Environment: a blue wash (technology, the system). Each package
+            below carries its own discipline colour. Grid draws above it. */}
+        <Atmosphere accent="#2563EB" edge="top" strength={0.12} />
         <IntroField />
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <span className="label-mono text-muted-2">Services</span>

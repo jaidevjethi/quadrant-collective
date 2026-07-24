@@ -83,12 +83,12 @@ export default async function CaseStudyPage({
 
   return (
     <main className="relative isolate flex flex-1 flex-col overflow-hidden px-gutter py-section">
-      {/* Inside one constellation: the work field, dimmer, over the header
-          only. Gallery images keep LCP priority (the Atmosphere System). */}
+      {/* Environment: this case's persona colour washes the arrival screen,
+          so each case feels like the world it was built for. */}
       <Atmosphere
-        src="/space/constellations.jpg"
+        accent={study.persona.accent}
         edge="top"
-        opacity={50}
+        strength={0.16}
         span="viewport"
       />
       {caseSchema(study).map((schema) => (

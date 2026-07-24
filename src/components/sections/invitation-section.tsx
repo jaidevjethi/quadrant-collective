@@ -24,14 +24,9 @@ export function InvitationSection() {
       id="contact"
       className="relative isolate scroll-mt-24 overflow-hidden border-y border-hairline bg-raised px-gutter py-section"
     >
-      {/* The destination: a calm teal horizon rises under the ask. The
-          voyage ends where the conversation starts (the Atmosphere System). */}
-      <Atmosphere
-        src="/space/destination.jpg"
-        edge="bottom"
-        position="bottom"
-        opacity={90}
-      />
+      {/* Environment: a teal wash rising under the ask (growth, the
+          destination where the conversation starts). */}
+      <Atmosphere accent="#00D1B2" edge="bottom" strength={0.16} />
 
       {/* Calm echo of the hero's coordinate field: the page ends in the same
           engineered space it began. Static CSS only. */}

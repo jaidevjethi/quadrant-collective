@@ -15,10 +15,9 @@ export function HeroSection() {
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-gutter text-center">
 
-      {/* The arrival: a faint nebula in the discipline colors, dissolving
-          into the live starfield so the voyage continues past the first
-          screen (the Atmosphere System). */}
-      <Atmosphere src="/space/arrival.jpg" edge="top" opacity={80} priority />
+      {/* Environment: a faint blue wash (technology, "engineered") over the
+          live starfield. Colour with meaning, not a cosmic image. */}
+      <Atmosphere accent="#2563EB" edge="top" strength={0.14} />
 
       {/* Corner registration marks: frames the arrival like a technical drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-5 md:inset-9">

@@ -75,9 +75,9 @@ export default function AboutPage() {
     <main className="flex flex-1 flex-col">
       {/* Intro */}
       <section className="relative isolate overflow-hidden px-gutter pb-24 pt-24">
-        {/* The observatory: the calmest violet drift for the page about the
-            people behind the glass (the Atmosphere System). */}
-        <Atmosphere src="/space/vision.jpg" edge="top" opacity={70} priority />
+        {/* Environment: a calm violet wash (strategy, the page about how we
+            think). */}
+        <Atmosphere accent="#7C3AED" edge="top" strength={0.14} />
         <IntroField />
         <Reveal className="mx-auto flex max-w-4xl flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">About</span>

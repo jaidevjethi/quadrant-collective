@@ -62,12 +62,7 @@ export default function ContactPage() {
       {/* The landing: contact shares the homepage destination, because
           arriving here IS the journey's end (the Atmosphere System). The
           teal horizon rises under the page's close. */}
-      <Atmosphere
-        src="/space/destination.jpg"
-        edge="bottom"
-        position="bottom"
-        opacity={80}
-      />
+      <Atmosphere accent="#00D1B2" edge="bottom" strength={0.16} />
       <IntroField />
       <div className="mx-auto grid w-full max-w-4xl gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col gap-6">

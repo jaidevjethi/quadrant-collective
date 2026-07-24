@@ -14,7 +14,7 @@ export default function NotFound() {
     <div className="relative isolate flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-gutter text-center">
       {/* Off the plane: adrift in the arrival dark, dimmed (the Atmosphere
           System). */}
-      <Atmosphere src="/space/arrival.jpg" edge="top" opacity={40} />
+      <Atmosphere accent="#7C3AED" edge="top" strength={0.08} />
       <div aria-hidden className="mb-10 opacity-80">
         <LogoMark size={88} variant="construction" tone="mono" decorative />
       </div>

@@ -22,15 +22,9 @@ export default function WorkPage() {
 
   return (
     <main className="relative isolate flex flex-1 flex-col overflow-hidden px-gutter py-section">
-      {/* The constellations: built things, looked back on. Blue-violet star
-          cluster over the arrival screen only (the Atmosphere System). */}
-      <Atmosphere
-        src="/space/constellations.jpg"
-        edge="top"
-        opacity={70}
-        span="viewport"
-        priority
-      />
+      {/* Environment: a teal wash for the work (growth, results). Each case
+          card below carries its own persona colour. */}
+      <Atmosphere accent="#00D1B2" edge="top" strength={0.12} span="viewport" />
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-16">
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">Work</span>
