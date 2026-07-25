@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import Lenis from "lenis";
+import type Lenis from "lenis";
 import { prefersReducedMotion } from "@/lib/motion";
 
 /**
@@ -38,27 +38,37 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     if (prefersReducedMotion()) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    // Smoother, weighted feel: lower lerp eases the scroll position in more
-    // gradually; gentle wheel multiplier keeps it controlled, not floaty.
-    const lenis = new Lenis({
-      lerp: 0.085,
-      wheelMultiplier: 0.9,
-      smoothWheel: true,
-      syncTouch: false,
-    });
-    lenisInstance = lenis;
-
+    // Imported dynamically so the library is a separate chunk that only
+    // desktop pointers ever download. Phones and anyone on reduced motion
+    // return above without fetching it at all.
+    let lenis: Lenis | null = null;
     let frame = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
+    let cancelled = false;
+
+    void import("lenis").then(({ default: LenisCtor }) => {
+      if (cancelled) return;
+      // Smoother, weighted feel: lower lerp eases the scroll position in more
+      // gradually; gentle wheel multiplier keeps it controlled, not floaty.
+      lenis = new LenisCtor({
+        lerp: 0.085,
+        wheelMultiplier: 0.9,
+        smoothWheel: true,
+        syncTouch: false,
+      });
+      lenisInstance = lenis;
+
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        frame = requestAnimationFrame(raf);
+      };
       frame = requestAnimationFrame(raf);
-    };
-    frame = requestAnimationFrame(raf);
+    });
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
       lenisInstance = null;
-      lenis.destroy();
+      lenis?.destroy();
     };
   }, []);
 

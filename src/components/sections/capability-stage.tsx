@@ -1,11 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Plus } from "lucide-react";
 import { getLenis } from "@/components/providers/lenis-provider";
-import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
+import { CSS_EASE, MS, prefersReducedMotion } from "@/lib/motion";
 import {
   capabilityNodes,
   disciplines,
@@ -16,7 +14,6 @@ import {
 } from "@/lib/capabilities";
 import { CapabilityStory } from "./capability-story";
 
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Beat 3 — the capability system drawn as the brand mark itself. The four
@@ -153,16 +150,18 @@ export function CapabilityStage({ className }: { className?: string }) {
       return;
     }
     closingRef.current = true;
-    gsap.to(panel, {
-      opacity: 0,
-      y: 8,
-      duration: 0.25,
-      ease: EASE.precision,
-      onComplete: () => {
-        gsap.set(panel, { clearProps: "all" });
-        finish();
-      },
-    });
+    const out = panel.animate(
+      [
+        { opacity: 1, translate: "0 0" },
+        { opacity: 0, translate: "0 8px" },
+      ],
+      { duration: 250, easing: CSS_EASE.precision, fill: "forwards" },
+    );
+    out.onfinish = () => {
+      // cancel() drops the fill, which is what clearProps did before.
+      out.cancel();
+      finish();
+    };
   }, [focusChip]);
 
   const toggle = useCallback((id: CapabilityNodeId) => {
@@ -182,7 +181,6 @@ export function CapabilityStage({ className }: { className?: string }) {
         requestAnimationFrame(() => scrollStageIntoView(stageRef.current, false));
       }
     }
-    ScrollTrigger.refresh();
   }, [expanded]);
 
   // Escape closes while a story is open.
@@ -219,7 +217,6 @@ export function CapabilityStage({ className }: { className?: string }) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setExpanded(initial);
       timer = setTimeout(() => {
-        ScrollTrigger.refresh();
         scrollStageIntoView(stageRef.current, true);
         deepLinkedRef.current = false;
       }, 250);
@@ -275,48 +272,164 @@ export function CapabilityStage({ className }: { className?: string }) {
     const scale = svg.getBoundingClientRect().width / VB;
     const ORDER: DisciplineId[] = ["strategy", "design", "technology", "growth"];
 
-    const ctx = gsap.context(() => {
-      gsap.set([arcs, tail, cross], { strokeDasharray: 1, strokeDashoffset: 1 });
-      gsap.set(dot, { scale: 0, transformOrigin: "50% 50%" });
-      gsap.set(labels, { opacity: 0 });
-      chips.forEach((chip) => {
-        gsap.set(chip, {
-          x: Number(chip.dataset.flyx) * scale,
-          y: Number(chip.dataset.flyy) * scale,
-          scale: 0.4,
-          opacity: 0,
-          transformOrigin: "50% 50%",
-        });
-      });
+    if (!("IntersectionObserver" in window)) return;
 
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: stage, start: "top 72%", once: true },
+    const strokes: SVGPathElement[] = [
+      ...Array.from(arcs),
+      ...Array.from(cross),
+      ...(tail ? [tail] : []),
+    ];
+
+    // The markup renders resolved, so the hidden state is only applied once we
+    // know the entrance is going to play.
+    const setInitial = () => {
+      strokes.forEach((p) => {
+        p.style.strokeDasharray = "1";
+        p.style.strokeDashoffset = "1";
       });
+      if (dot) {
+        dot.style.transformBox = "fill-box";
+        dot.style.transformOrigin = "50% 50%";
+        dot.style.scale = "0";
+      }
+      labels.forEach((l) => (l.style.opacity = "0"));
+      chips.forEach((chip) => {
+        chip.style.translate = `${Number(chip.dataset.flyx) * scale}px ${Number(chip.dataset.flyy) * scale}px`;
+        chip.style.scale = "0.4";
+        chip.style.opacity = "0";
+      });
+    };
+
+    const clearInitial = () => {
+      strokes.forEach((p) => {
+        p.style.strokeDasharray = "";
+        p.style.strokeDashoffset = "";
+      });
+      if (dot) {
+        dot.style.scale = "";
+        dot.style.transformBox = "";
+        dot.style.transformOrigin = "";
+      }
+      labels.forEach((l) => (l.style.opacity = ""));
+      chips.forEach((chip) => {
+        chip.style.translate = "";
+        chip.style.scale = "";
+        chip.style.opacity = "";
+      });
+    };
+
+    const anims: Animation[] = [];
+    const run = (
+      el: Element,
+      frames: Keyframe[],
+      opts: KeyframeAnimationOptions,
+    ) => {
+      anims.push(el.animate(frames, { fill: "both", ...opts }));
+    };
+
+    const play = () => {
+      const STD = MS.standard;
 
       // The axes divide the plane into quadrants first.
-      tl.to(cross, { strokeDashoffset: 0, duration: DURATION.standard, ease: EASE.precision });
+      cross.forEach((c) =>
+        run(c, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], {
+          duration: STD,
+          easing: CSS_EASE.precision,
+        }),
+      );
 
       // Then each discipline: its arc draws, its two capabilities settle onto
       // it, its label appears. The grouping is the whole point, so it is paced
       // to be read, not blurred past.
       ORDER.forEach((disc, i) => {
-        const arc = svg.querySelector<SVGPathElement>(`.cap-arc[data-disc="${disc}"]`);
-        const label = svg.querySelector<SVGTextElement>(`.cap-label[data-disc="${disc}"]`);
+        const start = 400 + i * 520;
+        const arc = svg.querySelector<SVGPathElement>(
+          `.cap-arc[data-disc="${disc}"]`,
+        );
+        const label = svg.querySelector<SVGTextElement>(
+          `.cap-label[data-disc="${disc}"]`,
+        );
         const discChips = chips.filter((c) => c.dataset.disc === disc);
 
-        tl.to(arc, { strokeDashoffset: 0, duration: DURATION.standard, ease: EASE.precision }, i === 0 ? "-=0.2" : "-=0.15")
-          .to(discChips, { x: 0, y: 0, scale: 1, opacity: 1, duration: DURATION.standard, ease: EASE.weighted, stagger: 0.08 }, "-=0.35")
-          .to(label, { opacity: 1, duration: 0.4, ease: EASE.precision }, "-=0.3");
+        if (arc) {
+          run(arc, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], {
+            duration: STD,
+            delay: start,
+            easing: CSS_EASE.precision,
+          });
+        }
 
-        if (disc === "growth") {
-          tl.to(tail, { strokeDashoffset: 0, duration: 0.35, ease: EASE.precision }, "-=0.25");
+        discChips.forEach((chip, j) => {
+          run(
+            chip,
+            [
+              {
+                translate: `${Number(chip.dataset.flyx) * scale}px ${Number(chip.dataset.flyy) * scale}px`,
+                scale: "0.4",
+                opacity: 0,
+              },
+              { translate: "0px 0px", scale: "1", opacity: 1 },
+            ],
+            {
+              duration: STD,
+              delay: start + 250 + j * 80,
+              easing: CSS_EASE.weighted,
+            },
+          );
+        });
+
+        if (label) {
+          run(label, [{ opacity: 0 }, { opacity: 1 }], {
+            duration: 400,
+            delay: start + 520,
+            easing: CSS_EASE.precision,
+          });
+        }
+
+        if (disc === "growth" && tail) {
+          run(tail, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], {
+            duration: 350,
+            delay: start + 560,
+            easing: CSS_EASE.precision,
+          });
         }
       });
 
-      tl.to(dot, { scale: 1, duration: 0.4, ease: EASE.precision }, "-=0.2");
-    }, stage);
+      if (dot) {
+        run(dot, [{ scale: "0" }, { scale: "1" }], {
+          duration: 400,
+          delay: 2660,
+          easing: CSS_EASE.precision,
+        });
+      }
 
-    return () => ctx.revert();
+      // Once the sequence ends, drop both the fills and the inline hidden
+      // state so hover and active styling take over cleanly.
+      Promise.all(anims.map((a) => a.finished.catch(() => undefined))).then(
+        () => {
+          anims.forEach((a) => a.cancel());
+          clearInitial();
+        },
+      );
+    };
+
+    setInitial();
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        play();
+      },
+      { rootMargin: "0px 0px -28% 0px" },
+    );
+    io.observe(stage);
+
+    return () => {
+      io.disconnect();
+      anims.forEach((a) => a.cancel());
+      clearInitial();
+    };
   }, []);
 
   // A short rise-in on the opening story; when a story closes, the returning
@@ -330,20 +443,21 @@ export function CapabilityStage({ className }: { className?: string }) {
     if (expanded) {
       const panel = stageRef.current?.querySelector(`#story-${expanded} .cap-story-inner`);
       if (panel) {
-        gsap.fromTo(
-          panel,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: DURATION.standard, ease: EASE.precision },
+        panel.animate(
+          [
+            { opacity: 0, translate: "0 10px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          { duration: MS.standard, easing: CSS_EASE.precision },
         );
       }
     } else if (wasOpenRef.current) {
       const layer = stageRef.current?.querySelector(".cap-ring-layer");
       if (layer) {
-        gsap.fromTo(
-          layer,
-          { opacity: 0 },
-          { opacity: 1, duration: DURATION.standard, ease: EASE.precision },
-        );
+        layer.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: MS.standard,
+          easing: CSS_EASE.precision,
+        });
       }
     }
     wasOpenRef.current = Boolean(expanded);
