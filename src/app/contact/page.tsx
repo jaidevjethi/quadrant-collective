@@ -10,7 +10,7 @@ import { TextReveal } from "@/components/motion/text-reveal";
 import { PHONE_HREF, WHATSAPP_DISPLAY, waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact a web design and SEO studio in Gujarat",
   description:
     "Start a conversation with Quadrant Collective. Tell us about your business and what you need. We reply within one business day.",
   alternates: { canonical: "/contact" },

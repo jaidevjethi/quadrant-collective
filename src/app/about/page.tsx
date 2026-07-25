@@ -17,7 +17,7 @@ import { TextReveal } from "@/components/motion/text-reveal";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About the studio, Gujarat",
   description:
     "Quadrant Collective is an independent, founder-led digital engineering and growth studio in the Gujarat corridor. One person leads every engagement and brings in specialists as the work needs them.",
   alternates: { canonical: "/about" },

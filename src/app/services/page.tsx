@@ -14,9 +14,9 @@ import { waLink } from "@/lib/whatsapp";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Web design, SEO, Google Business Profile and social media",
   description:
-    "Website and SEO foundations, Google Business Profile management and content operations for clinics, labs and local operators in Gujarat. Ongoing work starts at ₹20,000 a month.",
+    "Web design and development, branding, SEO and local SEO, Google Business Profile management, content marketing and social media for clinics, labs and local businesses in Mehsana, Ahmedabad and Vadodara. Ongoing work from ₹20,000 a month.",
   alternates: { canonical: "/services" },
 };
 
@@ -110,6 +110,16 @@ export default function ServicesPage() {
           <p className="max-w-2xl text-sm leading-relaxed text-muted-2">
             Built for clinics, diagnostic labs, hospitals and local operators
             who need this handled properly without hiring a marketing team.
+          </p>
+          {/* The plain list of what we sell. A visitor scanning for a service
+              finds it here, and an answer engine asked who does this work in
+              Gujarat has one sentence it can quote. */}
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-2">
+            <span className="text-clarity">What we do.</span> Web design and
+            web development, branding and brand identity, SEO and local SEO,
+            Google Business Profile management, content marketing, and social
+            media management, for businesses across Gujarat, in Mehsana,
+            Ahmedabad and Vadodara.
           </p>
           <p className="max-w-2xl border-l-2 border-hairline-strong pl-4 text-sm leading-relaxed text-muted-2">
             <span className="text-clarity">What it costs.</span>{" "}

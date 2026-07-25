@@ -11,7 +11,7 @@ import { WorkImage } from "@/components/ui/work-image";
 import { waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Case studies in web design, SEO and branding",
   description:
     "Case studies from Quadrant Collective across dental, travel, wellness and hospital care in India. Each one shows what we found, what we chose, and what changed.",
   alternates: { canonical: "/work" },
@@ -32,9 +32,9 @@ export default function WorkPage() {
             Four businesses, and what changed.
           </h1>
           <p data-reveal className="max-w-2xl text-lead text-muted-2">
-            Recent work across dental, travel, wellness and hospital care.
-            Each case says what we found, what we chose, and what happened
-            after it shipped.
+            Web design, development, SEO and branding for dental, travel,
+            wellness and hospital-care businesses. Each case says what we
+            found, what we chose, and what happened after it shipped.
           </p>
         </Reveal>
 

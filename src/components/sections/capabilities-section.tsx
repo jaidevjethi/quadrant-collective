@@ -33,10 +33,12 @@ export function CapabilitiesSection() {
             Four disciplines, one accountable plan.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Each of those problems usually goes to a different specialist. Bought
-            in pieces, the fixes rarely add up, so the problem comes back and
-            nobody owns it. We run all four as one job with one person
-            answerable for the result.
+            Each of those problems usually goes to a different specialist: one
+            agency for web design, another for SEO, someone else for social
+            media. Bought in pieces the fixes rarely add up, so the problem
+            comes back and nobody owns it. We run positioning, branding, web
+            development, SEO, content and automation as one job, with one
+            person answerable for the result.
           </p>
         </Reveal>
         <CapabilityStage className="mt-16" />

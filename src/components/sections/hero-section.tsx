@@ -56,9 +56,9 @@ export function HeroSection() {
           <div data-choreo style={{ "--choreo-i": 1 } as CSSProperties}>
             <p className="max-w-2xl text-lead text-muted-2">
               Your work already earns trust in person. Online, a slow site and a
-              thin search presence make you look smaller than you are. We build
-              the website, the search presence and the content that close that
-              gap, and we build them as one system.
+              thin search presence make you look smaller than you are. We close
+              that gap with web design and development, branding, SEO, and the
+              content and social media that keep it working.
             </p>
           </div>
         </div>
