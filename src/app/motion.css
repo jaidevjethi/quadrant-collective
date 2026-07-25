@@ -213,6 +213,135 @@
   }
 }
 
+/* --- The blueprint band --------------------------------------------------
+   One named view timeline on the wrapper; every child reads it and separates
+   itself with an animation-range offset rather than a delay, which does
+   nothing on a progress timeline. The ticks carry their own range as inline
+   custom properties so the cascade stays declarative. */
+
+@keyframes bp-draw {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes bp-rise {
+  from {
+    stroke-dashoffset: 80;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes bp-tick {
+  from {
+    opacity: 0;
+    scale: 1 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+@keyframes bp-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .bp-band {
+      view-timeline-name: --bp;
+    }
+    .bp-band .bp-base {
+      stroke-dasharray: 1200;
+      animation: bp-draw linear both;
+      animation-timeline: --bp;
+      animation-range: entry 4% entry 54%;
+    }
+    .bp-band .bp-tick {
+      transform-origin: 50% 100%;
+      transform-box: fill-box;
+      animation: bp-tick linear both;
+      animation-timeline: --bp;
+      animation-range: entry var(--r0, 26%) entry var(--r1, 46%);
+    }
+    .bp-band .bp-label {
+      animation: bp-fade linear both;
+      animation-timeline: --bp;
+      animation-range: entry 48% entry 68%;
+    }
+    .bp-band .bp-rise {
+      stroke-dasharray: 80;
+      animation: bp-rise linear both;
+      animation-timeline: --bp;
+      animation-range: entry 58% entry 88%;
+    }
+  }
+}
+
+/* --- The method timeline -------------------------------------------------
+   Same pattern as the blueprint band: one named timeline on the wrapper, and
+   each part separates itself with a range offset. The axis draws from its top
+   edge, then each step's node pops and its row rises onto it. */
+
+@keyframes mt-axis {
+  from {
+    scale: 1 0;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+@keyframes mt-dot {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+@keyframes mt-row {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .mt-band {
+      view-timeline-name: --mt;
+    }
+    .mt-band [data-axis] {
+      transform-origin: 50% 0%;
+      animation: mt-axis linear both;
+      animation-timeline: --mt;
+      animation-range: entry 6% entry 62%;
+    }
+    .mt-band [data-dot] {
+      animation: mt-dot linear both;
+      animation-timeline: --mt;
+      animation-range: entry var(--r0, 22%) entry var(--r1, 52%);
+    }
+    .mt-band [data-row] {
+      animation: mt-row linear both;
+      animation-timeline: --mt;
+      animation-range: entry var(--r0, 22%) entry var(--r1, 52%);
+    }
+  }
+}
+
 /* --- The hero arrival ----------------------------------------------------
    The mark settles, then the eyebrow, lead, actions and scroll cue plot in.
    Replaces a GSAP timeline. The elements sit at different nesting depths, so

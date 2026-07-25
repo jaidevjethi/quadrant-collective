@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
-
-gsap.registerPlugin(ScrollTrigger);
+import { prefersReducedMotion } from "@/lib/motion";
 
 /**
  * Beat 5 — Proof (STRATEGY.md). The measurement-counter motion. These are the
@@ -29,28 +25,38 @@ export function ProofCounters({ className }: { className?: string }) {
     if (!root || prefersReducedMotion()) return;
 
     const nums = root.querySelectorAll<HTMLElement>("[data-num]");
+    if (!("IntersectionObserver" in window)) return;
 
-    const st = ScrollTrigger.create({
-      trigger: root,
-      start: "top 75%",
-      once: true,
-      onEnter: () => {
-        nums.forEach((el) => {
-          const target = Number(el.dataset.num);
-          const state = { v: 0 };
-          gsap.to(state, {
-            v: target,
-            duration: DURATION.choreo,
-            ease: EASE.weighted,
-            onUpdate: () => {
-              el.textContent = String(Math.round(state.v));
-            },
+    // Counting a number is the one thing here CSS cannot do, so it stays in
+    // JS. It is a single rAF loop that runs for 1.1s once and then stops,
+    // which is why this no longer needs GSAP.
+    const DURATION_MS = 1100;
+    let frame = 0;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        const started = performance.now();
+        const step = (now: number) => {
+          const t = Math.min(1, (now - started) / DURATION_MS);
+          // Quartic settle, matching the weighted ease used elsewhere.
+          const eased = 1 - Math.pow(1 - t, 4);
+          nums.forEach((el) => {
+            el.textContent = String(Math.round(Number(el.dataset.num) * eased));
           });
-        });
+          if (t < 1) frame = requestAnimationFrame(step);
+        };
+        frame = requestAnimationFrame(step);
       },
-    });
+      { rootMargin: "0px 0px -25% 0px" },
+    );
 
-    return () => st.kill();
+    io.observe(root);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

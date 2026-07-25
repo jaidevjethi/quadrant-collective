@@ -1,14 +1,23 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { DURATION, EASE, prefersReducedMotion } from "@/lib/motion";
+import { prefersReducedMotion } from "@/lib/motion";
 
 interface MagneticProps {
   children: React.ReactElement;
   strength?: number;
 }
 
+/**
+ * The element leans toward the pointer.
+ *
+ * Uses the `translate` property with a CSS transition rather than a GSAP
+ * quickTo. The handler only writes a style value; the easing and the frame
+ * loop are the browser's, and `translate` is composited, so this costs
+ * nothing measurable and removes a GSAP dependency from the hero. Writing
+ * `translate` rather than `transform` also leaves any transform on the child
+ * untouched. Desktop only, and never under reduced motion.
+ */
 export function Magnetic({ children, strength = 0.3 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -17,33 +26,30 @@ export function Magnetic({ children, strength = 0.3 }: MagneticProps) {
       return;
     }
 
-    const element = ref.current;
-    if (!element) return;
+    const el = ref.current;
+    if (!el) return;
 
-    const xTo = gsap.quickTo(element, "x", { duration: DURATION.standard, ease: EASE.precision });
-    const yTo = gsap.quickTo(element, "y", { duration: DURATION.standard, ease: EASE.precision });
+    el.style.transition = "translate var(--dur-standard) var(--ease-precision)";
 
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { height, width, left, top } = element.getBoundingClientRect();
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
-      
-      xTo(x * strength);
-      yTo(y * strength);
+      const { height, width, left, top } = el.getBoundingClientRect();
+      const x = (e.clientX - (left + width / 2)) * strength;
+      const y = (e.clientY - (top + height / 2)) * strength;
+      el.style.translate = `${x}px ${y}px`;
     };
 
     const handleMouseLeave = () => {
-      xTo(0);
-      yTo(0);
+      el.style.translate = "0px 0px";
     };
 
-    element.addEventListener("mousemove", handleMouseMove);
-    element.addEventListener("mouseleave", handleMouseLeave);
+    el.addEventListener("mousemove", handleMouseMove);
+    el.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      element.removeEventListener("mousemove", handleMouseMove);
-      element.removeEventListener("mouseleave", handleMouseLeave);
+      el.removeEventListener("mousemove", handleMouseMove);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+      el.style.transition = "";
+      el.style.translate = "";
     };
   }, [strength]);
 

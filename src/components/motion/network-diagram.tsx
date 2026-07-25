@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/motion";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Beat 6 — The difference (STRATEGY.md), signature moment 3 of 3: the
@@ -48,21 +44,21 @@ const EDGES: [Key, Key][] = [
   ["technology", "growth"],
 ];
 
-/** Seconds each node stays lit during the self-demo. */
-const DEMO_STEP = 0.75;
+/** Milliseconds each node stays lit during the self-demo. */
+const DEMO_STEP = 750;
+/** Beat before the demo starts, once the diagram is in view. */
+const DEMO_LEAD = 400;
 
 export function NetworkDiagram({ className }: { className?: string }) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const demoRef = useRef<gsap.core.Timeline | null>(null);
+  const demoTimers = useRef<number[]>([]);
   const interactedRef = useRef(false);
   const [active, setActive] = useState<Key | null>(null);
 
   // The visitor's gesture always beats the demo.
   const cancelDemo = () => {
-    if (demoRef.current) {
-      demoRef.current.kill();
-      demoRef.current = null;
-    }
+    demoTimers.current.forEach(clearTimeout);
+    demoTimers.current = [];
     interactedRef.current = true;
   };
 
@@ -76,30 +72,35 @@ export function NetworkDiagram({ className }: { className?: string }) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
     const svg = svgRef.current;
-    if (!svg) return;
+    if (!svg || !("IntersectionObserver" in window)) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: svg,
-      start: "top 72%",
-      once: true,
-      onEnter: () => {
+    // The demo is a sequence of state changes, not a tween, so it needs
+    // nothing more than timers. This is what used to pin GSAP here.
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
         if (interactedRef.current) return;
-        const tl = gsap.timeline({ delay: 0.4 });
         KEYS.forEach((k, i) => {
-          tl.call(() => setActive(k), undefined, i * DEMO_STEP);
+          demoTimers.current.push(
+            window.setTimeout(() => setActive(k), DEMO_LEAD + i * DEMO_STEP),
+          );
         });
-        tl.call(() => setActive(null), undefined, KEYS.length * DEMO_STEP);
-        tl.call(() => {
-          demoRef.current = null;
-        });
-        demoRef.current = tl;
+        demoTimers.current.push(
+          window.setTimeout(
+            () => setActive(null),
+            DEMO_LEAD + KEYS.length * DEMO_STEP,
+          ),
+        );
       },
-    });
+      { rootMargin: "0px 0px -28% 0px" },
+    );
 
+    io.observe(svg);
     return () => {
-      trigger.kill();
-      demoRef.current?.kill();
-      demoRef.current = null;
+      io.disconnect();
+      demoTimers.current.forEach(clearTimeout);
+      demoTimers.current = [];
     };
   }, []);
 
