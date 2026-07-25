@@ -9,14 +9,14 @@ import { Reveal } from "@/components/motion/reveal";
 import { TextReveal } from "@/components/motion/text-reveal";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { PackageNav } from "@/components/services/package-nav";
-import { services, SERVICES_POSITIONING } from "@/lib/services";
+import { services, SERVICES_POSITIONING, ENGAGEMENT_FLOOR } from "@/lib/services";
 import { waLink } from "@/lib/whatsapp";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Website and SEO foundations, Google Business Profile management, and content operations for clinics and local practices. We handle the strategy and the technology; you provide the expertise.",
+    "Website and SEO foundations, Google Business Profile management and content operations for clinics, labs and local operators in Gujarat. Ongoing work starts at ₹20,000 a month.",
   alternates: { canonical: "/services" },
 };
 
@@ -47,11 +47,11 @@ const servicesSchema = {
 const FAQ: { q: string; a: string }[] = [
   {
     q: "How does an engagement start?",
-    a: "You write to us, we reply within one business day, and we set up a short call to map the practice and the gap. After the call you get a written recommendation you keep, whether or not we work together.",
+    a: "You write to us, we reply within one business day, and we set up a short call to understand the business and where it is stuck. After the call you get a written recommendation you keep, whether or not we work together.",
   },
   {
-    q: "What does custom engagement mean for the website package?",
-    a: "Website builds differ too much for one price. After the mapping call you get a written scope and a fixed quote for your build, so you know the full cost before anything starts.",
+    q: "Why is there no price on the website package?",
+    a: "Builds differ too much for one number to be honest. After the mapping call you get a written scope and a fixed quote, so you know the full cost before anything starts. Ongoing work has a published floor of ₹20,000 a month.",
   },
   {
     q: "Can we start with a single package?",
@@ -59,7 +59,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What do you need from us?",
-    a: "Your expertise, not your time. A short call to map the practice, sign-off on content before it goes out, and for video, recording what we script. Everything else is handled.",
+    a: "Very little. One call at the start, sign-off on anything before it goes out, and for video, recording what we script. Everything else is ours.",
   },
 ];
 
@@ -102,22 +102,26 @@ export default function ServicesPage() {
             as="h1"
             className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity"
           >
-            You run the practice. We run the system around it.
+            You run the business. We run the system around it.
           </TextReveal>
           <p className="max-w-2xl text-lead text-muted-2">
             {SERVICES_POSITIONING}
           </p>
           <p className="max-w-2xl text-sm leading-relaxed text-muted-2">
-            Built for clinics and local practices that want a professional
-            presence without hiring a marketing department.
+            Built for clinics, diagnostic labs, hospitals and local operators
+            who need this handled properly without hiring a marketing team.
+          </p>
+          <p className="max-w-2xl border-l-2 border-hairline-strong pl-4 text-sm leading-relaxed text-muted-2">
+            <span className="text-clarity">What it costs.</span>{" "}
+            {ENGAGEMENT_FLOOR}
           </p>
           {/* The bridge: the homepage promises "any business that values
               quality"; this line keeps that promise without diluting the
               healthcare framing of the current packages. */}
           <p className="max-w-2xl text-sm leading-relaxed text-faint">
-            Running something other than a practice? The packages are framed
-            for healthcare because that is where our recent work is; the
-            system behind them serves any business that values quality.{" "}
+            Most of our recent work is in healthcare, so the examples lean
+            that way. The system behind it suits any business people have to
+            trust before they buy.{" "}
             <Link
               href="/contact"
               className="text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
@@ -164,11 +168,6 @@ export default function ServicesPage() {
                         />
                         {s.n} · Package
                       </span>
-                      {s.pricing && (
-                        <span className="label-mono text-faint border border-hairline px-3 py-1 rounded-sm bg-depth/50 backdrop-blur-sm">
-                          {s.pricing}
-                        </span>
-                      )}
                     </div>
                     <h2 className="font-heading text-headline font-medium tracking-tight text-clarity">
                       {s.title}
@@ -261,11 +260,11 @@ export default function ServicesPage() {
             data-reveal
             className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            Not sure which package fits?
+            Not sure which one you need?
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Tell us where the practice is and where you want it to be. We reply
-            within one business day with a straight recommendation.
+            Tell us what is not working and what you have already tried. We
+            reply within one business day with a straight recommendation.
           </p>
           <div data-reveal className="flex flex-wrap items-center gap-x-6 gap-y-4">
             <Button

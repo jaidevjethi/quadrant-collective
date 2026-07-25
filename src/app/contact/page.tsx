@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 const FAQ: { q: string; a: string }[] = [
   {
     q: "What does Quadrant Collective do?",
-    a: "We design and build digital systems for growing businesses: websites, brand identity, SEO, content and AI integrations. Strategy, design, technology and growth are planned together as one system so the results compound instead of cancelling out.",
+    a: "We build and run the digital system a business grows on: the website, the search presence, the brand and the content. Strategy, design, technology and growth are planned together, so the parts reinforce each other instead of pulling apart.",
   },
   {
     q: "Where are you based, and do you work remotely?",
@@ -34,7 +34,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What happens after I send a message?",
-    a: "We reply within one business day. Then we set up a short call to map the business and the gap. After the call you get a written recommendation you keep, whether or not we work together.",
+    a: "We reply within one business day. Then a short call to understand the business and where it is stuck. After the call you get a written recommendation you keep, whether or not we work together.",
   },
   {
     q: "Who will I actually be working with?",
@@ -42,7 +42,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Do you only work with healthcare businesses?",
-    a: "No. Much of our recent work is in healthcare and local services, and the same system serves any business that values quality: professional services, tourism, manufacturing, product companies.",
+    a: "No. Much of our recent work is in healthcare and local services, which is where the examples come from. The same system suits any business people have to trust before they buy, including professional services, tourism and manufacturing.",
   },
 ];
 
@@ -71,11 +71,11 @@ export default function ContactPage() {
             as="h1"
             className="font-heading text-display font-medium tracking-tight text-clarity"
           >
-            {"Let's build the system your business actually needs."}
+            {"One message, one business day."}
           </TextReveal>
           <p data-reveal className="max-w-sm text-lead text-muted-2">
-            Tell us where you are and where you want to be. We read every message
-            ourselves and reply within one business day.
+            Tell us what is not working and what you have already tried. We
+            read every message ourselves and reply within one business day.
           </p>
           <dl
             data-reveal

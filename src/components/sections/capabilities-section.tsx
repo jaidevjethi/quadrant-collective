@@ -30,12 +30,13 @@ export function CapabilitiesSection() {
             data-reveal
             className="font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            Not a stack of tools. One system.
+            Four disciplines, one accountable plan.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Each of those problems usually goes to a different specialist.
-            Bought piecemeal, the fixes rarely compound, so the problem comes
-            back. We build the four disciplines as one connected operation.
+            Each of those problems usually goes to a different specialist. Bought
+            in pieces, the fixes rarely add up, so the problem comes back and
+            nobody owns it. We run all four as one job with one person
+            answerable for the result.
           </p>
         </Reveal>
         <CapabilityStage className="mt-16" />

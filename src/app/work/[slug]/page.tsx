@@ -273,6 +273,13 @@ export default async function CaseStudyPage({
                   </li>
                 ))}
               </ul>
+              {/* Numbers carry their source on the page. A claim a visitor
+                  cannot place is worth less than no claim. */}
+              <p className="text-sm text-faint">
+                Figures reported by {study.client} from their own Google
+                Search Console, Google Business Profile and booking records,
+                covering the {study.year} launch period.
+              </p>
             </div>
           </Reveal>
         )}
@@ -295,7 +302,7 @@ export default async function CaseStudyPage({
             data-reveal
             className="max-w-xl font-heading text-title font-medium tracking-tight text-clarity"
           >
-            Have a project like this in mind?
+            Something similar in mind?
           </h2>
           <p data-reveal className="max-w-xl text-sm leading-relaxed text-muted-2">
             Tell us about the business and what you need. We reply within one

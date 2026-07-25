@@ -18,23 +18,7 @@ const PRINCIPLE_GLYPHS = [StructureGlyph, FlowGlyph, IntersectionGlyph];
  * restraint is the point.
  */
 
-const PRINCIPLES = [
-  {
-    n: "01",
-    title: "Built like a product, not a campaign",
-    body: "Engineering standards, not agency churn. Code and design meant to last five years, not one quarter.",
-  },
-  {
-    n: "02",
-    title: "Systems over one-offs",
-    body: "Everything is designed to extend and compound. Today's page is tomorrow's platform, not a dead end.",
-  },
-  {
-    n: "03",
-    title: "Honesty as a feature",
-    body: "No invented proof, no hype adjectives. Claims we can back, and the clarity to say what we won't do.",
-  },
-];
+import { principles as PRINCIPLES } from "@/lib/principles";
 
 export function DifferenceSection() {
   return (
@@ -48,11 +32,13 @@ export function DifferenceSection() {
             data-reveal
             className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            Growth happens at the intersection.
+            Touch one, the others move.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Not in isolation. Touch one discipline and the others respond. That
-            is exactly why we refuse to sell them separately from the system.
+            Site speed changes what search will rank. Sharper positioning
+            changes what the copy can say. Better copy changes what the design
+            has to carry. This is why we will not sell you one piece and call it
+            a plan.
           </p>
         </Reveal>
 

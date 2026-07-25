@@ -29,14 +29,14 @@ const SECTIONS: { heading: string; body: string[] }[] = [
     heading: "The contact form",
     body: [
       "When you submit the form, your message is formatted and opened in WhatsApp on your device. Nothing is sent or stored anywhere until you press send inside WhatsApp yourself. From that point the conversation is between you and us on WhatsApp, covered by WhatsApp's own terms and privacy policy.",
-      "If you prefer email, everything you send to jaidev@quadrantcollective.in stays in our mailbox and is used only to reply to you.",
+      "If you would rather not use WhatsApp, call the number in the footer. Whatever you send us stays with us and is used only to reply to you.",
     ],
   },
   {
     heading: "Analytics",
     body: [
-      "We use Google Analytics 4 and Microsoft Clarity to understand how visitors use the site: which pages are read, where visitors come from, and where the experience breaks. Both tools set cookies and collect usage data such as device type, approximate location, and pages visited. Neither gives us your name or contact details.",
-      "We use this data for one purpose: making the site better. We do not sell it, share it for advertising, or combine it with anything else.",
+      "This site currently runs no analytics. No Google Analytics, no Microsoft Clarity, no advertising pixels. We set no cookies of our own. Nothing here measures you.",
+      "If we add analytics later it will be to see which pages get read and where the experience breaks, never to identify you and never to sell anything. We will update this page before that goes live rather than after.",
     ],
   },
   {
@@ -54,7 +54,7 @@ const SECTIONS: { heading: string; body: string[] }[] = [
   {
     heading: "Who we are",
     body: [
-      "Quadrant Collective is a brand of Quadrant Ops India, based in Gujarat, India. Questions about this policy: jaidev@quadrantcollective.in.",
+      "Quadrant Collective is a brand of Quadrant Ops India, based in Gujarat, India. For any question about this policy, or to have your correspondence deleted, message or call us on +91 97734 56668.",
     ],
   },
 ];

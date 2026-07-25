@@ -91,8 +91,8 @@ export const caseStudies: CaseStudy[] = [
       insight:
         "Two things decided this market, and neither was a homepage. Most searches here happen in Gujarati, on a phone, in the seconds before a booking. And a dental decision is a trust decision. So we built for the language people search in, and put the trust signals where the doubt lives.",
       decisions: [
-        { title: "Bilingual, with a real toggle", body: "One tap flips the whole site to Gujarati, because that is how Mehsana searches. The Gujarati version is a first-class site, not a translation afterthought." },
-        { title: "Trust before treatments", body: "The Google rating, hospital-grade safety and doctor credentials sit up front, because the patient's real question is whether they can trust the clinic, not what a root canal is." },
+        { title: "Bilingual, with a real toggle", body: "One tap flips the whole site to Gujarati, because that is how Mehsana searches. The Gujarati version is a first-class site in its own right." },
+        { title: "Trust before treatments", body: "The Google rating, hospital-grade safety and doctor credentials sit up front, because the patient wants to know they can trust the clinic long before they wonder what a root canal involves." },
         { title: "Findable by construction", body: "Clean structure, schema and a treatments library mapped to how people actually search, so the clinic ranks for the procedures that pay rather than vanity terms." },
         { title: "Built to keep earning", body: "Local SEO foundations and a push-to-publish pipeline, so the site compounds after launch instead of going stale." },
       ],

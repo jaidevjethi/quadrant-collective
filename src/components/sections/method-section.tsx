@@ -30,11 +30,12 @@ export function MethodSection() {
             data-reveal
             className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            A process you can see coming.
+            Four stages. You are needed in two of them.
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            No black box, no surprises. Every engagement moves through the same
-            four stages, so you always know where the work is and why.
+            Your time is the scarcest thing in this. We ask for it twice: once
+            to understand the business, once to approve what goes out. The rest
+            is ours, and you can see where the work is at any point.
           </p>
         </Reveal>
         <MethodTimeline />

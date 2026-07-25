@@ -31,7 +31,7 @@ export function ProofSection() {
             className="flex flex-wrap items-end justify-between gap-6"
           >
             <h2 className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity">
-              The proof is the work.
+              The work, and what it changed.
             </h2>
             <Link
               href="/work"
@@ -42,9 +42,9 @@ export function ProofSection() {
             </Link>
           </div>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
-            Selected projects for real businesses, from a live bilingual dental
-            practice to an editorial tourism site. Every build is held to the
-            standards below.
+            Two recent builds. Each case study says what we found, what we
+            chose, and what happened afterwards, with the numbers attributed to
+            the client who reported them.
           </p>
         </Reveal>
 
@@ -82,39 +82,15 @@ export function ProofSection() {
           ))}
         </Reveal>
 
-        {/* One client voice, kept quiet on purpose: a short verbatim fragment,
-            attributed, linking to the full case where the details live.
-            Restraint here reads as confidence; the work above carries the sell. */}
-        <Reveal className="mt-6">
-          <figure
-            data-reveal
-            className="flex flex-col gap-5 border-l-2 border-growth/40 pl-6 md:pl-10"
-          >
-            <blockquote className="max-w-3xl text-title font-medium tracking-tight text-clarity">
-              &ldquo;They re-engineered how patients find us and book
-              treatments.&rdquo;
-            </blockquote>
-            <figcaption className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="text-sm font-medium text-clarity">
-                Dr. Akshar Patel
-              </span>
-              <span className="label-mono text-faint">
-                Founder, Pramukh Dental Clinic
-              </span>
-              <Link
-                href="/work/pramukh-dental"
-                className="group inline-flex items-center gap-1.5 text-sm text-muted-2 underline decoration-hairline-strong underline-offset-4 transition-colors duration-200 hover:text-clarity"
-              >
-                Read the case
-                <ArrowRight className="size-3.5 transition-transform duration-200 ease-[var(--ease-precision)] group-hover:translate-x-0.5" />
-              </Link>
-            </figcaption>
-          </figure>
-        </Reveal>
+        {/* A client quote sat here and was pulled 2026-07-25: it was attributed
+            to a name that did not match the clinic's actual founder. The
+            constitution allows no invented proof, and a quote a visitor can
+            disprove against the client's own site is worse than no quote. It
+            returns when the founder supplies a verified one. */}
 
         <Reveal className="flex flex-col gap-5 mt-6">
           <span data-reveal className="label-mono text-faint">
-            Held to these standards, on every build
+            The standard every build is measured against
           </span>
           <div data-reveal className="group relative">
             <CornerTicks />

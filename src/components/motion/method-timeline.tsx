@@ -13,26 +13,33 @@ import type { CSSProperties } from "react";
  * is the resolved state; motion only enhances.
  */
 
+/** `needsYou` marks the two stages that cost the client time. The section
+ *  heading claims they are needed in two of four; showing which two makes the
+ *  claim checkable at a glance instead of asking for trust. */
 const STEPS = [
   {
     n: "01",
     title: "Map",
-    body: "We map the business, the market, and the gap before anything is designed.",
+    body: "A call where you tell us how the business actually works: who your best customers are, and where they come from today.",
+    needsYou: true,
   },
   {
     n: "02",
-    title: "Design the system",
-    body: "Positioning, structure, and interface designed as one decision, not three.",
+    title: "Decide",
+    body: "We come back with the plan. What to build, in what order, and what we are leaving alone for now, with the reason for each.",
+    needsYou: false,
   },
   {
     n: "03",
-    title: "Build with craft",
-    body: "Production-grade engineering: fast, accessible, and measured against real numbers.",
+    title: "Build",
+    body: "We design and engineer it. You see it as it comes together, and nothing goes live until you have signed it off.",
+    needsYou: true,
   },
   {
     n: "04",
     title: "Compound",
-    body: "We ship, measure, and refine so the results build on each other.",
+    body: "It ships, we measure what it actually does, and we strengthen the parts that are working.",
+    needsYou: false,
   },
 ];
 
@@ -65,7 +72,12 @@ export function MethodTimeline({ className }: { className?: string }) {
               <span className="absolute inset-[3px] rounded-full bg-clarity" />
             </span>
             <div className="flex flex-col gap-2">
-              <span className="label-mono text-muted-2">{s.n}</span>
+              <span className="label-mono flex items-center gap-2.5 text-muted-2">
+                {s.n}
+                {s.needsYou && (
+                  <span className="text-growth">Your time</span>
+                )}
+              </span>
               <h3 className="text-title font-medium text-clarity">{s.title}</h3>
               <p className="max-w-md text-lead text-muted-2">{s.body}</p>
             </div>

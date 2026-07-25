@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check } from "lucide-react";
 import { contactSchema, type ContactInput } from "@/lib/contact-schema";
-import { waLink, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
+import { waLink, WHATSAPP_DISPLAY, PHONE_HREF } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -114,7 +114,13 @@ export function ContactForm() {
           press send there.
         </p>
         <p className="text-xs text-faint">
-          Prefer email? Write to <a href="mailto:jaidev@quadrantcollective.in" className="text-muted-2 hover:text-clarity transition-colors duration-200">jaidev@quadrantcollective.in</a>
+          Prefer to talk? Call{" "}
+          <a
+            href={PHONE_HREF}
+            className="text-muted-2 transition-colors duration-200 hover:text-clarity"
+          >
+            {WHATSAPP_DISPLAY}
+          </a>
         </p>
       </div>
     </form>

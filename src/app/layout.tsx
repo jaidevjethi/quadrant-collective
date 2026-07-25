@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Quadrant Collective",
   },
   description:
-    "Quadrant Collective is a digital engineering and growth studio in Gujarat, India. Websites, brands, SEO and AI built as one system designed to compound.",
+    "Quadrant Collective is a digital engineering and growth studio in Gujarat, India. We build the websites, search presence and content that high-trust businesses run on, as one system.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

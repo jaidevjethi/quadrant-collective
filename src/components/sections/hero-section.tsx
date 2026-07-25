@@ -50,14 +50,15 @@ export function HeroSection() {
             A digital engineering and growth studio · Gujarat, India
           </span>
           <TextReveal as="h1" className="font-heading text-display-xl font-medium tracking-tight text-clarity">
-            Digital growth, engineered as one system.
+            You are better than you look online.
           </TextReveal>
 
           <div data-choreo style={{ "--choreo-i": 1 } as CSSProperties}>
             <p className="max-w-2xl text-lead text-muted-2">
-              Most businesses don&apos;t have a marketing problem. They have a
-              systems problem. We bring websites, brand, SEO and AI together as
-              one operation, built to compound.
+              Your work already earns trust in person. Online, a slow site and a
+              thin search presence make you look smaller than you are. We build
+              the website, the search presence and the content that close that
+              gap, and we build them as one system.
             </p>
           </div>
         </div>
@@ -78,7 +79,7 @@ export function HeroSection() {
             >
               <Link href="/contact">
                 <span className="relative z-10 flex items-center gap-2">
-                  Start a conversation
+                  Get a straight recommendation
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
                 </span>
               </Link>
@@ -109,7 +110,7 @@ export function HeroSection() {
         aria-hidden="true"
         className="mb-10 flex flex-col items-center gap-3"
       >
-        <span className="label-mono text-faint">Initiate</span>
+        <span className="label-mono text-faint">Scroll</span>
         <div className="h-12 w-px overflow-hidden bg-grid-line">
           <div className="h-full w-full animate-hero-scroll bg-clarity" />
         </div>

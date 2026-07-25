@@ -29,14 +29,14 @@ export function ProblemSection() {
               data-reveal
               className="text-headline font-medium tracking-tight text-muted-2"
             >
-              Most business websites are expenses dressed up as assets.{" "}
+              Almost everyone we meet has already paid someone for a website.{" "}
               <span className="text-clarity">
-                The cause is almost always the same.
+                It is sitting there, quiet.
               </span>
             </h2>
             <p data-reveal className="max-w-xl text-lead text-muted-2">
-              The pieces behind them do not work as one system. In practice,
-              that shows up as one of these.
+              The site is rarely the whole problem. These are the six we hear
+              most often, in the words people use when they call us.
             </p>
           </Reveal>
         </div>
@@ -80,12 +80,13 @@ export function ProblemSection() {
 
         <Reveal className="max-w-2xl">
           <p data-reveal className="text-lead text-muted-2">
-            Almost none of these live in a single discipline. That is why we
-            build across{" "}
+            Almost none of these live in one place. Rebuild the site and the
+            search problem stays. Fix search and the trust problem stays. So we
+            work across{" "}
             <span className="text-clarity">
               strategy, design, technology and growth
             </span>{" "}
-            at once, not one service at a time.
+            together.
           </p>
         </Reveal>
       </div>

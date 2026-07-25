@@ -87,7 +87,7 @@ export const capabilityNodes: CapabilityNode[] = [
       "Positioning is the decision about what you are, who you are for, and why you are the obvious choice. Every other decision inherits it.",
     philosophy: [
       "Most businesses describe what they do. Positioning decides what they mean. It is the difference between a clinic that lists services and the clinic a city assumes is the best.",
-      "We treat it as the first engineering decision, not a tagline written at the end. Get it right and design, copy, and pricing stop being guesses.",
+      "We treat it as the first engineering decision. Get it right and design, copy and pricing stop being guesses.",
     ],
     framework: {
       name: "The positioning pass",
@@ -116,14 +116,14 @@ export const capabilityNodes: CapabilityNode[] = [
     definition:
       "Analytics is the discipline of knowing what is actually working, so decisions run on evidence instead of opinion or habit.",
     philosophy: [
-      "Most dashboards measure what is easy, not what matters. Traffic feels like progress; revenue is progress. We instrument the few numbers that map to the business and ignore the vanity.",
+      "Most dashboards measure whatever was easiest to wire up. Traffic feels like progress. Revenue is progress. We instrument the few numbers that map to the business and ignore the vanity.",
       "Measurement is how a system learns. Without it, every launch is a guess you never get to check.",
     ],
     framework: {
       name: "Measure what moves money",
       steps: [
         { name: "Define", detail: "Agree the handful of outcomes that matter: bookings, qualified leads, revenue." },
-        { name: "Instrument", detail: "Track those outcomes end to end, from first visit to closed business." },
+        { name: "Instrument", detail: "Follow each outcome all the way through to closed business." },
         { name: "Review", detail: "Read the numbers on a rhythm and let them decide what to build next." },
       ],
     },
@@ -132,7 +132,7 @@ export const capabilityNodes: CapabilityNode[] = [
       after: { label: "Three numbers that decide the week", note: "Clear, honest, acted on." },
     },
     influences: [
-      { target: "seo", why: "Shows which rankings turn into revenue, not just traffic." },
+      { target: "seo", why: "Shows which rankings actually turn into revenue." },
       { target: "automation", why: "What you can measure reliably, you can automate safely." },
       { target: "positioning", why: "Reveals which audience actually pays, sharpening the position." },
     ],
@@ -163,7 +163,7 @@ export const capabilityNodes: CapabilityNode[] = [
     influences: [
       { target: "web-design", why: "Sets the rules the interface applies on every screen." },
       { target: "content", why: "A defined voice makes every post recognizably yours." },
-      { target: "positioning", why: "Brand is how the position is felt, not just stated." },
+      { target: "positioning", why: "Brand is how the position becomes something people feel." },
     ],
     grid: { tx: 480, ty: 150, sx: 150, sy: 470, rot: -8 },
   },
@@ -175,7 +175,7 @@ export const capabilityNodes: CapabilityNode[] = [
       "Web design is the craft of turning strategy and brand into an interface people understand instantly and trust quickly.",
     philosophy: [
       "A website is not a brochure. It is where the decision to trust you is made, usually on a phone, in seconds. Every layout choice either clears the path to that decision or clutters it.",
-      "We design for comprehension first. Beauty follows from clarity, not the other way around.",
+      "We design for comprehension first. Clarity comes first and beauty follows it.",
     ],
     framework: {
       name: "Design for the decision",
@@ -191,7 +191,7 @@ export const capabilityNodes: CapabilityNode[] = [
     },
     influences: [
       { target: "development", why: "Design is only real once it is built fast and accessible." },
-      { target: "seo", why: "Structure and speed are ranking factors, not just looks." },
+      { target: "seo", why: "Structure and speed are ranking factors in their own right." },
       { target: "brand", why: "Every screen is the brand's most-seen surface." },
     ],
     grid: { tx: 545, ty: 215, sx: 430, sy: 80, rot: 14 },
@@ -203,15 +203,15 @@ export const capabilityNodes: CapabilityNode[] = [
     definition:
       "Development is the engineering that makes a site fast, reliable, accessible, and able to grow without being rebuilt.",
     philosophy: [
-      "Most sites are assembled, not engineered. They look fine on day one and creak by month six. We build to production standards: typed, tested against real numbers, and made to extend.",
-      "The goal is a foundation you can keep building on for years, not a template you outgrow in one.",
+      "Most sites get assembled in a hurry. They look fine on day one and creak by month six. We build to production standards: typed, tested against real numbers, and made to extend.",
+      "The goal is a foundation you can keep building on for years.",
     ],
     framework: {
       name: "Built to last",
       steps: [
         { name: "Engineer", detail: "Production-grade code: fast, accessible, measured against real performance budgets." },
-        { name: "Verify", detail: "Test on real devices and networks, not just the designer's laptop." },
-        { name: "Extend", detail: "Structure it so tomorrow's feature is an addition, not a rebuild." },
+        { name: "Verify", detail: "Test on the cheap phones and slow networks your customers actually use." },
+        { name: "Extend", detail: "Structure it so tomorrow's feature is an addition." },
       ],
     },
     beforeAfter: {
@@ -250,7 +250,7 @@ export const capabilityNodes: CapabilityNode[] = [
     influences: [
       { target: "analytics", why: "Automated collection keeps measurement honest and current." },
       { target: "content", why: "Publishing runs on a schedule instead of memory." },
-      { target: "development", why: "Reliable automation is built, not bolted on." },
+      { target: "development", why: "Reliable automation gets built in from the start." },
     ],
     grid: { tx: 250, ty: 425, sx: 120, sy: 120, rot: -15 },
   },
@@ -261,13 +261,13 @@ export const capabilityNodes: CapabilityNode[] = [
     definition:
       "SEO is earning a durable place in search results, so the right customers find you without paying for every click.",
     philosophy: [
-      "Ads stop the moment you stop paying. Search presence, built properly, compounds: the work you do this quarter keeps returning customers next year. That makes it an asset, not a cost.",
+      "Ads stop the moment you stop paying. Search presence, built properly, compounds: the work you do this quarter keeps returning customers next year. That makes it an asset on the balance sheet.",
       "We build it on real content and clean engineering, never tricks. The businesses that win search are the ones that deserve to.",
     ],
     framework: {
       name: "Earn the ranking",
       steps: [
-        { name: "Target", detail: "Find the searches with real intent to buy, not just high volume." },
+        { name: "Target", detail: "Find the searches with real intent to buy behind them." },
         { name: "Build", detail: "Answer them better than anyone, with pages that deserve the spot." },
         { name: "Compound", detail: "Strengthen it over time so the position holds and widens." },
       ],
@@ -296,7 +296,7 @@ export const capabilityNodes: CapabilityNode[] = [
     framework: {
       name: "Content with a job",
       steps: [
-        { name: "Source", detail: "Start from the questions customers actually ask, not topics that sound impressive." },
+        { name: "Source", detail: "Start from the questions customers actually ask." },
         { name: "Make", detail: "Answer each one clearly, in your voice, better than the current best result." },
         { name: "Sustain", detail: "Keep a rhythm the business can hold without burning out." },
       ],

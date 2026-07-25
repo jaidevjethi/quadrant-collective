@@ -9,7 +9,7 @@ import { ContactFormLazy } from "@/components/contact/contact-form-lazy";
  *  business and the gap): contact is where the method begins. */
 const NEXT_STEPS = [
   "We reply within one business day.",
-  "A short call to map the business and the gap.",
+  "A short call to understand the business and where it is stuck.",
   "A written recommendation you keep, whether or not we work together.",
 ];
 
@@ -52,11 +52,11 @@ export function InvitationSection() {
             data-reveal
             className="font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            Let&apos;s build the system your business actually needs.
+            Tell us what is not working.
           </h2>
           <p data-reveal className="max-w-sm text-lead text-muted-2">
-            Tell us where you are and where you want to be. We read every
-            message ourselves.
+            You will get a straight answer on whether we can help, and what we
+            would do first. We read every message ourselves.
           </p>
 
           <div data-reveal className="mt-2 flex flex-col gap-4">

@@ -19,7 +19,7 @@ const orgSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/og.jpg`,
   description:
-    "A digital growth studio uniting strategy, design, technology and growth into one system.",
+    "Quadrant Collective is a digital engineering and growth studio in Gujarat, India. We build the websites, search presence and content that high-trust businesses run on, as one system.",
   founder: {
     "@type": "Person",
     name: "Jaidev Jethi",

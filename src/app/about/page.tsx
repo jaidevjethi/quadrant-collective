@@ -19,7 +19,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Quadrant Collective is an independent, founder-led digital studio in the Gujarat corridor. We bring strategy, design, technology and growth together as one system.",
+    "Quadrant Collective is an independent, founder-led digital engineering and growth studio in the Gujarat corridor. One person leads every engagement and brings in specialists as the work needs them.",
   alternates: { canonical: "/about" },
 };
 
@@ -52,23 +52,7 @@ const personSchema = {
 /** One glyph per principle, ghosted as card texture (matches Beat 6). */
 const PRINCIPLE_GLYPHS = [StructureGlyph, FlowGlyph, IntersectionGlyph];
 
-const PRINCIPLES = [
-  {
-    n: "01",
-    title: "Built like a product, not a campaign",
-    body: "Engineering standards over agency churn. Work meant to last five years, not one quarter.",
-  },
-  {
-    n: "02",
-    title: "Systems over one-offs",
-    body: "Everything is designed to extend and compound. Today's page is tomorrow's platform.",
-  },
-  {
-    n: "03",
-    title: "Honesty as a feature",
-    body: "No invented proof, no hype. Claims we can back, and the clarity to say what we won't do.",
-  },
-];
+import { principles as PRINCIPLES } from "@/lib/principles";
 
 export default function AboutPage() {
   return (
@@ -129,7 +113,7 @@ export default function AboutPage() {
           <div data-reveal className="flex flex-col gap-4">
             <span className="label-mono text-muted-2">What we hold to</span>
             <h2 className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity">
-              Three things we don&apos;t compromise.
+              Three positions we will defend.
             </h2>
           </div>
           <div data-reveal className="group relative">
@@ -181,15 +165,14 @@ export default function AboutPage() {
                   </div>
                   <div className="flex flex-col gap-4 text-lead text-muted-2">
                     <p>
-                      Many people promise growth. Very few can build the systems
-                      behind it.
+                      The person who answers your first message is the person
+                      who does the work.
                     </p>
                     <p>
-                      Jaidev started at Ganpat University in Mehsana, trained in
-                      advanced technology in Canada, and managed cloud systems
-                      for Microsoft. Now that experience works for businesses
-                      here at home: the same methods large companies rely on,
-                      applied with respect and dignity.
+                      Jaidev studied at Ganpat University in Mehsana, trained in
+                      Canada, and managed cloud systems for Microsoft. The
+                      methods large companies rely on now run behind businesses
+                      here at home.
                     </p>
                     <p>
                       The studio is based in the Gujarat corridor: Mehsana,

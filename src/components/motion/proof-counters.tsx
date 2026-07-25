@@ -14,7 +14,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 const STATS = [
   { value: 95, suffix: "+", label: "Performance", sub: "Lighthouse, on every build" },
   { value: 100, suffix: "", label: "Accessibility", sub: "WCAG AA, non-negotiable" },
-  { value: 100, suffix: "", label: "Best practices", sub: "the bar we hold, not hope for" },
+  { value: 100, suffix: "", label: "Best practices", sub: "checked on the production build" },
 ];
 
 export function ProofCounters({ className }: { className?: string }) {

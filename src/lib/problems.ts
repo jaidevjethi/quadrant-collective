@@ -62,9 +62,9 @@ export const problems: Problem[] = [
   },
   {
     id: "flat",
-    symptom: "Growth has flattened.",
+    symptom: "Referrals carry us. Nothing else does.",
     reframe:
-      "The parts work in isolation, so nothing compounds. Effort goes in and little comes back.",
+      "Word of mouth has a ceiling. When nothing else brings people in, growth stops the month the referrals do.",
     disciplines: ["growth", "strategy"],
   },
 ];

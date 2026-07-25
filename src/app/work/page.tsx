@@ -13,7 +13,7 @@ import { waLink } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected work from Quadrant Collective. Case studies across dental, travel, wellness and healthcare, built for real businesses in India.",
+    "Case studies from Quadrant Collective across dental, travel, wellness and hospital care in India. Each one shows what we found, what we chose, and what changed.",
   alternates: { canonical: "/work" },
 };
 
@@ -29,12 +29,12 @@ export default function WorkPage() {
         <Reveal className="flex flex-col gap-6">
           <span data-reveal className="label-mono text-muted-2">Work</span>
           <h1 data-reveal className="max-w-3xl font-heading text-display font-medium tracking-tight text-clarity">
-            Built for real businesses.
+            Four businesses, and what changed.
           </h1>
           <p data-reveal className="max-w-2xl text-lead text-muted-2">
-            A selection of recent projects across dental, travel, wellness and
-            healthcare. Every one was made for a real client with a real market
-            to win.
+            Recent work across dental, travel, wellness and hospital care.
+            Each case says what we found, what we chose, and what happened
+            after it shipped.
           </p>
         </Reveal>
 
@@ -112,7 +112,7 @@ export default function WorkPage() {
             data-reveal
             className="max-w-2xl font-heading text-headline font-medium tracking-tight text-clarity"
           >
-            Have a project like these in mind?
+            Something similar in mind?
           </h2>
           <p data-reveal className="max-w-xl text-lead text-muted-2">
             Tell us about the business and what you need. We reply within one

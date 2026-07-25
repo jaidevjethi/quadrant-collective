@@ -2,9 +2,10 @@
  * Service packages. The single source for /services. Content comes from the
  * founder's real offering (2026-07-06 brief), written to the voice rules:
  * calm, declarative, no hype vocabulary, no dashes. The positioning line is
- * his: we handle the strategy and tech, the client provides the expertise.
+ * his. Reframed 2026-07-25 from clinics-only to high-trust businesses;
+ * healthcare stays the worked example because that is where the proof is.
  * Voice pass 2026-07-10 (founder-approved direction): heavy labels softened
- * to plain language; offers, deliverables and prices unchanged.
+ * to plain language. Per-package prices replaced by one studio floor.
  * Kept as data so the architecture never couples to the current list.
  */
 
@@ -23,7 +24,13 @@ export type Service = {
 };
 
 export const SERVICES_POSITIONING =
-  "We architect the system. We operate the mechanics. You provide the clinical expertise.";
+  "We build and run the system around your business, so you can keep doing the work you are actually good at.";
+
+/** One floor for the whole studio, rather than a price per package (founder
+ *  decision 2026-07-25). A buyer deciding whether to call needs to know the
+ *  order of magnitude before they spend the call. */
+export const ENGAGEMENT_FLOOR =
+  "Ongoing work starts at ₹20,000 a month. Website builds are quoted after the mapping call, once we both know what is being built.";
 
 export const services: Service[] = [
   {
@@ -31,10 +38,9 @@ export const services: Service[] = [
     n: "01",
     title: "Website & SEO foundation",
     positioning:
-      "A fast, engineered website that turns searches into booked appointments, and keeps earning after launch.",
+      "A fast, engineered website that turns searches into bookings, and keeps earning long after launch.",
     problem:
-      "You are hard to find, and the visitors who do arrive rarely turn into booked appointments.",
-    pricing: "Custom engagement",
+      "You are hard to find, and the few visitors who do arrive rarely turn into bookings.",
     accent: "#2563EB",
     deliverables: [
       {
@@ -56,14 +62,13 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: "local-search-dominance",
+    slug: "local-search",
     n: "02",
     title: "Google Business Profile & local search",
     positioning:
-      "We build and run your Google presence so patients searching nearby find you first, and keep finding you.",
+      "We build and run your Google presence so the people searching nearby find you first, and keep finding you.",
     problem:
-      "Patients searching nearby find your competitors first, or a listing so out of date it reads as neglect.",
-    pricing: "From ₹20,000/mo",
+      "People searching nearby find your competitors first, or they find a listing so out of date it reads as neglect.",
     accent: "#00D1B2",
     deliverables: [
       {
@@ -72,11 +77,11 @@ export const services: Service[] = [
       },
       {
         title: "Reviews, handled",
-        body: "Every review answered well, and a simple system that helps happy patients leave theirs.",
+        body: "Every review answered well, and a quiet system that helps satisfied customers leave theirs.",
       },
       {
         title: "Kept alive weekly",
-        body: "Weekly posts, updates and clinic news so the profile stays active and trusted.",
+        body: "Weekly posts and updates so the profile looks tended rather than abandoned.",
       },
     ],
   },
@@ -85,15 +90,14 @@ export const services: Service[] = [
     n: "03",
     title: "Content & social operations",
     positioning:
-      "We run your content and social presence to one consistent standard, so you can run the practice.",
+      "We run your content and social presence to one consistent standard, so you can run the business.",
     problem:
       "Your posts, page and profile each tell a slightly different story, so the effort never adds up to trust.",
-    pricing: "From ₹35,000/mo",
     accent: "#D97706",
     deliverables: [
       {
-        title: "Planned, not improvised",
-        body: "A content plan mapped to your practice's calendar and seasons, scripted for you.",
+        title: "Planned in advance",
+        body: "A content plan mapped to your calendar and your busy seasons, scripted for you.",
       },
       {
         title: "One visual system",
